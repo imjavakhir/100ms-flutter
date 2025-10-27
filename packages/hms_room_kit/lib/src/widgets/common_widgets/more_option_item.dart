@@ -34,7 +34,7 @@ class MoreOptionItem extends StatelessWidget {
                 ? HMSThemeColors.surfaceBright
                 : HMSThemeColors.surfaceDim,
             borderRadius: BorderRadius.circular(4)),
-        height: 60,
+        height: 64,
         width: 109,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

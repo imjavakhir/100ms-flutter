@@ -60,3 +60,8 @@ Runner.ipa
 sample apps/flutterflow-prebuilt-quickstart/.dart_tool/
 flutter-hms-868c1b85cd65.json
 settings.local.json
+packages/hms_room_kit/ios/Flutter/ephemeral/flutter_lldbinit
+packages/hms_room_kit/ios/Runner/GeneratedPluginRegistrant.h
+packages/hms_room_kit/ios/Runner/GeneratedPluginRegistrant.m
+GeneratedPluginRegistrant.java
+flutter_lldb_helper.py

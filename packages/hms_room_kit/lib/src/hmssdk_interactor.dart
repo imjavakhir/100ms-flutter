@@ -371,8 +371,15 @@ class HMSSDKInteractor {
 
   Future<dynamic> getAuthTokenByRoomCode(
       {required String roomCode, String? userId, String? endPoint}) async {
-    return await hmsSDK.getAuthTokenByRoomCode(
-        roomCode: roomCode, userId: userId, endPoint: endPoint);
+    try {
+      var result = await hmsSDK.getAuthTokenByRoomCode(
+          roomCode: roomCode, userId: userId, endPoint: endPoint);
+      return result;
+    } catch (e, stackTrace) {
+      print('[HMSSDKInteractor DEBUG] Exception caught: $e');
+      print('[HMSSDKInteractor DEBUG] Stack trace: $stackTrace');
+      rethrow;
+    }
   }
 
   void switchAudioOutputUsingiOSUI() {

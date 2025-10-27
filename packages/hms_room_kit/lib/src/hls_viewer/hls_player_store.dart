@@ -63,7 +63,7 @@ class HLSPlayerStore extends ChangeNotifier
   HMSHLSPlayerStats? hlsPlayerStats;
 
   ///[hlsPlayerSize] stores the resolution of HLS Stream
-  Size hlsPlayerSize = Size(1, 1);
+  Size hlsPlayerSize = Size(1.0, 1.0);
 
   ///This variable stores whether the HLS Stats are enabled or not
   bool isHLSStatsEnabled = false;

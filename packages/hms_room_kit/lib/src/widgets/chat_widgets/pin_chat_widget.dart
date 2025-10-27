@@ -113,8 +113,8 @@ class _PinChatWidgetState extends State<PinChatWidget> {
                                         mainAxisSize: MainAxisSize.max,
                                         dotsCount: data.item2,
                                         position: currentPage >= data.item2
-                                            ? 0
-                                            : currentPage,
+                                            ? 0.0
+                                            : currentPage.toDouble(),
                                         decorator: DotsDecorator(
                                           spacing: const EdgeInsets.only(
                                               bottom: 3.0, right: 8),

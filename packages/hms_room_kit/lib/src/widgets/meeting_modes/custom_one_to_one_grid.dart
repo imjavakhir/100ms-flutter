@@ -124,7 +124,7 @@ class _CustomOneToOneGridState extends State<CustomOneToOneGrid> {
                                 child: DotsIndicator(
                                   dotsCount: pageCount,
                                   position:
-                                      currentPage > pageCount ? 0 : currentPage,
+                                      currentPage > pageCount ? 0.0 : currentPage.toDouble(),
                                   decorator: DotsDecorator(
                                       activeColor:
                                           HMSThemeColors.onSurfaceHighEmphasis,

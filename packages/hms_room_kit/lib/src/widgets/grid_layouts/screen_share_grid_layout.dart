@@ -105,7 +105,7 @@ class _ScreenshareGridLayoutState extends State<ScreenshareGridLayout> {
                                   scrollDirection: Axis.horizontal,
                                   child: DotsIndicator(
                                     dotsCount: widget.screenshareCount,
-                                    position: currentScreenSharePage,
+                                    position: currentScreenSharePage.toDouble(),
                                     decorator: DotsDecorator(
                                         activeColor: HMSThemeColors
                                             .onSurfaceHighEmphasis,
@@ -182,8 +182,8 @@ class _ScreenshareGridLayoutState extends State<ScreenshareGridLayout> {
                                         mainAxisSize: MainAxisSize.min,
                                         dotsCount: dotsCount,
                                         position: currentPage > dotsCount
-                                            ? 0
-                                            : currentPage,
+                                            ? 0.0
+                                            : currentPage.toDouble(),
                                         decorator: DotsDecorator(
                                             activeColor: HMSThemeColors
                                                 .onSurfaceHighEmphasis,
