@@ -88,12 +88,6 @@ jobs:
           working-directory: packages/hmssdk_flutter
         continue-on-error: false
 
-      - name: Commit and Push changes
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: 🤖 Automated Format and Fix
-          commit_user_name: 🤖 100ms Flutter Bot
-
       - name: Setup Firebase config
         env:
           FIREBASE_CONFIG: ${{ secrets.FIREBASE_CONFIG }}
@@ -213,12 +207,6 @@ jobs:
         with:
           working-directory: packages/hmssdk_flutter
         continue-on-error: false
-
-      - name: Commit and Push changes
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: 🤖 Automated Format and Fix
-          commit_user_name: 🤖 100ms Flutter Bot
 
       - name: Setup Firebase config
         env:
