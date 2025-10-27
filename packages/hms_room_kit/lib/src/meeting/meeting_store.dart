@@ -1965,8 +1965,6 @@ class MeetingStore extends ChangeNotifier
 
       case HMSPeerUpdate.defaultUpdate:
         break;
-
-      default:
     }
   }
 
@@ -2100,7 +2098,6 @@ class MeetingStore extends ChangeNotifier
         break;
       case HMSTrackUpdate.defaultUpdate:
         break;
-      default:
     }
   }
 

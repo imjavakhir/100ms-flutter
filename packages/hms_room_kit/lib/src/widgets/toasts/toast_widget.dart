@@ -98,8 +98,6 @@ class ToastWidget extends StatelessWidget {
           streamingError: toast.toastData,
           meetingStore: meetingStore,
         );
-      default:
-        return SizedBox();
     }
   }
 }

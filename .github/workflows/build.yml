@@ -203,8 +203,43 @@ jobs:
           FIREBASE_CONFIG: ${{ secrets.FIREBASE_IOS_CONFIG }}
         run: |
           if [ -z "$FIREBASE_CONFIG" ]; then
-            echo "⚠️ FIREBASE_IOS_CONFIG secret is empty, using dummy config"
-            echo '{"project_info":{"project_id":"dummy"}}' > packages/hmssdk_flutter/example/ios/Runner/GoogleService-Info.plist
+            echo "⚠️ FIREBASE_IOS_CONFIG secret is empty, using dummy plist config"
+            cat > packages/hmssdk_flutter/example/ios/Runner/GoogleService-Info.plist << 'EOF'
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+            <key>CLIENT_ID</key>
+            <string>dummy-client-id</string>
+            <key>REVERSED_CLIENT_ID</key>
+            <string>com.googleusercontent.apps.dummy</string>
+            <key>API_KEY</key>
+            <string>dummy-api-key</string>
+            <key>GCM_SENDER_ID</key>
+            <string>123456789</string>
+            <key>PLIST_VERSION</key>
+            <string>1</string>
+            <key>BUNDLE_ID</key>
+            <string>live.hms.flutter</string>
+            <key>PROJECT_ID</key>
+            <string>dummy-project</string>
+            <key>STORAGE_BUCKET</key>
+            <string>dummy-project.appspot.com</string>
+            <key>IS_ADS_ENABLED</key>
+            <false/>
+            <key>IS_ANALYTICS_ENABLED</key>
+            <false/>
+            <key>IS_APPINVITE_ENABLED</key>
+            <false/>
+            <key>IS_GCM_ENABLED</key>
+            <true/>
+            <key>IS_SIGNIN_ENABLED</key>
+            <true/>
+            <key>GOOGLE_APP_ID</key>
+            <string>1:123456789:ios:dummy</string>
+          </dict>
+          </plist>
+          EOF
           else
             echo "$FIREBASE_CONFIG" > packages/hmssdk_flutter/example/ios/Runner/GoogleService-Info.plist
           fi
@@ -233,23 +268,12 @@ jobs:
         working-directory: packages/hmssdk_flutter/example
 
       - name: Build iOS App (Debug)
+        id: ios_build
         run: |
           echo "🔨 Starting iOS App build..."
           flutter build ios --debug --no-codesign -t lib/main.dart --verbose
         working-directory: packages/hmssdk_flutter/example
-
-      - name: Build iOS Archive (No Codesign)
-        run: |
-          echo "📦 Creating iOS Archive..."
-          cd packages/hmssdk_flutter/example/ios
-          xcodebuild -workspace Runner.xcworkspace \
-            -scheme Runner \
-            -configuration Debug \
-            -destination 'generic/platform=iOS' \
-            -archivePath build/Runner.xcarchive \
-            CODE_SIGNING_REQUIRED=NO \
-            CODE_SIGNING_ALLOWED=NO \
-            archive || echo "⚠️ Archive creation skipped (requires codesigning)"
+        continue-on-error: true
 
       - name: Build Summary
         if: always()
@@ -258,7 +282,7 @@ jobs:
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "| Component | Status |" >> $GITHUB_STEP_SUMMARY
           echo "|-----------|--------|" >> $GITHUB_STEP_SUMMARY
-          if [ -d packages/hmssdk_flutter/example/build/ios/Debug-iphoneos/Runner.app ]; then
+          if [ "${{ steps.ios_build.outcome }}" == "success" ]; then
             echo "| iOS App Build | ✅ Built Successfully |" >> $GITHUB_STEP_SUMMARY
             echo "| Build Type | Debug |" >> $GITHUB_STEP_SUMMARY
             echo "| Deployment Target | iOS 16.0+ |" >> $GITHUB_STEP_SUMMARY
@@ -272,3 +296,9 @@ jobs:
           echo "- iOS Deployment Target: 16.0" >> $GITHUB_STEP_SUMMARY
           echo "- Xcode Version: $(xcodebuild -version | head -1)" >> $GITHUB_STEP_SUMMARY
           echo "- CocoaPods Version: $(pod --version)" >> $GITHUB_STEP_SUMMARY
+
+      - name: Check iOS Build Status
+        if: steps.ios_build.outcome != 'success'
+        run: |
+          echo "❌ iOS build failed"
+          exit 1
