@@ -82,8 +82,7 @@ class ChangeRoleBottomSheetState extends State<ChangeRoleBottomSheet> {
                 dropDownItems: <DropdownMenuItem>[
                   ...widget.roles
                       .where(
-                        (role) =>
-                            ((role.name != widget.peer.role.name) &&
+                        (role) => ((role.name != widget.peer.role.name) &&
                             (role.name != '__internal_recorder')),
                       )
                       .sortedBy((element) => element.priority.toString())

@@ -65,23 +65,23 @@ class _ChatTextFieldState extends State<ChatTextField> {
         ),
         builder: (_, chatControls, __) {
           return chatControls.item1
+
               ///If chat is not paused we render the text field
               ///else we render the paused chat toast
               ? Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child:
-                      chatControls.item3.contains(
-                        context.read<MeetingStore>().localPeer?.customerUserId,
-                      )
+                  child: chatControls.item3.contains(
+                    context.read<MeetingStore>().localPeer?.customerUserId,
+                  )
+
                       ///If the user is blocked from sending messages
                       ? Row(
                           children: [
                             Expanded(
                               child: Container(
-                                color:
-                                    widget.toastBackgroundColor ??
+                                color: widget.toastBackgroundColor ??
                                     HMSThemeColors.surfaceDefault,
                                 height: 36,
                                 child: Center(
@@ -113,8 +113,7 @@ class _ChatTextFieldState extends State<ChatTextField> {
                                           TextCapitalization.sentences,
                                       textInputAction: TextInputAction.send,
                                       onTapOutside: (event) => FocusManager
-                                          .instance
-                                          .primaryFocus
+                                          .instance.primaryFocus
                                           ?.unfocus(),
                                       onSubmitted: (value) {
                                         widget.sendMessage(
@@ -154,13 +153,14 @@ class _ChatTextFieldState extends State<ChatTextField> {
                                             "packages/hms_room_kit/lib/src/assets/icons/send_message.svg",
                                             fit: BoxFit.scaleDown,
                                             colorFilter: ColorFilter.mode(
-                                              messageTextController.text
+                                              messageTextController
+                                                      .text
                                                       .trim()
                                                       .isEmpty
                                                   ? HMSThemeColors
-                                                        .onSurfaceLowEmphasis
+                                                      .onSurfaceLowEmphasis
                                                   : HMSThemeColors
-                                                        .onSurfaceHighEmphasis,
+                                                      .onSurfaceHighEmphasis,
                                               BlendMode.srcIn,
                                             ),
                                           ),
@@ -188,13 +188,11 @@ class _ChatTextFieldState extends State<ChatTextField> {
                                         ),
                                         contentPadding:
                                             const EdgeInsets.symmetric(
-                                              vertical: 8,
-                                              horizontal: 12,
-                                            ),
-                                        hintText:
-                                            HMSRoomLayout
-                                                .chatData
-                                                ?.messagePlaceholder ??
+                                          vertical: 8,
+                                          horizontal: 12,
+                                        ),
+                                        hintText: HMSRoomLayout
+                                                .chatData?.messagePlaceholder ??
                                             "Send a message...",
                                       ),
                                     );
@@ -206,8 +204,7 @@ class _ChatTextFieldState extends State<ChatTextField> {
                         ),
                 )
               : HMSToast(
-                  toastColor:
-                      widget.toastBackgroundColor ??
+                  toastColor: widget.toastBackgroundColor ??
                       HMSThemeColors.surfaceDefault,
                   toastPosition: 0,
                   subtitle: Column(
@@ -228,16 +225,15 @@ class _ChatTextFieldState extends State<ChatTextField> {
                       ),
                     ],
                   ),
-                  action:
-                      (HMSRoomLayout
-                              .chatData
-                              ?.realTimeControls
-                              ?.canDisableChat ??
+                  action: (HMSRoomLayout
+                              .chatData?.realTimeControls?.canDisableChat ??
                           false)
                       ? HMSToastButton(
                           buttonTitle: "Resume",
                           action: () {
-                            context.read<MeetingStore>().setSessionMetadataForKey(
+                            context
+                                .read<MeetingStore>()
+                                .setSessionMetadataForKey(
                               key: SessionStoreKeyValues.getNameFromMethod(
                                 SessionStoreKey.chatState,
                               ),

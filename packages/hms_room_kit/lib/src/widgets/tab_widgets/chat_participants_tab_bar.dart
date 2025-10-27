@@ -67,11 +67,8 @@ class _ChatParticipantsTabBarState extends State<ChatParticipantsTabBar>
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Container(
-                          width:
-                              MediaQuery.of(context).size.width *
-                              ((HMSRoomLayout
-                                          .chatData
-                                          ?.realTimeControls
+                          width: MediaQuery.of(context).size.width *
+                              ((HMSRoomLayout.chatData?.realTimeControls
                                           ?.canDisableChat ??
                                       false)
                                   ? 0.69
@@ -86,8 +83,7 @@ class _ChatParticipantsTabBarState extends State<ChatParticipantsTabBar>
                             tabs: [
                               Tab(
                                 child: HMSSubheadingText(
-                                  text:
-                                      HMSRoomLayout.chatData?.chatTitle ??
+                                  text: HMSRoomLayout.chatData?.chatTitle ??
                                       "Chat",
                                   fontWeight: FontWeight.w600,
                                   textColor: _controller.index == 0
@@ -118,9 +114,7 @@ class _ChatParticipantsTabBarState extends State<ChatParticipantsTabBar>
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         if (HMSRoomLayout
-                                .chatData
-                                ?.realTimeControls
-                                ?.canDisableChat ??
+                                .chatData?.realTimeControls?.canDisableChat ??
                             false)
                           PopupMenuButton(
                             padding: EdgeInsets.zero,
@@ -151,8 +145,7 @@ class _ChatParticipantsTabBarState extends State<ChatParticipantsTabBar>
                                     ),
                                     const SizedBox(width: 8),
                                     HMSTitleText(
-                                      text:
-                                          context
+                                      text: context
                                               .read<MeetingStore>()
                                               .chatControls["enabled"]
                                           ? "Pause Chat"
@@ -170,14 +163,15 @@ class _ChatParticipantsTabBarState extends State<ChatParticipantsTabBar>
                             onSelected: (value) {
                               switch (value) {
                                 case 1:
-                                  context.read<MeetingStore>().setSessionMetadataForKey(
+                                  context
+                                      .read<MeetingStore>()
+                                      .setSessionMetadataForKey(
                                     key:
                                         SessionStoreKeyValues.getNameFromMethod(
-                                          SessionStoreKey.chatState,
-                                        ),
+                                      SessionStoreKey.chatState,
+                                    ),
                                     metadata: {
-                                      "enabled":
-                                          context
+                                      "enabled": context
                                               .read<MeetingStore>()
                                               .chatControls["enabled"]
                                           ? false

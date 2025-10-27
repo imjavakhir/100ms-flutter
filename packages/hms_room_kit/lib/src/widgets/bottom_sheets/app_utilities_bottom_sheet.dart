@@ -54,11 +54,11 @@ class _AppUtilitiesBottomSheetState extends State<AppUtilitiesBottomSheet> {
     ///In other cases we return high emphasis color
     return meetingStore.isWhiteboardEnabled
         ? meetingStore.whiteboardModel?.isOwner ?? false
-              ? HMSThemeColors.onSurfaceHighEmphasis
-              : HMSThemeColors.onSurfaceLowEmphasis
+            ? HMSThemeColors.onSurfaceHighEmphasis
+            : HMSThemeColors.onSurfaceLowEmphasis
         : meetingStore.screenShareCount > 0 || meetingStore.isScreenShareOn
-        ? HMSThemeColors.onSurfaceLowEmphasis
-        : HMSThemeColors.onSurfaceHighEmphasis;
+            ? HMSThemeColors.onSurfaceLowEmphasis
+            : HMSThemeColors.onSurfaceHighEmphasis;
   }
 
   bool getTranscriptionPermission(MeetingStore meetingStore) {
@@ -131,8 +131,7 @@ class _AppUtilitiesBottomSheetState extends State<AppUtilitiesBottomSheet> {
                         context: context,
                         builder: (ctx) => ChangeNotifierProvider.value(
                           value: meetingStore,
-                          child:
-                              (HMSRoomLayout.chatData == null ||
+                          child: (HMSRoomLayout.chatData == null ||
                                   (HMSRoomLayout.chatData?.isOverlay ?? true))
                               ? const OverlayParticipantsBottomSheet()
                               : const ChatParticipantsTabBar(tabIndex: 1),
@@ -154,12 +153,12 @@ class _AppUtilitiesBottomSheetState extends State<AppUtilitiesBottomSheet> {
                       ),
                       child: Padding(
                         padding: EdgeInsets.symmetric(
-                          horizontal:
-                              context.read<MeetingStore>().peersInRoom < 1000
+                          horizontal: context.read<MeetingStore>().peersInRoom <
+                                  1000
                               ? 15
                               : context.read<MeetingStore>().peersInRoom < 10000
-                              ? 20
-                              : 30,
+                                  ? 20
+                                  : 30,
                         ),
                         child: SvgPicture.asset(
                           "packages/hms_room_kit/lib/src/assets/icons/participants.svg",
@@ -221,9 +220,8 @@ class _AppUtilitiesBottomSheetState extends State<AppUtilitiesBottomSheet> {
                         ),
                       ),
                     ),
-                    optionText: meetingStore.isBRB
-                        ? "I'm Back"
-                        : "Be Right Back",
+                    optionText:
+                        meetingStore.isBRB ? "I'm Back" : "Be Right Back",
                   ),
 
                 ///This renders the raise hand option
@@ -243,9 +241,8 @@ class _AppUtilitiesBottomSheetState extends State<AppUtilitiesBottomSheet> {
                         BlendMode.srcIn,
                       ),
                     ),
-                    optionText: meetingStore.isRaisedHand
-                        ? "Lower Hand"
-                        : "Raise Hand",
+                    optionText:
+                        meetingStore.isRaisedHand ? "Lower Hand" : "Raise Hand",
                   ),
 
                 ///This renders the polls and quizzes option
@@ -294,6 +291,7 @@ class _AppUtilitiesBottomSheetState extends State<AppUtilitiesBottomSheet> {
                 ///If Streaming is already running we disable the recording option
                 if (meetingStore.localPeer?.role.permissions.browserRecording ??
                     false)
+
                   ///If streaming is on or in initialising state disable the button
                   ((meetingStore.streamingType["hls"] ==
                               HMSStreamingState.started) ||
@@ -320,13 +318,13 @@ class _AppUtilitiesBottomSheetState extends State<AppUtilitiesBottomSheet> {
                           onTap: () async {
                             bool isRecordingRunning =
                                 ((meetingStore.recordingType["hls"] ==
-                                        HMSRecordingState.started) ||
-                                    meetingStore.recordingType["hls"] ==
-                                        HMSRecordingState.resumed) ||
-                                (meetingStore.recordingType["browser"] ==
-                                        HMSRecordingState.started ||
-                                    meetingStore.recordingType["browser"] ==
-                                        HMSRecordingState.resumed);
+                                            HMSRecordingState.started) ||
+                                        meetingStore.recordingType["hls"] ==
+                                            HMSRecordingState.resumed) ||
+                                    (meetingStore.recordingType["browser"] ==
+                                            HMSRecordingState.started ||
+                                        meetingStore.recordingType["browser"] ==
+                                            HMSRecordingState.resumed);
                             if (isRecordingRunning) {
                               Navigator.pop(context);
                               showModalBottomSheet(
@@ -393,16 +391,15 @@ class _AppUtilitiesBottomSheetState extends State<AppUtilitiesBottomSheet> {
                               BlendMode.srcIn,
                             ),
                           ),
-                          optionText:
-                              meetingStore.recordingType["browser"] ==
+                          optionText: meetingStore.recordingType["browser"] ==
                                   HMSRecordingState.paused
                               ? "Recording Paused"
                               : ((meetingStore.recordingType["hls"] ==
-                                        HMSRecordingState.started) ||
-                                    (meetingStore.recordingType["browser"] ==
-                                        HMSRecordingState.started))
-                              ? "Recording"
-                              : "Record",
+                                          HMSRecordingState.started) ||
+                                      (meetingStore.recordingType["browser"] ==
+                                          HMSRecordingState.started))
+                                  ? "Recording"
+                                  : "Record",
                         ),
                 if (meetingStore.isNoiseCancellationAvailable &&
                     meetingStore.localPeer?.audioTrack != null &&
@@ -428,11 +425,7 @@ class _AppUtilitiesBottomSheetState extends State<AppUtilitiesBottomSheet> {
                   ),
 
                 if (meetingStore
-                        .localPeer
-                        ?.role
-                        .permissions
-                        .whiteboard
-                        ?.admin ??
+                        .localPeer?.role.permissions.whiteboard?.admin ??
                     false)
                   MoreOptionItem(
                     onTap: () async {
@@ -530,8 +523,8 @@ class _AppUtilitiesBottomSheetState extends State<AppUtilitiesBottomSheet> {
                     optionText: getTranscriptionPermission(meetingStore)
                         ? "Closed Captions"
                         : meetingStore.isTranscriptionDisplayed
-                        ? "Hide Captions"
-                        : "Show Captions",
+                            ? "Hide Captions"
+                            : "Show Captions",
                   ),
 
                 ///Virtual background is not supported out of the box in prebuilt as of now

@@ -119,59 +119,36 @@ class _QuizLeaderboardState extends State<QuizLeaderboard> {
 
                     ///If respondedPeersCount is not null and totalPeersCount is not null and greater than 0
                     ///then only we assign values else we pass null values.
-                    if (widget
-                                .pollStore
-                                .pollLeaderboardResponse
-                                ?.summary
+                    if (widget.pollStore.pollLeaderboardResponse?.summary
                                 ?.respondedPeersCount !=
                             null &&
-                        ((widget
-                                    .pollStore
-                                    .pollLeaderboardResponse
-                                    ?.summary
+                        ((widget.pollStore.pollLeaderboardResponse?.summary
                                     ?.totalPeersCount ??
                                 -1) >
                             0)) {
-                      votedPercent =
-                          ((widget
-                                  .pollStore
-                                  .pollLeaderboardResponse!
-                                  .summary!
-                                  .respondedPeersCount! *
+                      votedPercent = ((widget.pollStore.pollLeaderboardResponse!
+                                  .summary!.respondedPeersCount! *
                               100) /
-                          (widget
-                              .pollStore
-                              .pollLeaderboardResponse!
-                              .summary!
+                          (widget.pollStore.pollLeaderboardResponse!.summary!
                               .totalPeersCount!));
                       votedDescription =
                           "${widget.pollStore.pollLeaderboardResponse!.summary!.respondedPeersCount!}/${widget.pollStore.pollLeaderboardResponse!.summary!.totalPeersCount!}";
                     }
 
-                    if (widget
-                                .pollStore
-                                .pollLeaderboardResponse
-                                ?.summary
+                    if (widget.pollStore.pollLeaderboardResponse?.summary
                                 ?.respondedCorrectlyPeersCount !=
                             null &&
-                        ((widget
-                                    .pollStore
-                                    .pollLeaderboardResponse
-                                    ?.summary
+                        ((widget.pollStore.pollLeaderboardResponse?.summary
                                     ?.totalPeersCount ??
                                 -1) >
                             0)) {
-                      correctPercent =
-                          ((widget
+                      correctPercent = ((widget
                                   .pollStore
                                   .pollLeaderboardResponse!
                                   .summary!
                                   .respondedCorrectlyPeersCount! *
                               100) /
-                          (widget
-                              .pollStore
-                              .pollLeaderboardResponse!
-                              .summary!
+                          (widget.pollStore.pollLeaderboardResponse!.summary!
                               .totalPeersCount!));
                       correctDescription =
                           "${widget.pollStore.pollLeaderboardResponse!.summary!.respondedCorrectlyPeersCount!}/${widget.pollStore.pollLeaderboardResponse!.summary!.totalPeersCount!}";
@@ -189,34 +166,26 @@ class _QuizLeaderboardState extends State<QuizLeaderboard> {
                           ?.summary
                           ?.averageTime
                           ?.inMilliseconds,
-                      avgScore: widget
-                          .pollStore
-                          .pollLeaderboardResponse!
-                          .summary!
-                          .averageScore,
+                      avgScore: widget.pollStore.pollLeaderboardResponse!
+                          .summary!.averageScore,
                     );
                   } else {
                     ///Poll Voter flow
                     ///Here we fetch the entry of the local peer based on the [customerUserId]
-                    var localPeerUserId = context
-                        .read<MeetingStore>()
-                        .localPeer
-                        ?.customerUserId;
-                    var index =
-                        widget.pollStore.pollLeaderboardResponse?.entries
+                    var localPeerUserId =
+                        context.read<MeetingStore>().localPeer?.customerUserId;
+                    var index = widget
+                            .pollStore.pollLeaderboardResponse?.entries
                             ?.indexWhere(
-                              (element) =>
-                                  element.peer?.userId == localPeerUserId,
-                            ) ??
+                          (element) => element.peer?.userId == localPeerUserId,
+                        ) ??
                         -1;
 
                     ///If the peer details are not present we render empty SizedBox()
                     ///else we render [LeaderboardVoterSummary] widget
                     if (index != -1) {
                       var entry = widget
-                          .pollStore
-                          .pollLeaderboardResponse
-                          ?.entries?[index];
+                          .pollStore.pollLeaderboardResponse?.entries?[index];
                       return LeaderboardVoterSummary(
                         rank:
                             "${entry?.position}/${widget.pollStore.pollLeaderboardResponse?.summary?.totalPeersCount}",
@@ -237,10 +206,7 @@ class _QuizLeaderboardState extends State<QuizLeaderboard> {
               ),
 
               /// This is only rendered if the number of peers is greater than 5
-              if ((widget
-                          .pollStore
-                          .pollLeaderboardResponse!
-                          .summary
+              if ((widget.pollStore.pollLeaderboardResponse!.summary
                           ?.totalPeersCount ??
                       0) >
                   5)
@@ -251,20 +217,17 @@ class _QuizLeaderboardState extends State<QuizLeaderboard> {
 
               /// This is only rendered if the number of peers is greater than 5
               /// On tapping on viewAll button we render the full list of participant rankings.
-              if ((widget
-                          .pollStore
-                          .pollLeaderboardResponse!
-                          .summary
+              if ((widget.pollStore.pollLeaderboardResponse!.summary
                           ?.totalPeersCount ??
                       0) >
                   5)
                 GestureDetector(
                   onTap: () {
                     context.read<MeetingStore>().fetchLeaderboard(
-                      widget.pollStore.poll,
-                      count: 200,
-                      startIndex: 0,
-                    );
+                          widget.pollStore.poll,
+                          count: 200,
+                          startIndex: 0,
+                        );
                     var meetingStore = context.read<MeetingStore>();
                     showModalBottomSheet(
                       isScrollControlled: true,

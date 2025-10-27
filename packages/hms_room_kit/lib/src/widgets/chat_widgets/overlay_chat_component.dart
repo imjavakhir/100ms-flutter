@@ -161,17 +161,13 @@ class _OverlayChatComponentState extends State<OverlayChatComponent> {
                                       children: [
                                         Container(
                                           constraints: BoxConstraints(
-                                            maxWidth:
-                                                MediaQuery.of(
+                                            maxWidth: MediaQuery.of(
                                                   context,
                                                 ).size.width *
                                                 0.5,
                                           ),
                                           child: HMSTitleText(
-                                            text:
-                                                data
-                                                    .item1[index]
-                                                    .sender
+                                            text: data.item1[index].sender
                                                     ?.name ??
                                                 "Anonymous",
                                             textColor: Colors.white,
@@ -183,16 +179,14 @@ class _OverlayChatComponentState extends State<OverlayChatComponent> {
                                         const SizedBox(width: 4),
                                         Container(
                                           constraints: BoxConstraints(
-                                            maxWidth:
-                                                MediaQuery.of(
+                                            maxWidth: MediaQuery.of(
                                                   context,
                                                 ).size.width *
                                                 0.5,
                                           ),
                                           child: HMSSubtitleText(
                                             text: messageTypeText(
-                                              data
-                                                  .item1[index]
+                                              data.item1[index]
                                                   .hmsMessageRecipient,
                                             ),
                                             textColor: HMSThemeColors
@@ -232,8 +226,8 @@ class _OverlayChatComponentState extends State<OverlayChatComponent> {
                               ),
                               GestureDetector(
                                 onTap: () {
-                                  var meetingStore = context
-                                      .read<MeetingStore>();
+                                  var meetingStore =
+                                      context.read<MeetingStore>();
                                   showModalBottomSheet(
                                     isScrollControlled: true,
                                     backgroundColor: HMSThemeColors.surfaceDim,
@@ -246,11 +240,11 @@ class _OverlayChatComponentState extends State<OverlayChatComponent> {
                                     context: context,
                                     builder: (ctx) =>
                                         ChangeNotifierProvider.value(
-                                          value: meetingStore,
-                                          child: ChatUtilitiesBottomSheet(
-                                            message: data.item1[index],
-                                          ),
-                                        ),
+                                      value: meetingStore,
+                                      child: ChatUtilitiesBottomSheet(
+                                        message: data.item1[index],
+                                      ),
+                                    ),
                                   );
                                 },
                                 child: SvgPicture.asset(
@@ -287,16 +281,12 @@ class _OverlayChatComponentState extends State<OverlayChatComponent> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 if ((HMSRoomLayout
-                                            .chatData
-                                            ?.isPrivateChatEnabled ??
+                                            .chatData?.isPrivateChatEnabled ??
                                         false) ||
                                     (HMSRoomLayout
-                                            .chatData
-                                            ?.isPublicChatEnabled ??
+                                            .chatData?.isPublicChatEnabled ??
                                         false) ||
-                                    (HMSRoomLayout
-                                            .chatData
-                                            ?.rolesWhitelist
+                                    (HMSRoomLayout.chatData?.rolesWhitelist
                                             .isNotEmpty ??
                                         false))
                                   ReceipientSelectorChip(
@@ -307,9 +297,7 @@ class _OverlayChatComponentState extends State<OverlayChatComponent> {
                                         .withAlpha(64),
                                   ),
                                 const SizedBox(),
-                                if (HMSRoomLayout
-                                        .chatData
-                                        ?.realTimeControls
+                                if (HMSRoomLayout.chatData?.realTimeControls
                                         ?.canDisableChat ??
                                     false)
                                   Row(
@@ -333,7 +321,8 @@ class _OverlayChatComponentState extends State<OverlayChatComponent> {
                                                     "packages/hms_room_kit/lib/src/assets/icons/${context.read<MeetingStore>().chatControls["enabled"] ? "recording_paused" : "resume"}.svg",
                                                     width: 20,
                                                     height: 20,
-                                                    colorFilter: ColorFilter.mode(
+                                                    colorFilter:
+                                                        ColorFilter.mode(
                                                       HMSThemeColors
                                                           .onSurfaceHighEmphasis,
                                                       BlendMode.srcIn,
@@ -341,12 +330,11 @@ class _OverlayChatComponentState extends State<OverlayChatComponent> {
                                                   ),
                                                   const SizedBox(width: 8),
                                                   HMSTitleText(
-                                                    text:
-                                                        context
-                                                            .read<
-                                                              MeetingStore
-                                                            >()
-                                                            .chatControls["enabled"]
+                                                    text: context
+                                                                .read<
+                                                                    MeetingStore>()
+                                                                .chatControls[
+                                                            "enabled"]
                                                         ? "Pause Chat"
                                                         : "Resume Chat",
                                                     textColor: HMSThemeColors
@@ -366,44 +354,34 @@ class _OverlayChatComponentState extends State<OverlayChatComponent> {
                                               context
                                                   .read<MeetingStore>()
                                                   .setSessionMetadataForKey(
-                                                    key:
-                                                        SessionStoreKeyValues.getNameFromMethod(
-                                                          SessionStoreKey
-                                                              .chatState,
-                                                        ),
-                                                    metadata: {
-                                                      "enabled":
-                                                          context
-                                                              .read<
-                                                                MeetingStore
-                                                              >()
-                                                              .chatControls["enabled"]
-                                                          ? false
-                                                          : true,
-                                                      "updatedBy": {
-                                                        "peerID": context
-                                                            .read<
-                                                              MeetingStore
-                                                            >()
-                                                            .localPeer
-                                                            ?.peerId,
-                                                        "userID": context
-                                                            .read<
-                                                              MeetingStore
-                                                            >()
-                                                            .localPeer
-                                                            ?.customerUserId,
-                                                        "userName": context
-                                                            .read<
-                                                              MeetingStore
-                                                            >()
-                                                            .localPeer
-                                                            ?.name,
-                                                      },
-                                                      "updatedAt": DateTime.now()
-                                                          .millisecondsSinceEpoch, //unix timestamp in miliseconds
-                                                    },
-                                                  );
+                                                key: SessionStoreKeyValues
+                                                    .getNameFromMethod(
+                                                  SessionStoreKey.chatState,
+                                                ),
+                                                metadata: {
+                                                  "enabled": context
+                                                          .read<MeetingStore>()
+                                                          .chatControls["enabled"]
+                                                      ? false
+                                                      : true,
+                                                  "updatedBy": {
+                                                    "peerID": context
+                                                        .read<MeetingStore>()
+                                                        .localPeer
+                                                        ?.peerId,
+                                                    "userID": context
+                                                        .read<MeetingStore>()
+                                                        .localPeer
+                                                        ?.customerUserId,
+                                                    "userName": context
+                                                        .read<MeetingStore>()
+                                                        .localPeer
+                                                        ?.name,
+                                                  },
+                                                  "updatedAt": DateTime.now()
+                                                      .millisecondsSinceEpoch, //unix timestamp in miliseconds
+                                                },
+                                              );
                                               break;
                                           }
                                         },
@@ -413,8 +391,8 @@ class _OverlayChatComponentState extends State<OverlayChatComponent> {
                                           decoration: BoxDecoration(
                                             borderRadius:
                                                 const BorderRadius.all(
-                                                  Radius.circular(4),
-                                                ),
+                                              Radius.circular(4),
+                                            ),
                                             color: HMSThemeColors.backgroundDim
                                                 .withOpacity(0.64),
                                           ),
@@ -447,8 +425,8 @@ class _OverlayChatComponentState extends State<OverlayChatComponent> {
                         false))
                   ChatTextField(
                     sendMessage: _sendMessage,
-                    toastBackgroundColor: HMSThemeColors.backgroundDim
-                        .withAlpha(64),
+                    toastBackgroundColor:
+                        HMSThemeColors.backgroundDim.withAlpha(64),
                   ),
               ],
             ),

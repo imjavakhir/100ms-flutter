@@ -39,33 +39,15 @@ class HMSBringOnStageToast extends StatelessWidget {
 
   String? _getButtonText() {
     if (HMSRoomLayout.peerType == PeerRoleType.conferencing) {
-      if (HMSRoomLayout
-              .roleLayoutData
-              ?.screens
-              ?.conferencing
-              ?.defaultConf
-              ?.elements
-              ?.onStageExp
-              ?.offStageRoles
+      if (HMSRoomLayout.roleLayoutData?.screens?.conferencing?.defaultConf
+              ?.elements?.onStageExp?.offStageRoles
               ?.contains(peer.role.name) ??
           false) {
-        return HMSRoomLayout
-            .roleLayoutData
-            ?.screens
-            ?.conferencing
-            ?.defaultConf
-            ?.elements
-            ?.onStageExp
-            ?.bringToStageLabel;
+        return HMSRoomLayout.roleLayoutData?.screens?.conferencing?.defaultConf
+            ?.elements?.onStageExp?.bringToStageLabel;
       } else {
-        return HMSRoomLayout
-            .roleLayoutData
-            ?.screens
-            ?.conferencing
-            ?.hlsLiveStreaming
-            ?.elements
-            ?.onStageExp
-            ?.bringToStageLabel;
+        return HMSRoomLayout.roleLayoutData?.screens?.conferencing
+            ?.hlsLiveStreaming?.elements?.onStageExp?.bringToStageLabel;
       }
     }
     return null;

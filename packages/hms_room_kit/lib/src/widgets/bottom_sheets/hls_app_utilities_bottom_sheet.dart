@@ -120,12 +120,12 @@ class _HLSMoreOptionsBottomSheetBottomSheetState
                       ),
                       child: Padding(
                         padding: EdgeInsets.symmetric(
-                          horizontal:
-                              context.read<MeetingStore>().peersInRoom < 1000
+                          horizontal: context.read<MeetingStore>().peersInRoom <
+                                  1000
                               ? 15
                               : context.read<MeetingStore>().peersInRoom < 10000
-                              ? 20
-                              : 30,
+                                  ? 20
+                                  : 30,
                         ),
                         child: SvgPicture.asset(
                           "packages/hms_room_kit/lib/src/assets/icons/participants.svg",

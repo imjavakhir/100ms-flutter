@@ -181,8 +181,7 @@ class _ChangeNameBottomSheetState extends State<ChangeNameBottomSheet> {
                   child: Center(
                     child: HMSTitleText(
                       text: "Change",
-                      textColor:
-                          (nameController.text.trim().isEmpty ||
+                      textColor: (nameController.text.trim().isEmpty ||
                               context.read<MeetingStore>().localPeer?.name ==
                                   nameController.text.trim())
                           ? HMSThemeColors.onPrimaryLowEmphasis

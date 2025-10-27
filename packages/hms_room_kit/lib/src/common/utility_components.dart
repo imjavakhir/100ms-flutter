@@ -545,18 +545,16 @@ class UtilityComponents {
                             backgroundColor: MaterialStateProperty.all(
                               errorColor,
                             ),
-                            shape:
-                                MaterialStateProperty.all<
-                                  RoundedRectangleBorder
-                                >(
-                                  RoundedRectangleBorder(
-                                    side: BorderSide(
-                                      width: 1,
-                                      color: errorColor,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8.0),
-                                  ),
+                            shape: MaterialStateProperty.all<
+                                RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                side: BorderSide(
+                                  width: 1,
+                                  color: errorColor,
                                 ),
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                            ),
                           ),
                           onPressed: () {
                             Navigator.pop(context);
@@ -574,18 +572,16 @@ class UtilityComponents {
                             backgroundColor: MaterialStateProperty.all(
                               hmsdefaultColor,
                             ),
-                            shape:
-                                MaterialStateProperty.all<
-                                  RoundedRectangleBorder
-                                >(
-                                  RoundedRectangleBorder(
-                                    side: BorderSide(
-                                      width: 1,
-                                      color: hmsdefaultColor,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8.0),
-                                  ),
+                            shape: MaterialStateProperty.all<
+                                RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                side: BorderSide(
+                                  width: 1,
+                                  color: hmsdefaultColor,
                                 ),
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                            ),
                           ),
                           onPressed: () {
                             if (muteAll) {
@@ -731,18 +727,16 @@ class UtilityComponents {
                             backgroundColor: MaterialStateProperty.all(
                               errorColor,
                             ),
-                            shape:
-                                MaterialStateProperty.all<
-                                  RoundedRectangleBorder
-                                >(
-                                  RoundedRectangleBorder(
-                                    side: BorderSide(
-                                      width: 1,
-                                      color: errorColor,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8.0),
-                                  ),
+                            shape: MaterialStateProperty.all<
+                                RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                side: BorderSide(
+                                  width: 1,
+                                  color: errorColor,
                                 ),
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                            ),
                           ),
                           onPressed: () {
                             Navigator.pop(context);
@@ -762,18 +756,16 @@ class UtilityComponents {
                             backgroundColor: MaterialStateProperty.all(
                               hmsdefaultColor,
                             ),
-                            shape:
-                                MaterialStateProperty.all<
-                                  RoundedRectangleBorder
-                                >(
-                                  RoundedRectangleBorder(
-                                    side: BorderSide(
-                                      width: 1,
-                                      color: hmsdefaultColor,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8.0),
-                                  ),
+                            shape: MaterialStateProperty.all<
+                                RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                side: BorderSide(
+                                  width: 1,
+                                  color: hmsdefaultColor,
                                 ),
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                            ),
                           ),
                           onPressed: () {
                             if (selectedRoles.isEmpty) {

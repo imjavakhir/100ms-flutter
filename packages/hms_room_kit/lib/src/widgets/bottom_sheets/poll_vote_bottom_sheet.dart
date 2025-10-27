@@ -49,10 +49,9 @@ class _PollVoteBottomSheetState extends State<PollVoteBottomSheet> {
   }
 
   int getInitialPage() {
-    int initialPage =
-        context.read<HMSPollStore>().poll.questions?.indexWhere(
-          (element) => element.myResponses.isEmpty,
-        ) ??
+    int initialPage = context.read<HMSPollStore>().poll.questions?.indexWhere(
+              (element) => element.myResponses.isEmpty,
+            ) ??
         0;
     if (initialPage == -1) {
       return 0;
@@ -199,16 +198,12 @@ class _PollVoteBottomSheetState extends State<PollVoteBottomSheet> {
                   hmsPollStore.poll.state == HMSPollState.stopped)
                 Builder(
                   builder: (context) {
-                    var localPeerUserId = context
-                        .read<MeetingStore>()
-                        .localPeer
-                        ?.customerUserId;
-                    var index =
-                        hmsPollStore.pollLeaderboardResponse?.entries
+                    var localPeerUserId =
+                        context.read<MeetingStore>().localPeer?.customerUserId;
+                    var index = hmsPollStore.pollLeaderboardResponse?.entries
                             ?.indexWhere(
-                              (element) =>
-                                  element.peer?.userId == localPeerUserId,
-                            ) ??
+                          (element) => element.peer?.userId == localPeerUserId,
+                        ) ??
                         -1;
                     HMSPollLeaderboardEntry? localPeerEntry;
                     if (index != -1) {
@@ -247,9 +242,7 @@ class _PollVoteBottomSheetState extends State<PollVoteBottomSheet> {
                             ///This is done to show the poll result UI
                             ///Vote count is only calculated if the user has answered the poll
                             ///or the poll is stopped
-                            if ((poll
-                                    .questions![index]
-                                    .myResponses
+                            if ((poll.questions![index].myResponses
                                     .isNotEmpty) ||
                                 (poll.state == HMSPollState.stopped)) {
                               var totalVotes = 0;
@@ -269,11 +262,11 @@ class _PollVoteBottomSheetState extends State<PollVoteBottomSheet> {
                                   ?.role
                                   .name;
                               if (poll.rolesThatCanViewResponses.isNotEmpty) {
-                                int index = poll.rolesThatCanViewResponses
-                                    .indexWhere(
-                                      (element) =>
-                                          element.name == currentPeerRoleName,
-                                    );
+                                int index =
+                                    poll.rolesThatCanViewResponses.indexWhere(
+                                  (element) =>
+                                      element.name == currentPeerRoleName,
+                                );
                                 if (index == -1) {
                                   isVoteCountHidden = true;
                                 }
@@ -336,8 +329,8 @@ class _PollVoteBottomSheetState extends State<PollVoteBottomSheet> {
                               width: MediaQuery.of(context).size.width * 0.3,
                               onPressed: () {
                                 context.read<MeetingStore>().stopPoll(
-                                  hmsPollStore.poll,
-                                );
+                                      hmsPollStore.poll,
+                                    );
                               },
                               childWidget: HMSTitleText(
                                 text: "End ${widget.isPoll ? "Poll" : "Quiz"}",
@@ -375,11 +368,11 @@ class _PollVoteBottomSheetState extends State<PollVoteBottomSheet> {
                                   context: context,
                                   builder: (ctx) =>
                                       ChangeNotifierProvider.value(
-                                        value: meetingStore,
-                                        child: QuizLeaderboard(
-                                          pollStore: hmsPollStore,
-                                        ),
-                                      ),
+                                    value: meetingStore,
+                                    child: QuizLeaderboard(
+                                      pollStore: hmsPollStore,
+                                    ),
+                                  ),
                                 );
                               },
                               childWidget: HMSTitleText(

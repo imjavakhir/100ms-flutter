@@ -56,20 +56,21 @@ class _MeetingHeaderState extends State<MeetingHeader> {
                             : HMSRoomLayout.roleLayoutData!.logo!.url!.contains(
                                 "svg",
                               )
-                            ? SvgPicture.network(
-                                HMSRoomLayout.roleLayoutData!.logo!.url!,
-                                height: 30,
-                                width: 30,
-                              )
-                            : Image.network(
-                                HMSRoomLayout.roleLayoutData!.logo!.url!,
-                                errorBuilder: (context, exception, _) {
-                                  log('Error is $exception');
-                                  return const SizedBox(width: 30, height: 30);
-                                },
-                                height: 30,
-                                width: 30,
-                              ),
+                                ? SvgPicture.network(
+                                    HMSRoomLayout.roleLayoutData!.logo!.url!,
+                                    height: 30,
+                                    width: 30,
+                                  )
+                                : Image.network(
+                                    HMSRoomLayout.roleLayoutData!.logo!.url!,
+                                    errorBuilder: (context, exception, _) {
+                                      log('Error is $exception');
+                                      return const SizedBox(
+                                          width: 30, height: 30);
+                                    },
+                                    height: 30,
+                                    width: 30,
+                                  ),
                         const SizedBox(width: 12),
 
                         ///This renders the live status
@@ -82,9 +83,9 @@ class _MeetingHeaderState extends State<MeetingHeader> {
                         Selector<MeetingStore, bool>(
                           selector: (_, meetingStore) =>
                               (meetingStore.streamingType['hls'] ==
-                                  HMSStreamingState.started ||
-                              meetingStore.streamingType['rtmp'] ==
-                                  HMSStreamingState.started),
+                                      HMSStreamingState.started ||
+                                  meetingStore.streamingType['rtmp'] ==
+                                      HMSStreamingState.started),
                           builder: (_, isHLSStarted, __) {
                             return isHLSStarted
                                 ? const LiveBadge()
@@ -99,13 +100,9 @@ class _MeetingHeaderState extends State<MeetingHeader> {
                         ///
                         ///For recording status we use the recordingType map from the [MeetingStore]
                         Selector<
-                          MeetingStore,
-                          Tuple3<
-                            HMSRecordingState,
-                            HMSRecordingState,
-                            HMSRecordingState
-                          >
-                        >(
+                            MeetingStore,
+                            Tuple3<HMSRecordingState, HMSRecordingState,
+                                HMSRecordingState>>(
                           selector: (_, meetingStore) => Tuple3(
                             meetingStore.recordingType["browser"] ??
                                 HMSRecordingState.none,
@@ -131,31 +128,35 @@ class _MeetingHeaderState extends State<MeetingHeader> {
                                     ),
                                   )
                                 : (data.item1 == HMSRecordingState.starting ||
-                                      data.item2 ==
-                                          HMSRecordingState.starting ||
-                                      data.item3 == HMSRecordingState.starting)
-                                ? SizedBox(
-                                    height: 20,
-                                    width: 20,
-                                    child: CircularProgressIndicator(
-                                      strokeWidth: 2,
-                                      color:
-                                          HMSThemeColors.onSurfaceHighEmphasis,
-                                    ),
-                                  )
-                                : (data.item1 == HMSRecordingState.paused ||
-                                      data.item2 == HMSRecordingState.paused ||
-                                      data.item3 == HMSRecordingState.paused)
-                                ? SvgPicture.asset(
-                                    "packages/hms_room_kit/lib/src/assets/icons/recording_paused.svg",
-                                    height: 24,
-                                    width: 24,
-                                    colorFilter: ColorFilter.mode(
-                                      HMSThemeColors.onSurfaceHighEmphasis,
-                                      BlendMode.srcIn,
-                                    ),
-                                  )
-                                : Container();
+                                        data.item2 ==
+                                            HMSRecordingState.starting ||
+                                        data.item3 ==
+                                            HMSRecordingState.starting)
+                                    ? SizedBox(
+                                        height: 20,
+                                        width: 20,
+                                        child: CircularProgressIndicator(
+                                          strokeWidth: 2,
+                                          color: HMSThemeColors
+                                              .onSurfaceHighEmphasis,
+                                        ),
+                                      )
+                                    : (data.item1 == HMSRecordingState.paused ||
+                                            data.item2 ==
+                                                HMSRecordingState.paused ||
+                                            data.item3 ==
+                                                HMSRecordingState.paused)
+                                        ? SvgPicture.asset(
+                                            "packages/hms_room_kit/lib/src/assets/icons/recording_paused.svg",
+                                            height: 24,
+                                            width: 24,
+                                            colorFilter: ColorFilter.mode(
+                                              HMSThemeColors
+                                                  .onSurfaceHighEmphasis,
+                                              BlendMode.srcIn,
+                                            ),
+                                          )
+                                        : Container();
                           },
                         ),
                         const SizedBox(width: 8),
@@ -236,10 +237,7 @@ class _MeetingHeaderState extends State<MeetingHeader> {
                           selector: (_, meetingStore) => Tuple2(
                             meetingStore.isVideoOn,
                             meetingStore
-                                    .localPeer
-                                    ?.role
-                                    .publishSettings
-                                    ?.allowed ??
+                                    .localPeer?.role.publishSettings?.allowed ??
                                 [],
                           ),
                           builder: (_, data, __) {
@@ -260,9 +258,9 @@ class _MeetingHeaderState extends State<MeetingHeader> {
                                       colorFilter: ColorFilter.mode(
                                         data.item1
                                             ? HMSThemeColors
-                                                  .onSurfaceHighEmphasis
+                                                .onSurfaceHighEmphasis
                                             : HMSThemeColors
-                                                  .onSurfaceLowEmphasis,
+                                                .onSurfaceLowEmphasis,
                                         BlendMode.srcIn,
                                       ),
                                       fit: BoxFit.scaleDown,
@@ -291,9 +289,9 @@ class _MeetingHeaderState extends State<MeetingHeader> {
                                   context: context,
                                   builder: (ctx) =>
                                       ChangeNotifierProvider.value(
-                                        value: context.read<MeetingStore>(),
-                                        child: const AudioSettingsBottomSheet(),
-                                      ),
+                                    value: context.read<MeetingStore>(),
+                                    child: const AudioSettingsBottomSheet(),
+                                  ),
                                 );
                               },
                               onColor: HMSThemeColors.backgroundDim,

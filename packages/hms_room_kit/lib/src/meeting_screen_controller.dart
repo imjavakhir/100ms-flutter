@@ -124,10 +124,7 @@ class _MeetingScreenControllerState extends State<MeetingScreenController> {
   void setScreenRotation() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (HMSRoomLayout
-              .roleLayoutData
-              ?.screens
-              ?.conferencing
-              ?.hlsLiveStreaming !=
+              .roleLayoutData?.screens?.conferencing?.hlsLiveStreaming !=
           null) {
         _meetingStore.allowScreenRotation(true);
       } else {
@@ -146,10 +143,7 @@ class _MeetingScreenControllerState extends State<MeetingScreenController> {
               selector: (_, meetingStore) => meetingStore.localPeer?.role.name,
               builder: (_, data, __) {
                 setScreenRotation();
-                return (HMSRoomLayout
-                            .roleLayoutData
-                            ?.screens
-                            ?.conferencing
+                return (HMSRoomLayout.roleLayoutData?.screens?.conferencing
                             ?.hlsLiveStreaming !=
                         null)
                     ? ListenableProvider.value(

@@ -83,8 +83,8 @@ class _ScreenControllerState extends State<ScreenController> {
         : null;
     Constant.layoutAPIEndPoint =
         (endPoints.containsKey(Constant.layoutAPIEndPointKey))
-        ? endPoints[Constant.layoutAPIEndPointKey]
-        : null;
+            ? endPoints[Constant.layoutAPIEndPointKey]
+            : null;
   }
 
   ///This function checks the permissions for the app
@@ -210,15 +210,15 @@ class _ScreenControllerState extends State<ScreenController> {
               ),
             )
           : isPermissionGranted
-          ? PreviewMeetingFlow(
-              prebuiltOptions: widget.options,
-              hmsSDKInteractor: _hmsSDKInteractor,
-              tokenData: tokenData,
-            )
-          : PreviewPermissions(
-              options: widget.options,
-              callback: _isPermissionGrantedCallback,
-            ),
+              ? PreviewMeetingFlow(
+                  prebuiltOptions: widget.options,
+                  hmsSDKInteractor: _hmsSDKInteractor,
+                  tokenData: tokenData,
+                )
+              : PreviewPermissions(
+                  options: widget.options,
+                  callback: _isPermissionGrantedCallback,
+                ),
     );
   }
 }

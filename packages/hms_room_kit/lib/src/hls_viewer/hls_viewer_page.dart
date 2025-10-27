@@ -140,10 +140,10 @@ class _HLSViewerPageState extends State<HLSViewerPage> {
                                                 ? Column(
                                                     mainAxisAlignment:
                                                         isFullScreen
-                                                        ? MainAxisAlignment
-                                                              .center
-                                                        : MainAxisAlignment
-                                                              .start,
+                                                            ? MainAxisAlignment
+                                                                .center
+                                                            : MainAxisAlignment
+                                                                .start,
                                                     children: [
                                                       ///Renders HLS Player
                                                       Expanded(
@@ -156,9 +156,9 @@ class _HLSViewerPageState extends State<HLSViewerPage> {
                                                           flex: 3,
                                                           child:
                                                               HLSPlayerDesktopControls(
-                                                                orientation:
-                                                                    orientation,
-                                                              ),
+                                                            orientation:
+                                                                orientation,
+                                                          ),
                                                         ),
                                                     ],
                                                   )
@@ -175,9 +175,9 @@ class _HLSViewerPageState extends State<HLSViewerPage> {
                                                           flex: 1,
                                                           child:
                                                               HLSPlayerDesktopControls(
-                                                                orientation:
-                                                                    orientation,
-                                                              ),
+                                                            orientation:
+                                                                orientation,
+                                                          ),
                                                         ),
                                                     ],
                                                   );
@@ -190,13 +190,11 @@ class _HLSViewerPageState extends State<HLSViewerPage> {
 
                                 ///This renders the preview for role component
                                 Selector<
-                                  MeetingStore,
-                                  Tuple3<
-                                    HMSLocalVideoTrack?,
-                                    HMSLocalAudioTrack?,
-                                    HMSRoleChangeRequest?
-                                  >
-                                >(
+                                    MeetingStore,
+                                    Tuple3<
+                                        HMSLocalVideoTrack?,
+                                        HMSLocalAudioTrack?,
+                                        HMSRoleChangeRequest?>>(
                                   selector: (_, meetingStore) => Tuple3(
                                     meetingStore.previewForRoleVideoTrack,
                                     meetingStore.previewForRoleAudioTrack,
@@ -209,7 +207,8 @@ class _HLSViewerPageState extends State<HLSViewerPage> {
                                     if (previewForRoleTracks.item1 != null ||
                                         previewForRoleTracks.item2 != null ||
                                         previewForRoleTracks.item3 != null) {
-                                      WidgetsBinding.instance.addPostFrameCallback((
+                                      WidgetsBinding.instance
+                                          .addPostFrameCallback((
                                         timeStamp,
                                       ) {
                                         ///For preview for role component we use the [showGeneralDialog]
@@ -217,8 +216,8 @@ class _HLSViewerPageState extends State<HLSViewerPage> {
                                           context: context,
                                           pageBuilder: (ctx, _, __) {
                                             return ListenableProvider.value(
-                                              value: context
-                                                  .read<MeetingStore>(),
+                                              value:
+                                                  context.read<MeetingStore>(),
                                               child: Scaffold(
                                                 body: SafeArea(
                                                   child: Container(
@@ -238,35 +237,34 @@ class _HLSViewerPageState extends State<HLSViewerPage> {
                                                         ///[HMSVideoView] is only rendered if video is ON
                                                         ///
                                                         ///else we render the [HMSCircularAvatar]
-                                                        Selector<
-                                                          MeetingStore,
-                                                          bool
-                                                        >(
-                                                          selector:
-                                                              (
-                                                                _,
-                                                                meetingStore,
-                                                              ) => meetingStore
+                                                        Selector<MeetingStore,
+                                                            bool>(
+                                                          selector: (
+                                                            _,
+                                                            meetingStore,
+                                                          ) =>
+                                                              meetingStore
                                                                   .isVideoOn,
-                                                          builder: (_, isVideoOn, __) {
+                                                          builder: (_,
+                                                              isVideoOn, __) {
                                                             return Container(
                                                               height:
                                                                   MediaQuery.of(
-                                                                    context,
-                                                                  ).size.height,
+                                                                context,
+                                                              ).size.height,
                                                               width:
                                                                   MediaQuery.of(
-                                                                    context,
-                                                                  ).size.width,
+                                                                context,
+                                                              ).size.width,
                                                               color: HMSThemeColors
                                                                   .backgroundDim,
-                                                              child:
-                                                                  (isVideoOn &&
+                                                              child: (isVideoOn &&
                                                                       previewForRoleTracks
                                                                               .item1 !=
                                                                           null)
                                                                   ? Center(
-                                                                      child: HMSVideoView(
+                                                                      child:
+                                                                          HMSVideoView(
                                                                         scaleType:
                                                                             ScaleType.SCALE_ASPECT_FILL,
                                                                         track: previewForRoleTracks
@@ -276,14 +274,9 @@ class _HLSViewerPageState extends State<HLSViewerPage> {
                                                                       ),
                                                                     )
                                                                   : Center(
-                                                                      child: HMSCircularAvatar(
-                                                                        name:
-                                                                            context
-                                                                                .read<
-                                                                                  MeetingStore
-                                                                                >()
-                                                                                .localPeer
-                                                                                ?.name ??
+                                                                      child:
+                                                                          HMSCircularAvatar(
+                                                                        name: context.read<MeetingStore>().localPeer?.name ??
                                                                             "",
                                                                       ),
                                                                     ),
@@ -296,14 +289,12 @@ class _HLSViewerPageState extends State<HLSViewerPage> {
 
                                                         ///This renders the preview for role bottom sheet
                                                         PreviewForRoleBottomSheet(
-                                                          meetingStore: context
-                                                              .read<
-                                                                MeetingStore
-                                                              >(),
+                                                          meetingStore:
+                                                              context.read<
+                                                                  MeetingStore>(),
                                                           roleChangeRequest: context
                                                               .read<
-                                                                MeetingStore
-                                                              >()
+                                                                  MeetingStore>()
                                                               .currentRoleChangeRequest,
                                                         ),
                                                       ],
@@ -329,10 +320,10 @@ class _HLSViewerPageState extends State<HLSViewerPage> {
                                       HMSTrackChangeRequest currentRequest =
                                           hmsTrackChangeRequest;
                                       context
-                                              .read<MeetingStore>()
-                                              .hmsTrackChangeRequest =
-                                          null;
-                                      WidgetsBinding.instance.addPostFrameCallback((
+                                          .read<MeetingStore>()
+                                          .hmsTrackChangeRequest = null;
+                                      WidgetsBinding.instance
+                                          .addPostFrameCallback((
                                         _,
                                       ) {
                                         UtilityComponents.showTrackChangeDialog(
@@ -350,42 +341,38 @@ class _HLSViewerPageState extends State<HLSViewerPage> {
                                   builder: (_, showAudioDeviceChangePopup, __) {
                                     if (showAudioDeviceChangePopup) {
                                       context
-                                              .read<MeetingStore>()
-                                              .showAudioDeviceChangePopup =
-                                          false;
-                                      WidgetsBinding.instance.addPostFrameCallback((
+                                          .read<MeetingStore>()
+                                          .showAudioDeviceChangePopup = false;
+                                      WidgetsBinding.instance
+                                          .addPostFrameCallback((
                                         _,
                                       ) {
                                         showDialog(
                                           context: context,
                                           builder: (_) =>
                                               AudioDeviceChangeDialog(
-                                                currentAudioDevice: context
-                                                    .read<MeetingStore>()
-                                                    .currentAudioOutputDevice!,
-                                                audioDevicesList: context
-                                                    .read<MeetingStore>()
-                                                    .availableAudioOutputDevices,
-                                                changeAudioDevice:
-                                                    (audioDevice) {
-                                                      context
-                                                          .read<MeetingStore>()
-                                                          .switchAudioOutput(
-                                                            audioDevice:
-                                                                audioDevice,
-                                                          );
-                                                    },
-                                              ),
+                                            currentAudioDevice: context
+                                                .read<MeetingStore>()
+                                                .currentAudioOutputDevice!,
+                                            audioDevicesList: context
+                                                .read<MeetingStore>()
+                                                .availableAudioOutputDevices,
+                                            changeAudioDevice: (audioDevice) {
+                                              context
+                                                  .read<MeetingStore>()
+                                                  .switchAudioOutput(
+                                                    audioDevice: audioDevice,
+                                                  );
+                                            },
+                                          ),
                                         );
                                       });
                                     }
                                     return const SizedBox();
                                   },
                                 ),
-                                Selector<
-                                  MeetingStore,
-                                  Tuple2<List<HMSToastModel>, int>
-                                >(
+                                Selector<MeetingStore,
+                                    Tuple2<List<HMSToastModel>, int>>(
                                   selector: (_, meetingStore) => Tuple2(
                                     meetingStore.toasts,
                                     meetingStore.toasts.length,
@@ -400,44 +387,36 @@ class _HLSViewerPageState extends State<HLSViewerPage> {
                                           .asMap()
                                           .entries
                                           .map((toasts) {
-                                            var meetingStore = context
-                                                .read<MeetingStore>();
-                                            return Selector<
-                                              HLSPlayerStore,
-                                              bool
-                                            >(
-                                              selector: (_, hlsPlayerStore) =>
-                                                  hlsPlayerStore
-                                                      .areStreamControlsVisible,
-                                              builder:
-                                                  (
-                                                    _,
-                                                    areStreamControlsVisible,
-                                                    __,
-                                                  ) {
-                                                    return AnimatedPositioned(
-                                                      duration: const Duration(
-                                                        milliseconds: 200,
-                                                      ),
-                                                      bottom:
-                                                          (areStreamControlsVisible
-                                                              ? 28.0
-                                                              : 10.0) +
-                                                          8 * toasts.key,
-                                                      left: 5,
-                                                      child: ToastWidget(
-                                                        toast: toasts.value,
-                                                        index: toasts.key,
-                                                        toastsCount:
-                                                            toastsItem.item2,
-                                                        meetingStore:
-                                                            meetingStore,
-                                                      ),
-                                                    );
-                                                  },
+                                        var meetingStore =
+                                            context.read<MeetingStore>();
+                                        return Selector<HLSPlayerStore, bool>(
+                                          selector: (_, hlsPlayerStore) =>
+                                              hlsPlayerStore
+                                                  .areStreamControlsVisible,
+                                          builder: (
+                                            _,
+                                            areStreamControlsVisible,
+                                            __,
+                                          ) {
+                                            return AnimatedPositioned(
+                                              duration: const Duration(
+                                                milliseconds: 200,
+                                              ),
+                                              bottom: (areStreamControlsVisible
+                                                      ? 28.0
+                                                      : 10.0) +
+                                                  8 * toasts.key,
+                                              left: 5,
+                                              child: ToastWidget(
+                                                toast: toasts.value,
+                                                index: toasts.key,
+                                                toastsCount: toastsItem.item2,
+                                                meetingStore: meetingStore,
+                                              ),
                                             );
-                                          })
-                                          .toList(),
+                                          },
+                                        );
+                                      }).toList(),
                                     );
                                   },
                                 ),
@@ -448,7 +427,8 @@ class _HLSViewerPageState extends State<HLSViewerPage> {
                                       meetingStore.reconnecting,
                                   builder: (_, reconnecting, __) {
                                     if (reconnecting) {
-                                      return UtilityComponents.showReconnectingDialog(
+                                      return UtilityComponents
+                                          .showReconnectingDialog(
                                         context,
                                       );
                                     }

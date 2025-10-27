@@ -88,7 +88,8 @@ class HLSViewerBottomNavigationBar extends StatelessWidget {
                                     onTap: () => {
                                       if (!isLive)
                                         {
-                                          HMSHLSPlayerController.seekToLivePosition(),
+                                          HMSHLSPlayerController
+                                              .seekToLivePosition(),
                                         },
                                     },
                                     child: isLive
@@ -133,18 +134,16 @@ class HLSViewerBottomNavigationBar extends StatelessWidget {
                                                 textColor: HMSThemeColors
                                                     .onSurfaceMediumEmphasis,
                                               ),
-                                              Selector<
-                                                HLSPlayerStore,
-                                                Duration
-                                              >(
+                                              Selector<HLSPlayerStore,
+                                                  Duration>(
                                                 selector: (_, hlsPlayerStore) =>
                                                     hlsPlayerStore.timeFromLive,
                                                 builder: (_, timeFromLive, __) {
                                                   return Padding(
                                                     padding:
                                                         const EdgeInsets.only(
-                                                          left: 8.0,
-                                                        ),
+                                                      left: 8.0,
+                                                    ),
                                                     child: HMSTitleText(
                                                       text: _setTimeFromLive(
                                                         timeFromLive,

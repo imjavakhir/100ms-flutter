@@ -124,24 +124,14 @@ class _LeaveSessionBottomSheetState extends State<LeaveSessionBottomSheet> {
                     ),
                     semanticsLabel: "leave_room_button",
                   ),
-                  title:
-                      ((widget
-                                  .meetingStore
-                                  .localPeer
-                                  ?.role
-                                  .permissions
+                  title: ((widget.meetingStore.localPeer?.role.permissions
                                   .hlsStreaming ??
                               false) &&
                           widget.meetingStore.hasHlsStarted)
                       ? "End Stream"
                       : "End Session",
                   titleColor: HMSThemeColors.alertErrorBrighter,
-                  subTitle:
-                      ((widget
-                                  .meetingStore
-                                  .localPeer
-                                  ?.role
-                                  .permissions
+                  subTitle: ((widget.meetingStore.localPeer?.role.permissions
                                   .hlsStreaming ??
                               false) &&
                           widget.meetingStore.hasHlsStarted)
@@ -164,11 +154,7 @@ class _LeaveSessionBottomSheetState extends State<LeaveSessionBottomSheet> {
                         value: widget.meetingStore,
                         child: EndServiceBottomSheet(
                           onButtonPressed: () => {
-                            if ((widget
-                                        .meetingStore
-                                        .localPeer
-                                        ?.role
-                                        .permissions
+                            if ((widget.meetingStore.localPeer?.role.permissions
                                         .hlsStreaming ??
                                     false) &&
                                 widget.meetingStore.hasHlsStarted)
@@ -185,13 +171,8 @@ class _LeaveSessionBottomSheetState extends State<LeaveSessionBottomSheet> {
                               },
                           },
                           title: HMSTitleText(
-                            text:
-                                ((widget
-                                            .meetingStore
-                                            .localPeer
-                                            ?.role
-                                            .permissions
-                                            .hlsStreaming ??
+                            text: ((widget.meetingStore.localPeer?.role
+                                            .permissions.hlsStreaming ??
                                         false) &&
                                     widget.meetingStore.hasHlsStarted)
                                 ? "End Stream"
@@ -210,13 +191,8 @@ class _LeaveSessionBottomSheetState extends State<LeaveSessionBottomSheet> {
                             ),
                           ),
                           subTitle: HMSSubheadingText(
-                            text:
-                                ((widget
-                                            .meetingStore
-                                            .localPeer
-                                            ?.role
-                                            .permissions
-                                            .hlsStreaming ??
+                            text: ((widget.meetingStore.localPeer?.role
+                                            .permissions.hlsStreaming ??
                                         false) &&
                                     widget.meetingStore.hasHlsStarted)
                                 ? "The stream will end for everyone after they’ve watched it."
@@ -224,13 +200,8 @@ class _LeaveSessionBottomSheetState extends State<LeaveSessionBottomSheet> {
                             maxLines: 3,
                             textColor: HMSThemeColors.onSurfaceMediumEmphasis,
                           ),
-                          buttonText:
-                              ((widget
-                                          .meetingStore
-                                          .localPeer
-                                          ?.role
-                                          .permissions
-                                          .hlsStreaming ??
+                          buttonText: ((widget.meetingStore.localPeer?.role
+                                          .permissions.hlsStreaming ??
                                       false) &&
                                   widget.meetingStore.hasHlsStarted)
                               ? "End Stream"

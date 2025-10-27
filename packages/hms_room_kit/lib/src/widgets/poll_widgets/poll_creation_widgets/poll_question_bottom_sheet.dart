@@ -121,7 +121,7 @@ class _PollQuestionBottomSheetState extends State<PollQuestionBottomSheet> {
                 );
                 quizOption.isCorrect =
                     question.correctAnswer?.options?.contains(option.index) ??
-                    false;
+                        false;
                 options.add(quizOption);
               }
               break;
@@ -256,58 +256,63 @@ class _PollQuestionBottomSheetState extends State<PollQuestionBottomSheet> {
                                 isPoll: widget.isPoll,
                               )
                             : widget.isPoll
-                            ? CreatePollForm(
-                                questionNumber: index,
-                                totalQuestions: pollQuizQuestionBuilders.length,
-                                questionType: pollQuizQuestionBuilders.keys
-                                    .elementAt(index)
-                                    .type,
-                                questionController: TextEditingController(
-                                  text: pollQuizQuestionBuilders.keys
-                                      .elementAt(index)
-                                      .text,
-                                ),
-                                optionsTextController: pollQuizQuestionBuilders
-                                    .keys
-                                    .elementAt(index)
-                                    .pollOptions
-                                    .map((e) => TextEditingController(text: e))
-                                    .toList(),
-                                deleteQuestionCallback: _deleteCallback,
-                                questionBuilder: pollQuizQuestionBuilders.keys
-                                    .elementAt(index),
-                                savePollCallback: _saveCallback,
-                              )
-                            : CreateQuizForm(
-                                questionNumber: index,
-                                totalQuestions: pollQuizQuestionBuilders.length,
-                                pointWeightageController: TextEditingController(
-                                  text:
-                                      pollQuizQuestionBuilders.keys
+                                ? CreatePollForm(
+                                    questionNumber: index,
+                                    totalQuestions:
+                                        pollQuizQuestionBuilders.length,
+                                    questionType: pollQuizQuestionBuilders.keys
+                                        .elementAt(index)
+                                        .type,
+                                    questionController: TextEditingController(
+                                      text: pollQuizQuestionBuilders.keys
                                           .elementAt(index)
-                                          .weight
-                                          ?.toString() ??
-                                      "10",
-                                ),
-                                questionController: TextEditingController(
-                                  text: pollQuizQuestionBuilders.keys
-                                      .elementAt(index)
-                                      .text,
-                                ),
-                                optionsTextController: pollQuizQuestionBuilders
-                                    .keys
-                                    .elementAt(index)
-                                    .quizOptions
-                                    .map(
-                                      (e) =>
-                                          TextEditingController(text: e.text),
-                                    )
-                                    .toList(),
-                                deleteQuestionCallback: _deleteCallback,
-                                questionBuilder: pollQuizQuestionBuilders.keys
-                                    .elementAt(index),
-                                saveQuizCallback: _saveCallback,
-                              ),
+                                          .text,
+                                    ),
+                                    optionsTextController:
+                                        pollQuizQuestionBuilders.keys
+                                            .elementAt(index)
+                                            .pollOptions
+                                            .map((e) =>
+                                                TextEditingController(text: e))
+                                            .toList(),
+                                    deleteQuestionCallback: _deleteCallback,
+                                    questionBuilder: pollQuizQuestionBuilders
+                                        .keys
+                                        .elementAt(index),
+                                    savePollCallback: _saveCallback,
+                                  )
+                                : CreateQuizForm(
+                                    questionNumber: index,
+                                    totalQuestions:
+                                        pollQuizQuestionBuilders.length,
+                                    pointWeightageController:
+                                        TextEditingController(
+                                      text: pollQuizQuestionBuilders.keys
+                                              .elementAt(index)
+                                              .weight
+                                              ?.toString() ??
+                                          "10",
+                                    ),
+                                    questionController: TextEditingController(
+                                      text: pollQuizQuestionBuilders.keys
+                                          .elementAt(index)
+                                          .text,
+                                    ),
+                                    optionsTextController:
+                                        pollQuizQuestionBuilders.keys
+                                            .elementAt(index)
+                                            .quizOptions
+                                            .map(
+                                              (e) => TextEditingController(
+                                                  text: e.text),
+                                            )
+                                            .toList(),
+                                    deleteQuestionCallback: _deleteCallback,
+                                    questionBuilder: pollQuizQuestionBuilders
+                                        .keys
+                                        .elementAt(index),
+                                    saveQuizCallback: _saveCallback,
+                                  ),
                       ),
                     ),
 
@@ -350,14 +355,12 @@ class _PollQuestionBottomSheetState extends State<PollQuestionBottomSheet> {
                                 : MaterialStateProperty.all(
                                     HMSThemeColors.primaryDisabled,
                                   ),
-                            shape:
-                                MaterialStateProperty.all<
-                                  RoundedRectangleBorder
-                                >(
-                                  RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8.0),
-                                  ),
-                                ),
+                            shape: MaterialStateProperty.all<
+                                RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                            ),
                           ),
                           onPressed: () {
                             if (_isQuestionValid) {
@@ -375,8 +378,8 @@ class _PollQuestionBottomSheetState extends State<PollQuestionBottomSheet> {
                                     HMSPollUserTrackingMode.user_id;
                               }
                               context.read<MeetingStore>().quickStartPoll(
-                                pollBuilder,
-                              );
+                                    pollBuilder,
+                                  );
                               Navigator.pop(context);
                               Navigator.pop(context);
                             }

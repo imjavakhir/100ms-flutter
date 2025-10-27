@@ -27,7 +27,7 @@ class ParticipantsViewAllBottomSheet extends StatefulWidget {
   final String role;
 
   const ParticipantsViewAllBottomSheet({Key? key, required this.role})
-    : super(key: key);
+      : super(key: key);
 
   @override
   State<ParticipantsViewAllBottomSheet> createState() =>
@@ -76,22 +76,12 @@ class _ParticipantsViewAllBottomSheetState
         meetingStore.localPeer?.role.permissions.changeRole ?? false;
     bool isOnStageRole = meetingStore.getOnStageRole()?.name == peer.role.name;
     bool isOnStageExpPresent = HMSRoomLayout.peerType == PeerRoleType.hlsViewer
-        ? HMSRoomLayout
-                  .roleLayoutData
-                  ?.screens
-                  ?.conferencing
-                  ?.hlsLiveStreaming
-                  ?.elements
-                  ?.onStageExp !=
-              null
-        : HMSRoomLayout
-                  .roleLayoutData
-                  ?.screens
-                  ?.conferencing
-                  ?.defaultConf
-                  ?.elements
-                  ?.onStageExp !=
-              null;
+        ? HMSRoomLayout.roleLayoutData?.screens?.conferencing?.hlsLiveStreaming
+                ?.elements?.onStageExp !=
+            null
+        : HMSRoomLayout.roleLayoutData?.screens?.conferencing?.defaultConf
+                ?.elements?.onStageExp !=
+            null;
     bool isOffStageRole = meetingStore.isOffStageRole(peer.role.name);
 
     ///Here we check whether to show three dots or not
@@ -128,10 +118,10 @@ class _ParticipantsViewAllBottomSheetState
                         )["prevRole"];
                         if (previousRole != null) {
                           try {
-                            HMSRole? offStageRole = meetingStore.roles
-                                .firstWhere(
-                                  (element) => element.name == previousRole,
-                                );
+                            HMSRole? offStageRole =
+                                meetingStore.roles.firstWhere(
+                              (element) => element.name == previousRole,
+                            );
                             meetingStore.changeRoleOfPeer(
                               peer: peer,
                               roleName: offStageRole,
@@ -397,7 +387,8 @@ class _ParticipantsViewAllBottomSheetState
                   ],
                 ),
                 Expanded(
-                  child: Selector<MeetingStore, Tuple2<Map<String, List<ParticipantsStore>>, int>>(
+                  child: Selector<MeetingStore,
+                      Tuple2<Map<String, List<ParticipantsStore>>, int>>(
                     selector: (_, meetingStore) => Tuple2(
                       meetingStore.participantsInMeetingMap,
                       meetingStore.participantsInMeeting,
@@ -447,18 +438,17 @@ class _ParticipantsViewAllBottomSheetState
                                   ///We apply the check for showing loader here
                                   itemCount:
                                       (data.item1[widget.role]?.length ?? 0) +
-                                      ((context
-                                                      .read<MeetingStore>()
-                                                      .peerListIterators[widget
-                                                          .role]
-                                                      ?.totalCount ??
-                                                  0) >
-                                              (data
-                                                      .item1[widget.role]
-                                                      ?.length ??
-                                                  0)
-                                          ? 1
-                                          : 0),
+                                          ((context
+                                                          .read<MeetingStore>()
+                                                          .peerListIterators[
+                                                              widget.role]
+                                                          ?.totalCount ??
+                                                      0) >
+                                                  (data.item1[widget.role]
+                                                          ?.length ??
+                                                      0)
+                                              ? 1
+                                              : 0),
                                   itemBuilder: (context, peerIndex) {
                                     if (peerIndex ==
                                         data.item1[widget.role]?.length) {
@@ -497,24 +487,22 @@ class _ParticipantsViewAllBottomSheetState
                                                     MainAxisAlignment
                                                         .spaceBetween,
                                                 children: [
-                                                  Selector<
-                                                    ParticipantsStore,
-                                                    String
-                                                  >(
-                                                    selector:
-                                                        (
-                                                          _,
-                                                          participantsStore,
-                                                        ) => participantsStore
-                                                            .peer
-                                                            .name,
+                                                  Selector<ParticipantsStore,
+                                                      String>(
+                                                    selector: (
+                                                      _,
+                                                      participantsStore,
+                                                    ) =>
+                                                        participantsStore
+                                                            .peer.name,
                                                     builder: (_, peerName, __) {
                                                       return HMSTitleText(
-                                                        text:
-                                                            peerName +
+                                                        text: peerName +
                                                             ((data
-                                                                    .item1[widget
-                                                                        .role]![peerIndex]
+                                                                    .item1[
+                                                                        widget
+                                                                            .role]![
+                                                                        peerIndex]
                                                                     .peer
                                                                     .isLocal)
                                                                 ? " (You)"
@@ -532,36 +520,38 @@ class _ParticipantsViewAllBottomSheetState
                                                   Row(
                                                     children: [
                                                       Selector<
-                                                        ParticipantsStore,
-                                                        int
-                                                      >(
-                                                        selector:
-                                                            (
-                                                              _,
-                                                              participantsStore,
-                                                            ) =>
-                                                                (participantsStore
+                                                          ParticipantsStore,
+                                                          int>(
+                                                        selector: (
+                                                          _,
+                                                          participantsStore,
+                                                        ) =>
+                                                            (participantsStore
                                                                     .peer
                                                                     .networkQuality
                                                                     ?.quality ??
                                                                 -1),
-                                                        builder: (_, networkQuality, __) {
+                                                        builder: (_,
+                                                            networkQuality,
+                                                            __) {
                                                           return networkQuality !=
                                                                       -1 &&
                                                                   networkQuality <
                                                                       3
                                                               ? Padding(
                                                                   padding:
-                                                                      const EdgeInsets.only(
-                                                                        right:
-                                                                            16.0,
-                                                                      ),
-                                                                  child: CircleAvatar(
+                                                                      const EdgeInsets
+                                                                          .only(
+                                                                    right: 16.0,
+                                                                  ),
+                                                                  child:
+                                                                      CircleAvatar(
                                                                     radius: 16,
                                                                     backgroundColor:
                                                                         HMSThemeColors
                                                                             .surfaceDefault,
-                                                                    child: SvgPicture.asset(
+                                                                    child: SvgPicture
+                                                                        .asset(
                                                                       "packages/hms_room_kit/lib/src/assets/icons/network_$networkQuality.svg",
                                                                       height:
                                                                           16,
@@ -573,35 +563,39 @@ class _ParticipantsViewAllBottomSheetState
                                                         },
                                                       ),
                                                       Selector<
-                                                        ParticipantsStore,
-                                                        bool
-                                                      >(
-                                                        selector:
-                                                            (
-                                                              _,
-                                                              participantsStore,
-                                                            ) => (participantsStore
+                                                          ParticipantsStore,
+                                                          bool>(
+                                                        selector: (
+                                                          _,
+                                                          participantsStore,
+                                                        ) =>
+                                                            (participantsStore
                                                                 .peer
                                                                 .isHandRaised),
-                                                        builder: (_, isHandRaised, __) {
+                                                        builder: (_,
+                                                            isHandRaised, __) {
                                                           return isHandRaised
                                                               ? Padding(
                                                                   padding:
-                                                                      const EdgeInsets.only(
-                                                                        right:
-                                                                            16.0,
-                                                                      ),
-                                                                  child: CircleAvatar(
+                                                                      const EdgeInsets
+                                                                          .only(
+                                                                    right: 16.0,
+                                                                  ),
+                                                                  child:
+                                                                      CircleAvatar(
                                                                     radius: 16,
                                                                     backgroundColor:
                                                                         HMSThemeColors
                                                                             .surfaceDefault,
-                                                                    child: SvgPicture.asset(
+                                                                    child: SvgPicture
+                                                                        .asset(
                                                                       "packages/hms_room_kit/lib/src/assets/icons/hand_outline.svg",
                                                                       height:
                                                                           16,
                                                                       width: 16,
-                                                                      colorFilter: ColorFilter.mode(
+                                                                      colorFilter:
+                                                                          ColorFilter
+                                                                              .mode(
                                                                         HMSThemeColors
                                                                             .onSurfaceHighEmphasis,
                                                                         BlendMode

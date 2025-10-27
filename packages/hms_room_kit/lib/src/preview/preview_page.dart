@@ -46,9 +46,9 @@ class _PreviewPageState extends State<PreviewPage> {
     super.initState();
     nameController = TextEditingController(text: widget.name);
     context.read<PreviewStore>().startPreview(
-      userName: widget.name,
-      tokenData: widget.tokenData,
-    );
+          userName: widget.name,
+          tokenData: widget.tokenData,
+        );
   }
 
   @override
@@ -222,14 +222,14 @@ class _PreviewPageState extends State<PreviewPage> {
                                                       .onSurfaceHighEmphasis,
                                                   onTapOutside: (event) =>
                                                       FocusManager
-                                                          .instance
-                                                          .primaryFocus
+                                                          .instance.primaryFocus
                                                           ?.unfocus(),
                                                   textInputAction:
                                                       TextInputAction.done,
                                                   textCapitalization:
                                                       TextCapitalization.words,
-                                                  style: HMSTextStyle.setTextStyle(
+                                                  style:
+                                                      HMSTextStyle.setTextStyle(
                                                     color: HMSThemeColors
                                                         .onSurfaceHighEmphasis,
                                                   ),
@@ -241,57 +241,60 @@ class _PreviewPageState extends State<PreviewPage> {
                                                   },
                                                   decoration: InputDecoration(
                                                     contentPadding:
-                                                        const EdgeInsets.symmetric(
-                                                          vertical: 12,
-                                                          horizontal: 16,
-                                                        ),
+                                                        const EdgeInsets
+                                                            .symmetric(
+                                                      vertical: 12,
+                                                      horizontal: 16,
+                                                    ),
                                                     fillColor: HMSThemeColors
                                                         .surfaceDefault,
                                                     filled: true,
 
                                                     ///This renders the hint text
                                                     hintText: 'Enter Name...',
-                                                    hintStyle:
-                                                        HMSTextStyle.setTextStyle(
-                                                          color: HMSThemeColors
-                                                              .onSurfaceLowEmphasis,
-                                                          height: 1.5,
-                                                          fontSize: 16,
-                                                          letterSpacing: 0.5,
-                                                          fontWeight:
-                                                              FontWeight.w400,
-                                                        ),
-                                                    focusedBorder: OutlineInputBorder(
+                                                    hintStyle: HMSTextStyle
+                                                        .setTextStyle(
+                                                      color: HMSThemeColors
+                                                          .onSurfaceLowEmphasis,
+                                                      height: 1.5,
+                                                      fontSize: 16,
+                                                      letterSpacing: 0.5,
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                    ),
+                                                    focusedBorder:
+                                                        OutlineInputBorder(
                                                       borderSide: BorderSide(
                                                         width: 2,
                                                         color: HMSThemeColors
                                                             .primaryDefault,
                                                       ),
                                                       borderRadius:
-                                                          const BorderRadius.all(
-                                                            Radius.circular(8),
-                                                          ),
+                                                          const BorderRadius
+                                                              .all(
+                                                        Radius.circular(8),
+                                                      ),
                                                     ),
                                                     enabledBorder:
                                                         const OutlineInputBorder(
-                                                          borderSide:
-                                                              BorderSide.none,
-                                                          borderRadius:
-                                                              BorderRadius.all(
-                                                                Radius.circular(
-                                                                  8,
-                                                                ),
-                                                              ),
+                                                      borderSide:
+                                                          BorderSide.none,
+                                                      borderRadius:
+                                                          BorderRadius.all(
+                                                        Radius.circular(
+                                                          8,
                                                         ),
+                                                      ),
+                                                    ),
                                                     border:
                                                         const OutlineInputBorder(
-                                                          borderRadius:
-                                                              BorderRadius.all(
-                                                                Radius.circular(
-                                                                  8,
-                                                                ),
-                                                              ),
+                                                      borderRadius:
+                                                          BorderRadius.all(
+                                                        Radius.circular(
+                                                          8,
                                                         ),
+                                                      ),
+                                                    ),
                                                   ),
                                                 ),
                                               ),

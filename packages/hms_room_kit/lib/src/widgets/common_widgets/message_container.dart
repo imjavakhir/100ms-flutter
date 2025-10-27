@@ -24,7 +24,7 @@ class MessageContainer extends StatelessWidget {
   final DateFormat formatter = DateFormat('hh:mm a');
 
   MessageContainer({Key? key, required this.message, this.isHLSChat = false})
-    : super(key: key);
+      : super(key: key);
 
   String sender(HMSMessageRecipient? hmsMessageRecipient) {
     if (hmsMessageRecipient == null) return "";
@@ -51,11 +51,11 @@ class MessageContainer extends StatelessWidget {
         decoration: BoxDecoration(
           color: isHLSChat
               ? sender(message.hmsMessageRecipient) != ""
-                    ? HMSThemeColors.backgroundDefault
-                    : HMSThemeColors.backgroundDim
+                  ? HMSThemeColors.backgroundDefault
+                  : HMSThemeColors.backgroundDim
               : sender(message.hmsMessageRecipient) != ""
-              ? HMSThemeColors.surfaceDefault
-              : HMSThemeColors.surfaceDim,
+                  ? HMSThemeColors.surfaceDefault
+                  : HMSThemeColors.surfaceDim,
           borderRadius: BorderRadius.circular(8),
         ),
         child: Padding(

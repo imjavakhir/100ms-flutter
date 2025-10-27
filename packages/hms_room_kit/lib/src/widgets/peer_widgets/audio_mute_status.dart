@@ -55,6 +55,7 @@ class _AudioMuteStatusState extends State<AudioMuteStatus> {
                       ),
                     ),
                   )
+
                 ///We render the animation only when the audio level is greater than zero
                 ///else we show the ellipsis icon
                 : Container(

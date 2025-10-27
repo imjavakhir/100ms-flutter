@@ -101,9 +101,8 @@ class _CreatePollFormState extends State<CreatePollForm> {
   ///This function saves the option and also fires a callback
   ///to save the question
   void saveQuestion() {
-    widget.questionBuilder.withOption = _optionsTextController
-        .map((e) => e.text)
-        .toList();
+    widget.questionBuilder.withOption =
+        _optionsTextController.map((e) => e.text).toList();
     if (_isPollValid()) {
       widget.savePollCallback(widget.questionBuilder);
     }

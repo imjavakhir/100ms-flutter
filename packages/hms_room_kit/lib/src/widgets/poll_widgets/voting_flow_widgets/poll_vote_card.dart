@@ -117,15 +117,13 @@ class _PollVoteCardState extends State<PollVoteCard> {
                       Checkbox(
                         activeColor: HMSThemeColors.onSurfaceHighEmphasis,
                         checkColor: HMSThemeColors.surfaceDefault,
-                        value:
-                            ((widget.question.type ==
+                        value: ((widget.question.type ==
                                 HMSPollQuestionType.singleChoice)
                             ? selectedOption == widget.question.options[index]
                             : selectedOptions.contains(
                                 widget.question.options[index],
                               )),
-                        shape:
-                            widget.question.type ==
+                        shape: widget.question.type ==
                                 HMSPollQuestionType.singleChoice
                             ? const CircleBorder()
                             : const RoundedRectangleBorder(
@@ -171,8 +169,7 @@ class _PollVoteCardState extends State<PollVoteCard> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   HMSButton(
-                    width:
-                        MediaQuery.of(context).size.width *
+                    width: MediaQuery.of(context).size.width *
                         (widget.isPoll ? 0.21 : 0.30),
                     onPressed: () {
                       ///Here we check whether the poll/quiz Answer is valid and it's not answered yet
@@ -189,10 +186,10 @@ class _PollVoteCardState extends State<PollVoteCard> {
                                 timeTakenToAnswer: widget.isPoll
                                     ? null
                                     : widget.startTime != null
-                                    ? (DateTime.now().difference(
-                                        widget.startTime!,
-                                      ))
-                                    : null,
+                                        ? (DateTime.now().difference(
+                                            widget.startTime!,
+                                          ))
+                                        : null,
                               );
                           selectedOption = null;
                         } else if (widget.question.type ==
@@ -207,10 +204,10 @@ class _PollVoteCardState extends State<PollVoteCard> {
                                 timeTakenToAnswer: widget.isPoll
                                     ? null
                                     : widget.startTime != null
-                                    ? (DateTime.now().difference(
-                                        widget.startTime!,
-                                      ))
-                                    : null,
+                                        ? (DateTime.now().difference(
+                                            widget.startTime!,
+                                          ))
+                                        : null,
                               );
                           selectedOptions = [];
                         }

@@ -42,8 +42,7 @@ class _PipViewState extends State<PipView> {
                                 "${peerTrackToDisplay.item1!.trackId}pipView",
                               ),
                               track: peerTrackToDisplay.item1!,
-                              scaleType:
-                                  (peerTrackToDisplay.item1!.source !=
+                              scaleType: (peerTrackToDisplay.item1!.source !=
                                       "REGULAR")
                                   ? ScaleType.SCALE_ASPECT_FIT
                                   : ScaleType.SCALE_ASPECT_FILL,

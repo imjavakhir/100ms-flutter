@@ -74,35 +74,33 @@ class SavedQuestionWidget extends StatelessWidget {
                 ),
                 children: isPoll
                     ? pollQuestionBuilder.pollOptions
-                          .map(
-                            (e) => Padding(
-                              padding: const EdgeInsets.symmetric(
-                                vertical: 8.0,
-                              ),
-                              child: HMSSubheadingText(
-                                text: e,
-                                textColor:
-                                    HMSThemeColors.onSurfaceMediumEmphasis,
-                                maxLines: 3,
-                              ),
+                        .map(
+                          (e) => Padding(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 8.0,
                             ),
-                          )
-                          .toList()
+                            child: HMSSubheadingText(
+                              text: e,
+                              textColor: HMSThemeColors.onSurfaceMediumEmphasis,
+                              maxLines: 3,
+                            ),
+                          ),
+                        )
+                        .toList()
                     : pollQuestionBuilder.quizOptions
-                          .map(
-                            (e) => Padding(
-                              padding: const EdgeInsets.symmetric(
-                                vertical: 8.0,
-                              ),
-                              child: HMSSubheadingText(
-                                text: e.text,
-                                textColor:
-                                    HMSThemeColors.onSurfaceMediumEmphasis,
-                                maxLines: 3,
-                              ),
+                        .map(
+                          (e) => Padding(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 8.0,
                             ),
-                          )
-                          .toList(),
+                            child: HMSSubheadingText(
+                              text: e.text,
+                              textColor: HMSThemeColors.onSurfaceMediumEmphasis,
+                              maxLines: 3,
+                            ),
+                          ),
+                        )
+                        .toList(),
               ),
             ),
             Row(

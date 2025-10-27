@@ -72,9 +72,8 @@ class LeaderboardCreatorSummary extends StatelessWidget {
             Expanded(
               child: SummaryBox(
                 title: "AVG. SCORE",
-                subtitle: avgScore == null
-                    ? "-"
-                    : avgScore!.toStringAsPrecision(2),
+                subtitle:
+                    avgScore == null ? "-" : avgScore!.toStringAsPrecision(2),
               ),
             ),
           ],

@@ -49,8 +49,7 @@ class HLSPlayer extends StatelessWidget {
                                 splashFactory: NoSplash.splashFactory,
                                 splashColor: HMSThemeColors.backgroundDim,
                                 child: AspectRatio(
-                                  aspectRatio:
-                                      hlsPlayerSize.width /
+                                  aspectRatio: hlsPlayerSize.width /
                                       hlsPlayerSize.height,
                                   child: Selector<HLSPlayerStore, bool>(
                                     selector: (_, hlsPlayerStore) =>

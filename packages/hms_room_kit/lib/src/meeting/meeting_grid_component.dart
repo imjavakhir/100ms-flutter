@@ -26,10 +26,8 @@ class MeetingGridComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Selector<
-      MeetingStore,
-      Tuple6<List<PeerTrackNode>, bool, int, int, MeetingMode, int>
-    >(
+    return Selector<MeetingStore,
+        Tuple6<List<PeerTrackNode>, bool, int, int, MeetingMode, int>>(
       selector: (_, meetingStore) => Tuple6(
         meetingStore.peerTracks,
         meetingStore.isHLSLink,
@@ -70,22 +68,21 @@ class MeetingGridComponent extends StatelessWidget {
                     ///Here we also check for the platform and reduce the height accordingly
                     height: showControls
                         ? MediaQuery.of(context).size.height -
-                              MediaQuery.of(context).padding.top -
-                              MediaQuery.of(context).padding.bottom -
-                              (Platform.isAndroid
-                                  ? 160
-                                  : Platform.isIOS
-                                  ? 230
-                                  : 160)
+                            MediaQuery.of(context).padding.top -
+                            MediaQuery.of(context).padding.bottom -
+                            (Platform.isAndroid
+                                ? 160
+                                : Platform.isIOS
+                                    ? 230
+                                    : 160)
                         : MediaQuery.of(context).size.height -
-                              MediaQuery.of(context).padding.top -
-                              MediaQuery.of(context).padding.bottom -
-                              20,
+                            MediaQuery.of(context).padding.top -
+                            MediaQuery.of(context).padding.bottom -
+                            20,
                     child: GestureDetector(
                       onTap: () =>
                           visibilityController?.toggleControlsVisibility(),
-                      child:
-                          (modeData.item1 ==
+                      child: (modeData.item1 ==
                                   MeetingMode.activeSpeakerWithInset &&
                               (context
                                           .read<MeetingStore>()

@@ -23,7 +23,7 @@ class MoreSettingsBottomSheet extends StatefulWidget {
   final bool isAudioMixerDisabled;
 
   const MoreSettingsBottomSheet({Key? key, this.isAudioMixerDisabled = true})
-    : super(key: key);
+      : super(key: key);
   @override
   State<MoreSettingsBottomSheet> createState() =>
       _MoreSettingsBottomSheetState();
@@ -257,12 +257,11 @@ class _MoreSettingsBottomSheetState extends State<MoreSettingsBottomSheet> {
                       FocusManager.instance.primaryFocus?.unfocus();
                       String name =
                           await UtilityComponents.showNameChangeDialog(
-                            context: context,
-                            placeholder: "Enter Name",
-                            prefilledValue:
-                                context.read<MeetingStore>().localPeer?.name ??
-                                "",
-                          );
+                        context: context,
+                        placeholder: "Enter Name",
+                        prefilledValue:
+                            context.read<MeetingStore>().localPeer?.name ?? "",
+                      );
                       if (name.isNotEmpty) {
                         meetingStore.changeName(name: name);
                       }
@@ -455,10 +454,7 @@ class _MoreSettingsBottomSheetState extends State<MoreSettingsBottomSheet> {
                       ),
                   if (Constant.debugMode)
                     if (meetingStore
-                            .localPeer
-                            ?.role
-                            .permissions
-                            .rtmpStreaming ??
+                            .localPeer?.role.permissions.rtmpStreaming ??
                         false)
                       Selector<MeetingStore, bool>(
                         selector: (_, meetingStore) =>
@@ -475,14 +471,13 @@ class _MoreSettingsBottomSheetState extends State<MoreSettingsBottomSheet> {
                                 Navigator.pop(context);
                                 Map<String, dynamic> data =
                                     await UtilityComponents.showRTMPInputDialog(
-                                      context: context,
-                                      placeholder:
-                                          "Enter Comma separated RTMP Urls",
-                                      isRecordingEnabled:
-                                          meetingStore
-                                              .recordingType["browser"] ==
+                                  context: context,
+                                  placeholder:
+                                      "Enter Comma separated RTMP Urls",
+                                  isRecordingEnabled:
+                                      meetingStore.recordingType["browser"] ==
                                           HMSRecordingState.started,
-                                    );
+                                );
                                 List<String>? urls;
                                 if (data["url"]!.isNotEmpty) {
                                   urls = data["url"]!.split(",");
@@ -527,10 +522,7 @@ class _MoreSettingsBottomSheetState extends State<MoreSettingsBottomSheet> {
                       ),
                   if (Constant.debugMode)
                     if (meetingStore
-                            .localPeer
-                            ?.role
-                            .permissions
-                            .browserRecording ??
+                            .localPeer?.role.permissions.browserRecording ??
                         false)
                       Selector<MeetingStore, bool>(
                         selector: (_, meetingStore) =>

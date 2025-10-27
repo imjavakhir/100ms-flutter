@@ -164,8 +164,7 @@ class PollQuestionCard extends StatelessWidget {
                           child: ChangeNotifierProvider.value(
                             value: pollStore,
                             child: PollVoteBottomSheet(
-                              isPoll:
-                                  pollStore.poll.category ==
+                              isPoll: pollStore.poll.category ==
                                   HMSPollCategory.poll,
                             ),
                           ),

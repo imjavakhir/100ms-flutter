@@ -20,7 +20,7 @@ class ChatUtilitiesBottomSheet extends StatefulWidget {
   final HMSMessage message;
 
   const ChatUtilitiesBottomSheet({Key? key, required this.message})
-    : super(key: key);
+      : super(key: key);
 
   @override
   State<ChatUtilitiesBottomSheet> createState() =>
@@ -36,10 +36,9 @@ class _ChatUtilitiesBottomSheetState extends State<ChatUtilitiesBottomSheet> {
   initState() {
     super.initState();
     context.read<MeetingStore>().addBottomSheet(context);
-    isPinned =
-        context.read<MeetingStore>().pinnedMessages.indexWhere(
-          (element) => element["id"] == widget.message.messageId,
-        ) !=
+    isPinned = context.read<MeetingStore>().pinnedMessages.indexWhere(
+              (element) => element["id"] == widget.message.messageId,
+            ) !=
         -1;
 
     // Initial check for isBlocked
@@ -51,18 +50,17 @@ class _ChatUtilitiesBottomSheetState extends State<ChatUtilitiesBottomSheet> {
 
   void updateIsBlocked() {
     setState(() {
-      isBlocked =
-          context.read<MeetingStore>().blackListedUserIds.indexWhere(
-            (userId) => userId == widget.message.sender?.customerUserId,
-          ) !=
+      isBlocked = context.read<MeetingStore>().blackListedUserIds.indexWhere(
+                (userId) => userId == widget.message.sender?.customerUserId,
+              ) !=
           -1;
       isLocalBlocked =
           context.read<MeetingStore>().blackListedUserIds.indexWhere(
-            (userId) =>
-                userId ==
-                context.read<MeetingStore>().localPeer?.customerUserId,
-          ) !=
-          -1;
+                    (userId) =>
+                        userId ==
+                        context.read<MeetingStore>().localPeer?.customerUserId,
+                  ) !=
+              -1;
     });
   }
 
@@ -110,8 +108,8 @@ class _ChatUtilitiesBottomSheetState extends State<ChatUtilitiesBottomSheet> {
                     Navigator.pop(context);
                     if (isPinned) {
                       context.read<MeetingStore>().unpinMessage(
-                        widget.message.messageId,
-                      );
+                            widget.message.messageId,
+                          );
                     } else {
                       context.read<MeetingStore>().pinMessage(widget.message);
                     }
@@ -199,9 +197,9 @@ class _ChatUtilitiesBottomSheetState extends State<ChatUtilitiesBottomSheet> {
                     Navigator.pop(context);
                     if (widget.message.sender?.customerUserId != null) {
                       context.read<MeetingStore>().togglePeerBlock(
-                        userId: widget.message.sender!.customerUserId!,
-                        isBlocked: isBlocked,
-                      );
+                            userId: widget.message.sender!.customerUserId!,
+                            isBlocked: isBlocked,
+                          );
                     }
                   },
                   contentPadding: EdgeInsets.zero,
@@ -237,8 +235,8 @@ class _ChatUtilitiesBottomSheetState extends State<ChatUtilitiesBottomSheet> {
                     Navigator.pop(context);
                     if (widget.message.sender != null) {
                       context.read<MeetingStore>().removePeerFromRoom(
-                        widget.message.sender!,
-                      );
+                            widget.message.sender!,
+                          );
                     }
                   },
                   contentPadding: EdgeInsets.zero,

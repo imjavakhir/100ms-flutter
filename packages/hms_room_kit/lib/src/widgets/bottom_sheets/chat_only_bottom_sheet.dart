@@ -54,9 +54,7 @@ class _ChatOnlyBottomSheetState extends State<ChatOnlyBottomSheet> {
                     fontWeight: FontWeight.w600,
                   ),
                   if (HMSRoomLayout
-                          .chatData
-                          ?.realTimeControls
-                          ?.canDisableChat ??
+                          .chatData?.realTimeControls?.canDisableChat ??
                       false)
                     PopupMenuButton(
                       padding: EdgeInsets.zero,
@@ -87,8 +85,7 @@ class _ChatOnlyBottomSheetState extends State<ChatOnlyBottomSheet> {
                               ),
                               const SizedBox(width: 8),
                               HMSTitleText(
-                                text:
-                                    context
+                                text: context
                                         .read<MeetingStore>()
                                         .chatControls["enabled"]
                                     ? "Pause Chat"
@@ -105,13 +102,14 @@ class _ChatOnlyBottomSheetState extends State<ChatOnlyBottomSheet> {
                       onSelected: (value) {
                         switch (value) {
                           case 1:
-                            context.read<MeetingStore>().setSessionMetadataForKey(
+                            context
+                                .read<MeetingStore>()
+                                .setSessionMetadataForKey(
                               key: SessionStoreKeyValues.getNameFromMethod(
                                 SessionStoreKey.chatState,
                               ),
                               metadata: {
-                                "enabled":
-                                    context
+                                "enabled": context
                                         .read<MeetingStore>()
                                         .chatControls["enabled"]
                                     ? false

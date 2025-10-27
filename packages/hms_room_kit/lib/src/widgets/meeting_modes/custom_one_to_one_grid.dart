@@ -43,9 +43,9 @@ class _CustomOneToOneGridState extends State<CustomOneToOneGrid> {
     ///One thing to note here is that in this view we filter out the local peer since we are rendering the local peer in the inset tile
     ///The inset tile is rendered at the top of the grid view
     return Selector<
-      MeetingStore,
-      Tuple5<List<PeerTrackNode>, int, PeerTrackNode, int, HMSWhiteboardModel?>
-    >(
+        MeetingStore,
+        Tuple5<List<PeerTrackNode>, int, PeerTrackNode, int,
+            HMSWhiteboardModel?>>(
       selector: (_, meetingStore) => Tuple5(
         meetingStore.peerTracks,
         meetingStore.peerTracks.length,
@@ -69,20 +69,21 @@ class _CustomOneToOneGridState extends State<CustomOneToOneGrid> {
                 child: ScreenshareGridLayout(
                   peerTracks: widget.isLocalInsetPresent
                       ? data.item1
-                            .where(
-                              (element) =>
-                                  !element.peer.isLocal ||
-                                  element.track?.source == "SCREEN",
-                            )
-                            .toList()
+                          .where(
+                            (element) =>
+                                !element.peer.isLocal ||
+                                element.track?.source == "SCREEN",
+                          )
+                          .toList()
                       : data.item1,
                   screenshareCount: data.item4,
                   whiteboardModel: data.item5,
                 ),
               )
             :
-              ///If no screen is being shared we render the normal layout with inset tile
-              Column(
+
+            ///If no screen is being shared we render the normal layout with inset tile
+            Column(
                 children: [
                   Expanded(
                     child: PageView.builder(
@@ -103,12 +104,12 @@ class _CustomOneToOneGridState extends State<CustomOneToOneGrid> {
                         ///Since the screenshare case is already handled above the code never reaches here
                         peerTracks: widget.isLocalInsetPresent
                             ? data.item1
-                                  .where(
-                                    (element) =>
-                                        !(element.peer.isLocal) ||
-                                        element.track?.source == "SCREEN",
-                                  )
-                                  .toList()
+                                .where(
+                                  (element) =>
+                                      !(element.peer.isLocal) ||
+                                      element.track?.source == "SCREEN",
+                                )
+                                .toList()
                             : data.item1,
                       ),
                     ),

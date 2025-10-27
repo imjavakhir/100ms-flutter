@@ -187,8 +187,8 @@ class _PreviewForRoleBottomSheetState extends State<PreviewForRoleBottomSheet> {
                   Navigator.pop(context);
                   if (widget.roleChangeRequest != null) {
                     context.read<MeetingStore>().acceptChangeRole(
-                      widget.roleChangeRequest!,
-                    );
+                          widget.roleChangeRequest!,
+                        );
                   }
                 },
                 child: SizedBox(

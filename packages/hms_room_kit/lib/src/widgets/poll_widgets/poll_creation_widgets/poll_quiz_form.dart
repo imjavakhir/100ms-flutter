@@ -207,8 +207,8 @@ class _PollQuizFormState extends State<PollQuizForm> {
                     isPoll: widget.isPoll,
                     rolesThatCanViewResponse: _hideVoteCount
                         ? meetingStore.localPeer != null
-                              ? [meetingStore.localPeer!.role]
-                              : null
+                            ? [meetingStore.localPeer!.role]
+                            : null
                         : null,
                   ),
                 ),

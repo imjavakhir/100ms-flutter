@@ -106,10 +106,10 @@ class _PreviewPermissionsState extends State<PreviewPermissions> {
                         ),
                         shape:
                             MaterialStateProperty.all<RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                            ),
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),

@@ -41,16 +41,16 @@ class _AudioSettingsBottomSheetState extends State<AudioSettingsBottomSheet> {
     return DraggableScrollableSheet(
       maxChildSize:
           (context.read<MeetingStore>().availableAudioOutputDevices.length +
-              2.2) *
-          0.1,
+                  2.2) *
+              0.1,
       minChildSize:
           (context.read<MeetingStore>().availableAudioOutputDevices.length +
-              2) *
-          0.1,
+                  2) *
+              0.1,
       initialChildSize:
           (context.read<MeetingStore>().availableAudioOutputDevices.length +
-              2) *
-          0.1,
+                  2) *
+              0.1,
       builder: (context, ScrollController scrollController) {
         return Container(
           decoration: BoxDecoration(
@@ -63,7 +63,8 @@ class _AudioSettingsBottomSheetState extends State<AudioSettingsBottomSheet> {
 
           ///We are using the selector to rebuild the widget only when the available audio devices list changes
           ///or the current audio device changes
-          child: Selector<MeetingStore, Tuple3<List<HMSAudioDevice>, int, HMSAudioDevice?>>(
+          child: Selector<MeetingStore,
+              Tuple3<List<HMSAudioDevice>, int, HMSAudioDevice?>>(
             selector: (_, meetingStore) => Tuple3(
               meetingStore.availableAudioOutputDevices,
               meetingStore.availableAudioOutputDevices.length,
@@ -128,8 +129,7 @@ class _AudioSettingsBottomSheetState extends State<AudioSettingsBottomSheet> {
                                       textColor:
                                           HMSThemeColors.onSurfaceHighEmphasis,
                                     ),
-                                    trailing:
-                                        (context
+                                    trailing: (context
                                             .read<MeetingStore>()
                                             .isSpeakerOn)
                                         ? SizedBox(
@@ -176,8 +176,7 @@ class _AudioSettingsBottomSheetState extends State<AudioSettingsBottomSheet> {
                                       textColor:
                                           HMSThemeColors.onSurfaceHighEmphasis,
                                     ),
-                                    trailing:
-                                        !context
+                                    trailing: !context
                                             .read<MeetingStore>()
                                             .isSpeakerOn
                                         ? SizedBox(
@@ -233,8 +232,7 @@ class _AudioSettingsBottomSheetState extends State<AudioSettingsBottomSheet> {
                                         textColor: HMSThemeColors
                                             .onSurfaceHighEmphasis,
                                       ),
-                                      trailing:
-                                          !context
+                                      trailing: !context
                                               .read<MeetingStore>()
                                               .isSpeakerOn
                                           ? SizedBox(
@@ -275,8 +273,7 @@ class _AudioSettingsBottomSheetState extends State<AudioSettingsBottomSheet> {
                                       ///
                                       ///If the current audio device is the selected audio device then we render the tick icon
                                       ///else we render an empty container
-                                      child:
-                                          data.item1[index] ==
+                                      child: data.item1[index] ==
                                               HMSAudioDevice.AUTOMATIC
                                           ? ListTile(
                                               horizontalTitleGap: 2,
@@ -301,11 +298,9 @@ class _AudioSettingsBottomSheetState extends State<AudioSettingsBottomSheet> {
                                                 textColor: HMSThemeColors
                                                     .onSurfaceHighEmphasis,
                                               ),
-                                              trailing:
-                                                  (context
+                                              trailing: (context
                                                               .read<
-                                                                MeetingStore
-                                                              >()
+                                                                  MeetingStore>()
                                                               .currentAudioDeviceMode ==
                                                           HMSAudioDevice
                                                               .AUTOMATIC &&
@@ -320,10 +315,10 @@ class _AudioSettingsBottomSheetState extends State<AudioSettingsBottomSheet> {
                                                         fit: BoxFit.scaleDown,
                                                         colorFilter:
                                                             ColorFilter.mode(
-                                                              HMSThemeColors
-                                                                  .onSurfaceHighEmphasis,
-                                                              BlendMode.srcIn,
-                                                            ),
+                                                          HMSThemeColors
+                                                              .onSurfaceHighEmphasis,
+                                                          BlendMode.srcIn,
+                                                        ),
                                                       ),
                                                     )
                                                   : const SizedBox(
@@ -345,10 +340,10 @@ class _AudioSettingsBottomSheetState extends State<AudioSettingsBottomSheet> {
                                                 ),
                                               ),
                                               title: HMSSubtitleText(
-                                                text:
-                                                    Utilities.getAudioDeviceName(
-                                                      data.item1[index],
-                                                    ),
+                                                text: Utilities
+                                                    .getAudioDeviceName(
+                                                  data.item1[index],
+                                                ),
                                                 fontSize: 14,
                                                 lineHeight: 20,
                                                 letterSpacing: 0.10,
@@ -356,12 +351,10 @@ class _AudioSettingsBottomSheetState extends State<AudioSettingsBottomSheet> {
                                                 textColor: HMSThemeColors
                                                     .onSurfaceHighEmphasis,
                                               ),
-                                              trailing:
-                                                  (data.item1[index] ==
+                                              trailing: (data.item1[index] ==
                                                           context
                                                               .read<
-                                                                MeetingStore
-                                                              >()
+                                                                  MeetingStore>()
                                                               .currentAudioDeviceMode &&
                                                       context
                                                           .read<MeetingStore>()
@@ -374,10 +367,10 @@ class _AudioSettingsBottomSheetState extends State<AudioSettingsBottomSheet> {
                                                         fit: BoxFit.scaleDown,
                                                         colorFilter:
                                                             ColorFilter.mode(
-                                                              HMSThemeColors
-                                                                  .onSurfaceHighEmphasis,
-                                                              BlendMode.srcIn,
-                                                            ),
+                                                          HMSThemeColors
+                                                              .onSurfaceHighEmphasis,
+                                                          BlendMode.srcIn,
+                                                        ),
                                                       ),
                                                     )
                                                   : const SizedBox(

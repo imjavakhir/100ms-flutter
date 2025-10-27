@@ -144,8 +144,8 @@ class _CreatePollFormState extends State<CreateQuizForm> {
       var quizOption = HMSPollQuizOption(text: option.text);
       quizOption.isCorrect =
           widget.questionBuilder.type == HMSPollQuestionType.singleChoice
-          ? _correctOption?.text == option.text
-          : _isCorrectAnswer(option.text);
+              ? _correctOption?.text == option.text
+              : _isCorrectAnswer(option.text);
       quizOptions.add(quizOption);
     }
     widget.questionBuilder.addQuizOption = quizOptions;
@@ -321,16 +321,14 @@ class _CreatePollFormState extends State<CreateQuizForm> {
                           Checkbox(
                             activeColor: HMSThemeColors.onSurfaceHighEmphasis,
                             checkColor: HMSThemeColors.surfaceDefault,
-                            value:
-                                (widget.questionBuilder.type ==
+                            value: (widget.questionBuilder.type ==
                                     HMSPollQuestionType.singleChoice)
                                 ? (_optionsTextController[index].text ==
-                                      _correctOption?.text)
+                                    _correctOption?.text)
                                 : _isCorrectAnswer(
                                     _optionsTextController[index].text,
                                   ),
-                            shape:
-                                widget.questionBuilder.type ==
+                            shape: widget.questionBuilder.type ==
                                     HMSPollQuestionType.singleChoice
                                 ? const CircleBorder()
                                 : const RoundedRectangleBorder(

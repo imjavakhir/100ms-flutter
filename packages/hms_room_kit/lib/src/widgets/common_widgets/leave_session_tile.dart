@@ -35,8 +35,7 @@ class LeaveSessionTile extends StatelessWidget {
         height: 116,
         color: tileColor ?? HMSThemeColors.surfaceDim,
         child: Padding(
-          padding:
-              tilePadding ??
+          padding: tilePadding ??
               const EdgeInsets.only(top: 24.0, left: 18, right: 18),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -57,12 +56,10 @@ class LeaveSessionTile extends StatelessWidget {
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.78,
                     child: HMSSubheadingText(
-                      text:
-                          subTitle ??
+                      text: subTitle ??
                           "Others will continue after you leave. You can join the session again.",
                       maxLines: 2,
-                      textColor:
-                          subTitleColor ??
+                      textColor: subTitleColor ??
                           HMSThemeColors.onSurfaceMediumEmphasis,
                     ),
                   ),

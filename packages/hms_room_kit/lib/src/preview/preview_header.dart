@@ -48,15 +48,14 @@ class PreviewHeader extends StatelessWidget {
       ),
       child: Padding(
         padding: EdgeInsets.only(
-          top:
-              (!(previewStore.peer?.role.publishSettings!.allowed.contains(
+          top: (!(previewStore.peer?.role.publishSettings!.allowed.contains(
                     "video",
                   ) ??
                   false)
               ? MediaQuery.of(context).size.height * 0.4
               : Platform.isIOS
-              ? 50
-              : 35),
+                  ? 50
+                  : 35),
         ),
         child: Column(
           children: [
@@ -65,29 +64,24 @@ class PreviewHeader extends StatelessWidget {
             HMSRoomLayout.roleLayoutData?.logo?.url == null
                 ? Container()
                 : HMSRoomLayout.roleLayoutData!.logo!.url!.contains("svg")
-                ? SvgPicture.network(
-                    HMSRoomLayout.roleLayoutData!.logo!.url!,
-                    height: 30,
-                    width: 30,
-                  )
-                : Image.network(
-                    HMSRoomLayout.roleLayoutData!.logo!.url!,
-                    errorBuilder: (context, exception, _) {
-                      log('Error is $exception');
-                      return const SizedBox(width: 30, height: 30);
-                    },
-                    height: 30,
-                    width: 30,
-                  ),
+                    ? SvgPicture.network(
+                        HMSRoomLayout.roleLayoutData!.logo!.url!,
+                        height: 30,
+                        width: 30,
+                      )
+                    : Image.network(
+                        HMSRoomLayout.roleLayoutData!.logo!.url!,
+                        errorBuilder: (context, exception, _) {
+                          log('Error is $exception');
+                          return const SizedBox(width: 30, height: 30);
+                        },
+                        height: 30,
+                        width: 30,
+                      ),
             const SizedBox(height: 16),
             HMSTitleText(
-              text:
-                  HMSRoomLayout
-                      .roleLayoutData
-                      ?.screens
-                      ?.preview
-                      ?.previewHeader
-                      ?.title ??
+              text: HMSRoomLayout
+                      .roleLayoutData?.screens?.preview?.previewHeader?.title ??
                   "Get Started",
               fontSize: 24,
               lineHeight: 32,
@@ -95,13 +89,8 @@ class PreviewHeader extends StatelessWidget {
             ),
             const SizedBox(height: 4),
             HMSSubheadingText(
-              text:
-                  HMSRoomLayout
-                      .roleLayoutData
-                      ?.screens
-                      ?.preview
-                      ?.previewHeader
-                      ?.subTitle ??
+              text: HMSRoomLayout.roleLayoutData?.screens?.preview
+                      ?.previewHeader?.subTitle ??
                   "Setup your audio and video before joining",
               textColor: HMSThemeColors.onSurfaceMediumEmphasis,
             ),

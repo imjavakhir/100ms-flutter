@@ -135,11 +135,10 @@ class _ScreenshareGridLayoutState extends State<ScreenshareGridLayout> {
                           allowImplicitScrolling: true,
                           onPageChanged: (newPage) {
                             context.read<MeetingStore>().setCurrentPage(
-                              newPage,
-                            );
+                                  newPage,
+                                );
                           },
-                          itemCount:
-                              (((widget.peerTracks.length -
+                          itemCount: (((widget.peerTracks.length -
                                       widget.screenshareCount) ~/
                                   2) +
                               (widget.peerTracks.length -
@@ -147,8 +146,7 @@ class _ScreenshareGridLayoutState extends State<ScreenshareGridLayout> {
                                   2),
                           itemBuilder: (context, index) {
                             return SideBySideLayout(
-                              numberOfTiles:
-                                  widget.peerTracks.length -
+                              numberOfTiles: widget.peerTracks.length -
                                   widget.screenshareCount,
                               index: index,
                               peerTracks: widget.peerTracks.sublist(
@@ -175,8 +173,7 @@ class _ScreenshareGridLayoutState extends State<ScreenshareGridLayout> {
                           selector: (_, meetingStore) =>
                               meetingStore.currentPage,
                           builder: (_, currentPage, __) {
-                            int dotsCount =
-                                (((widget.peerTracks.length -
+                            int dotsCount = (((widget.peerTracks.length -
                                         widget.screenshareCount) ~/
                                     2) +
                                 (widget.peerTracks.length -

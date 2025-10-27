@@ -99,15 +99,16 @@ class HLSViewerHeader extends StatelessWidget {
                             ///This renders the settings button
                             GestureDetector(
                               onTap: () {
-                                var _meetingStore = context
-                                    .read<MeetingStore>();
-                                var _hlsPlayerStore = context
-                                    .read<HLSPlayerStore>();
+                                var _meetingStore =
+                                    context.read<MeetingStore>();
+                                var _hlsPlayerStore =
+                                    context.read<HLSPlayerStore>();
                                 showModalBottomSheet(
                                   isScrollControlled: true,
                                   backgroundColor: Colors.transparent,
                                   context: context,
-                                  builder: (ctx) => ChangeNotifierProvider.value(
+                                  builder: (ctx) =>
+                                      ChangeNotifierProvider.value(
                                     value: _meetingStore,
                                     child: ChangeNotifierProvider.value(
                                       value: _hlsPlayerStore,

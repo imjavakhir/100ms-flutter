@@ -88,9 +88,8 @@ class _VideoViewState extends State<VideoView> {
                     scaleType: ScaleType.SCALE_ASPECT_FIT,
                     track: data.item1!,
                     setMirror: false,
-                    disableAutoSimulcastLayerSelect: !(context
-                        .read<MeetingStore>()
-                        .isAutoSimulcast),
+                    disableAutoSimulcastLayerSelect:
+                        !(context.read<MeetingStore>().isAutoSimulcast),
                   ),
                 )
               : SizedBox(
@@ -102,9 +101,8 @@ class _VideoViewState extends State<VideoView> {
                     scaleType: ScaleType.SCALE_ASPECT_FILL,
                     track: data.item1!,
                     setMirror: data.item1.runtimeType == HMSLocalVideoTrack,
-                    disableAutoSimulcastLayerSelect: !(context
-                        .read<MeetingStore>()
-                        .isAutoSimulcast),
+                    disableAutoSimulcastLayerSelect:
+                        !(context.read<MeetingStore>().isAutoSimulcast),
                   ),
                 );
         }

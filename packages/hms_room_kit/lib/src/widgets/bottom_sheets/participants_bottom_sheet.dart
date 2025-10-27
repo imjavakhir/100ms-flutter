@@ -93,22 +93,12 @@ class _ParticipantsBottomSheetState extends State<ParticipantsBottomSheet> {
         meetingStore.localPeer?.role.permissions.changeRole ?? false;
     bool isOnStageRole = meetingStore.getOnStageRole()?.name == peer.role.name;
     bool isOnStageExpPresent = HMSRoomLayout.peerType == PeerRoleType.hlsViewer
-        ? HMSRoomLayout
-                  .roleLayoutData
-                  ?.screens
-                  ?.conferencing
-                  ?.hlsLiveStreaming
-                  ?.elements
-                  ?.onStageExp !=
-              null
-        : HMSRoomLayout
-                  .roleLayoutData
-                  ?.screens
-                  ?.conferencing
-                  ?.defaultConf
-                  ?.elements
-                  ?.onStageExp !=
-              null;
+        ? HMSRoomLayout.roleLayoutData?.screens?.conferencing?.hlsLiveStreaming
+                ?.elements?.onStageExp !=
+            null
+        : HMSRoomLayout.roleLayoutData?.screens?.conferencing?.defaultConf
+                ?.elements?.onStageExp !=
+            null;
     bool isOffStageRole = meetingStore.isOffStageRole(peer.role.name);
 
     ///Here we check whether to show three dots or not
@@ -145,10 +135,10 @@ class _ParticipantsBottomSheetState extends State<ParticipantsBottomSheet> {
                         )["prevRole"];
                         if (previousRole != null) {
                           try {
-                            HMSRole? offStageRole = meetingStore.roles
-                                .firstWhere(
-                                  (element) => element.name == previousRole,
-                                );
+                            HMSRole? offStageRole =
+                                meetingStore.roles.firstWhere(
+                              (element) => element.name == previousRole,
+                            );
                             meetingStore.changeRoleOfPeer(
                               peer: peer,
                               roleName: offStageRole,
@@ -229,10 +219,10 @@ class _ParticipantsBottomSheetState extends State<ParticipantsBottomSheet> {
                           peer: peer,
                           changeRole: (newRole, isForceChange) =>
                               meetingStore.changeRoleOfPeer(
-                                peer: peer,
-                                roleName: newRole,
-                                forceChange: true,
-                              ),
+                            peer: peer,
+                            roleName: newRole,
+                            forceChange: true,
+                          ),
                         ),
                       ),
                     ),
@@ -453,10 +443,8 @@ class _ParticipantsBottomSheetState extends State<ParticipantsBottomSheet> {
                       .participantsInMeetingMap
                       .keys
                       .elementAt(index);
-                  return Selector<
-                    MeetingStore,
-                    Tuple3<int, List<ParticipantsStore>?, String>
-                  >(
+                  return Selector<MeetingStore,
+                      Tuple3<int, List<ParticipantsStore>?, String>>(
                     selector: (_, meetingStore) => Tuple3(
                       meetingStore.participantsInMeetingMap[role]?.length ?? 0,
                       meetingStore.participantsInMeetingMap[role],
@@ -503,11 +491,11 @@ class _ParticipantsBottomSheetState extends State<ParticipantsBottomSheet> {
                                       SizedBox(
                                         height:
                                             participantsPerRole.item2 == null
-                                            ? 0
-                                            : (participantsPerRole.item1) *
-                                                  (isHandRaisedRow(role)
-                                                      ? 60
-                                                      : 54),
+                                                ? 0
+                                                : (participantsPerRole.item1) *
+                                                    (isHandRaisedRow(role)
+                                                        ? 60
+                                                        : 54),
                                         child: Center(
                                           child: ListView.builder(
                                             physics:
@@ -534,14 +522,15 @@ class _ParticipantsBottomSheetState extends State<ParticipantsBottomSheet> {
                                                                 .borderDefault,
                                                           ),
                                                     Padding(
-                                                      padding:
-                                                          const EdgeInsets.fromLTRB(
-                                                            16,
-                                                            8,
-                                                            16,
-                                                            16,
-                                                          ),
-                                                      child: ListenableProvider.value(
+                                                      padding: const EdgeInsets
+                                                          .fromLTRB(
+                                                        16,
+                                                        8,
+                                                        16,
+                                                        16,
+                                                      ),
+                                                      child: ListenableProvider
+                                                          .value(
                                                         value: currentPeer,
                                                         child: Row(
                                                           mainAxisAlignment:
@@ -549,29 +538,30 @@ class _ParticipantsBottomSheetState extends State<ParticipantsBottomSheet> {
                                                                   .spaceBetween,
                                                           children: [
                                                             Selector<
-                                                              ParticipantsStore,
-                                                              String
-                                                            >(
-                                                              selector:
-                                                                  (
-                                                                    _,
-                                                                    participantsStore,
-                                                                  ) =>
-                                                                      participantsStore
-                                                                          .peer
-                                                                          .name,
-                                                              builder: (_, peerName, __) {
+                                                                ParticipantsStore,
+                                                                String>(
+                                                              selector: (
+                                                                _,
+                                                                participantsStore,
+                                                              ) =>
+                                                                  participantsStore
+                                                                      .peer
+                                                                      .name,
+                                                              builder: (_,
+                                                                  peerName,
+                                                                  __) {
                                                                 return Container(
-                                                                  constraints: BoxConstraints(
-                                                                    maxWidth:
-                                                                        MediaQuery.of(
+                                                                  constraints:
+                                                                      BoxConstraints(
+                                                                    maxWidth: MediaQuery
+                                                                            .of(
                                                                           context,
                                                                         ).size.width *
                                                                         0.6,
                                                                   ),
-                                                                  child: HMSTitleText(
-                                                                    text:
-                                                                        peerName +
+                                                                  child:
+                                                                      HMSTitleText(
+                                                                    text: peerName +
                                                                         ((participantsPerRole.item2![peerIndex].peer.isLocal)
                                                                             ? " (You)"
                                                                             : ""),
@@ -593,130 +583,132 @@ class _ParticipantsBottomSheetState extends State<ParticipantsBottomSheet> {
                                                             Row(
                                                               children: [
                                                                 Selector<
-                                                                  ParticipantsStore,
-                                                                  bool
-                                                                >(
-                                                                  builder:
-                                                                      (
-                                                                        _,
-                                                                        isSIPPeer,
-                                                                        __,
-                                                                      ) {
-                                                                        return isSIPPeer
-                                                                            ? Padding(
-                                                                                padding: const EdgeInsets.only(
-                                                                                  right: 4.0,
+                                                                    ParticipantsStore,
+                                                                    bool>(
+                                                                  builder: (
+                                                                    _,
+                                                                    isSIPPeer,
+                                                                    __,
+                                                                  ) {
+                                                                    return isSIPPeer
+                                                                        ? Padding(
+                                                                            padding:
+                                                                                const EdgeInsets.only(
+                                                                              right: 4.0,
+                                                                            ),
+                                                                            child:
+                                                                                CircleAvatar(
+                                                                              radius: 12,
+                                                                              backgroundColor: HMSThemeColors.surfaceDefault,
+                                                                              child: SvgPicture.asset(
+                                                                                "packages/hms_room_kit/lib/src/assets/icons/sip_call.svg",
+                                                                                height: 12,
+                                                                                width: 12,
+                                                                                colorFilter: ColorFilter.mode(
+                                                                                  HMSThemeColors.onSurfaceHighEmphasis,
+                                                                                  BlendMode.srcIn,
                                                                                 ),
-                                                                                child: CircleAvatar(
-                                                                                  radius: 12,
-                                                                                  backgroundColor: HMSThemeColors.surfaceDefault,
-                                                                                  child: SvgPicture.asset(
-                                                                                    "packages/hms_room_kit/lib/src/assets/icons/sip_call.svg",
-                                                                                    height: 12,
-                                                                                    width: 12,
-                                                                                    colorFilter: ColorFilter.mode(
-                                                                                      HMSThemeColors.onSurfaceHighEmphasis,
-                                                                                      BlendMode.srcIn,
-                                                                                    ),
-                                                                                  ),
-                                                                                ),
-                                                                              )
-                                                                            : const SizedBox();
-                                                                      },
-                                                                  selector:
-                                                                      (
-                                                                        _,
-                                                                        participantsStore,
-                                                                      ) =>
-                                                                          participantsStore
-                                                                              .peer
-                                                                              .type ==
-                                                                          HMSPeerType
-                                                                              .sip,
+                                                                              ),
+                                                                            ),
+                                                                          )
+                                                                        : const SizedBox();
+                                                                  },
+                                                                  selector: (
+                                                                    _,
+                                                                    participantsStore,
+                                                                  ) =>
+                                                                      participantsStore
+                                                                          .peer
+                                                                          .type ==
+                                                                      HMSPeerType
+                                                                          .sip,
                                                                 ),
                                                                 Selector<
-                                                                  ParticipantsStore,
-                                                                  Tuple2<
-                                                                    int,
-                                                                    bool
-                                                                  >
-                                                                >(
-                                                                  selector:
-                                                                      (
-                                                                        _,
-                                                                        participantsStore,
-                                                                      ) => Tuple2(
-                                                                        participantsStore.peer.networkQuality?.quality ??
-                                                                            -1,
-                                                                        participantsStore.peer.type !=
-                                                                            HMSPeerType.sip,
-                                                                      ),
-                                                                  builder:
-                                                                      (
-                                                                        _,
-                                                                        participantData,
-                                                                        __,
-                                                                      ) {
-                                                                        return participantData.item1 !=
-                                                                                    -1 &&
-                                                                                participantData.item1 <
-                                                                                    3 &&
-                                                                                participantData.item2
-                                                                            ? Padding(
-                                                                                padding: const EdgeInsets.only(
-                                                                                  right: 4.0,
-                                                                                ),
-                                                                                child: CircleAvatar(
-                                                                                  radius: 12,
-                                                                                  backgroundColor: HMSThemeColors.surfaceDefault,
-                                                                                  child: SvgPicture.asset(
-                                                                                    "packages/hms_room_kit/lib/src/assets/icons/network_${participantData.item1}.svg",
-                                                                                    height: 12,
-                                                                                    width: 12,
-                                                                                  ),
-                                                                                ),
-                                                                              )
-                                                                            : const SizedBox();
-                                                                      },
+                                                                    ParticipantsStore,
+                                                                    Tuple2<int,
+                                                                        bool>>(
+                                                                  selector: (
+                                                                    _,
+                                                                    participantsStore,
+                                                                  ) =>
+                                                                      Tuple2(
+                                                                    participantsStore
+                                                                            .peer
+                                                                            .networkQuality
+                                                                            ?.quality ??
+                                                                        -1,
+                                                                    participantsStore
+                                                                            .peer
+                                                                            .type !=
+                                                                        HMSPeerType
+                                                                            .sip,
+                                                                  ),
+                                                                  builder: (
+                                                                    _,
+                                                                    participantData,
+                                                                    __,
+                                                                  ) {
+                                                                    return participantData.item1 != -1 &&
+                                                                            participantData.item1 <
+                                                                                3 &&
+                                                                            participantData.item2
+                                                                        ? Padding(
+                                                                            padding:
+                                                                                const EdgeInsets.only(
+                                                                              right: 4.0,
+                                                                            ),
+                                                                            child:
+                                                                                CircleAvatar(
+                                                                              radius: 12,
+                                                                              backgroundColor: HMSThemeColors.surfaceDefault,
+                                                                              child: SvgPicture.asset(
+                                                                                "packages/hms_room_kit/lib/src/assets/icons/network_${participantData.item1}.svg",
+                                                                                height: 12,
+                                                                                width: 12,
+                                                                              ),
+                                                                            ),
+                                                                          )
+                                                                        : const SizedBox();
+                                                                  },
                                                                 ),
                                                                 Selector<
-                                                                  ParticipantsStore,
-                                                                  bool
-                                                                >(
-                                                                  selector:
-                                                                      (
-                                                                        _,
-                                                                        participantsStore,
-                                                                      ) => (participantsStore
+                                                                    ParticipantsStore,
+                                                                    bool>(
+                                                                  selector: (
+                                                                    _,
+                                                                    participantsStore,
+                                                                  ) =>
+                                                                      (participantsStore
                                                                           .peer
                                                                           .isHandRaised),
-                                                                  builder:
-                                                                      (
-                                                                        _,
-                                                                        isHandRaised,
-                                                                        __,
-                                                                      ) {
-                                                                        return isHandRaised
-                                                                            ? Padding(
-                                                                                padding: const EdgeInsets.only(
-                                                                                  right: 16.0,
+                                                                  builder: (
+                                                                    _,
+                                                                    isHandRaised,
+                                                                    __,
+                                                                  ) {
+                                                                    return isHandRaised
+                                                                        ? Padding(
+                                                                            padding:
+                                                                                const EdgeInsets.only(
+                                                                              right: 16.0,
+                                                                            ),
+                                                                            child:
+                                                                                CircleAvatar(
+                                                                              radius: 12,
+                                                                              backgroundColor: HMSThemeColors.surfaceDefault,
+                                                                              child: SvgPicture.asset(
+                                                                                "packages/hms_room_kit/lib/src/assets/icons/hand_outline.svg",
+                                                                                height: 12,
+                                                                                width: 12,
+                                                                                colorFilter: ColorFilter.mode(
+                                                                                  HMSThemeColors.onSurfaceHighEmphasis,
+                                                                                  BlendMode.srcIn,
                                                                                 ),
-                                                                                child: CircleAvatar(
-                                                                                  radius: 12,
-                                                                                  backgroundColor: HMSThemeColors.surfaceDefault,
-                                                                                  child: SvgPicture.asset(
-                                                                                    "packages/hms_room_kit/lib/src/assets/icons/hand_outline.svg",
-                                                                                    height: 12,
-                                                                                    width: 12,
-                                                                                    colorFilter: ColorFilter.mode(
-                                                                                      HMSThemeColors.onSurfaceHighEmphasis,
-                                                                                      BlendMode.srcIn,
-                                                                                    ),
-                                                                                  ),
-                                                                                ),
-                                                                              )
-                                                                            : const SizedBox();
-                                                                      },
+                                                                              ),
+                                                                            ),
+                                                                          )
+                                                                        : const SizedBox();
+                                                                  },
                                                                 ),
                                                                 _kebabMenu(
                                                                   currentPeer
@@ -754,11 +746,11 @@ class _ParticipantsBottomSheetState extends State<ParticipantsBottomSheet> {
                                             Padding(
                                               padding:
                                                   const EdgeInsets.fromLTRB(
-                                                    16,
-                                                    12,
-                                                    16,
-                                                    12,
-                                                  ),
+                                                16,
+                                                12,
+                                                16,
+                                                12,
+                                              ),
                                               child: GestureDetector(
                                                 onTap: () {
                                                   viewAll(role);
@@ -776,20 +768,22 @@ class _ParticipantsBottomSheetState extends State<ParticipantsBottomSheet> {
                                                         ),
                                                         Padding(
                                                           padding:
-                                                              const EdgeInsets.only(
-                                                                left: 4.0,
-                                                              ),
-                                                          child: SvgPicture.asset(
+                                                              const EdgeInsets
+                                                                  .only(
+                                                            left: 4.0,
+                                                          ),
+                                                          child:
+                                                              SvgPicture.asset(
                                                             "packages/hms_room_kit/lib/src/assets/icons/right_arrow.svg",
                                                             width: 24,
                                                             height: 24,
                                                             colorFilter:
-                                                                ColorFilter.mode(
-                                                                  HMSThemeColors
-                                                                      .onSurfaceHighEmphasis,
-                                                                  BlendMode
-                                                                      .srcIn,
-                                                                ),
+                                                                ColorFilter
+                                                                    .mode(
+                                                              HMSThemeColors
+                                                                  .onSurfaceHighEmphasis,
+                                                              BlendMode.srcIn,
+                                                            ),
                                                           ),
                                                         ),
                                                       ],

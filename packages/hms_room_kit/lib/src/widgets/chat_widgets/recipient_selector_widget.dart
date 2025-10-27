@@ -100,9 +100,8 @@ class _RecipientSelectorWidgetState extends State<RecipientSelectorWidget> {
                               });
                               widget.updateUI(currentlySelectedValue, null);
                               context
-                                      .read<MeetingStore>()
-                                      .recipientSelectorValue =
-                                  "Everyone";
+                                  .read<MeetingStore>()
+                                  .recipientSelectorValue = "Everyone";
                               Navigator.pop(context);
                             },
                             dense: true,
@@ -195,14 +194,15 @@ class _RecipientSelectorWidgetState extends State<RecipientSelectorWidget> {
                                         null,
                                       );
                                       context
-                                          .read<MeetingStore>()
-                                          .recipientSelectorValue = context
-                                          .read<MeetingStore>()
-                                          .roles
-                                          .firstWhere(
-                                            (element) =>
-                                                element.name == roleName,
-                                          );
+                                              .read<MeetingStore>()
+                                              .recipientSelectorValue =
+                                          context
+                                              .read<MeetingStore>()
+                                              .roles
+                                              .firstWhere(
+                                                (element) =>
+                                                    element.name == roleName,
+                                              );
                                       Navigator.pop(context);
                                     },
                                     title: HMSTitleText(
@@ -294,28 +294,24 @@ class _RecipientSelectorWidgetState extends State<RecipientSelectorWidget> {
                           ),
                           builder: (_, data, __) {
                             return data.item2 <= 1
-                                ? ((HMSRoomLayout
-                                                  .chatData
-                                                  ?.isPrivateChatEnabled ??
-                                              false) &&
-                                          !(HMSRoomLayout
-                                                  .chatData
-                                                  ?.isPublicChatEnabled ??
-                                              true) &&
-                                          (HMSRoomLayout
-                                                  .chatData
-                                                  ?.rolesWhitelist
-                                                  .isEmpty ??
-                                              false))
-                                      ? HMSTitleText(
-                                          text: "No recipients yet",
-                                          textColor: HMSThemeColors
-                                              .onSurfaceMediumEmphasis,
-                                          fontSize: 14,
-                                          letterSpacing: 0.1,
-                                          lineHeight: 20,
-                                        )
-                                      : const SizedBox()
+                                ? ((HMSRoomLayout.chatData
+                                                ?.isPrivateChatEnabled ??
+                                            false) &&
+                                        !(HMSRoomLayout.chatData
+                                                ?.isPublicChatEnabled ??
+                                            true) &&
+                                        (HMSRoomLayout.chatData?.rolesWhitelist
+                                                .isEmpty ??
+                                            false))
+                                    ? HMSTitleText(
+                                        text: "No recipients yet",
+                                        textColor: HMSThemeColors
+                                            .onSurfaceMediumEmphasis,
+                                        fontSize: 14,
+                                        letterSpacing: 0.1,
+                                        lineHeight: 20,
+                                      )
+                                    : const SizedBox()
                                 : Padding(
                                     padding: const EdgeInsets.only(
                                       left: 10.0,
@@ -325,6 +321,7 @@ class _RecipientSelectorWidgetState extends State<RecipientSelectorWidget> {
                                       children: data.item1
                                           .where(
                                             (peer) =>
+
                                                 ///Don't show local and SIP peers
                                                 peer.isLocal == false &&
                                                 peer.type != HMSPeerType.sip,
@@ -344,10 +341,10 @@ class _RecipientSelectorWidgetState extends State<RecipientSelectorWidget> {
                                                         .read<MeetingStore>()
                                                         .recipientSelectorValue =
                                                     data.item1.firstWhere(
-                                                      (element) =>
-                                                          element.peerId ==
-                                                          peer.peerId,
-                                                    );
+                                                  (element) =>
+                                                      element.peerId ==
+                                                      peer.peerId,
+                                                );
                                                 Navigator.pop(context);
                                               },
                                               title: HMSTitleText(
@@ -360,19 +357,20 @@ class _RecipientSelectorWidgetState extends State<RecipientSelectorWidget> {
                                               ),
                                               trailing:
                                                   currentlySelectedValue ==
-                                                      peer.peerId
-                                                  ? SvgPicture.asset(
-                                                      "packages/hms_room_kit/lib/src/assets/icons/tick.svg",
-                                                      fit: BoxFit.scaleDown,
-                                                      height: 20,
-                                                      width: 20,
-                                                      colorFilter: ColorFilter.mode(
-                                                        HMSThemeColors
-                                                            .onSurfaceHighEmphasis,
-                                                        BlendMode.srcIn,
-                                                      ),
-                                                    )
-                                                  : const SizedBox(),
+                                                          peer.peerId
+                                                      ? SvgPicture.asset(
+                                                          "packages/hms_room_kit/lib/src/assets/icons/tick.svg",
+                                                          fit: BoxFit.scaleDown,
+                                                          height: 20,
+                                                          width: 20,
+                                                          colorFilter:
+                                                              ColorFilter.mode(
+                                                            HMSThemeColors
+                                                                .onSurfaceHighEmphasis,
+                                                            BlendMode.srcIn,
+                                                          ),
+                                                        )
+                                                      : const SizedBox(),
                                             ),
                                           )
                                           .toList(),

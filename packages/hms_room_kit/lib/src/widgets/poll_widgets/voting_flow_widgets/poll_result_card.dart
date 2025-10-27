@@ -114,12 +114,12 @@ class PollResultCard extends StatelessWidget {
           ///is correct or not
           border: isPollEnded
               ? (isPoll || question.myResponses.isEmpty)
-                    ? const Border()
-                    : Border.all(
-                        color: _isMyOptionCorrect()
-                            ? HMSThemeColors.alertSuccess
-                            : HMSThemeColors.alertErrorDefault,
-                      )
+                  ? const Border()
+                  : Border.all(
+                      color: _isMyOptionCorrect()
+                          ? HMSThemeColors.alertSuccess
+                          : HMSThemeColors.alertErrorDefault,
+                    )
               : null,
         ),
         child: Padding(
@@ -236,8 +236,7 @@ class PollResultCard extends StatelessWidget {
                                   ),
                                 ),
                                 Expanded(
-                                  flex:
-                                      totalVotes -
+                                  flex: totalVotes -
                                       question.options[index].voteCount,
                                   child: Container(
                                     decoration: BoxDecoration(

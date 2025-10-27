@@ -127,10 +127,8 @@ class _ChatBottomSheetState extends State<ChatBottomSheet> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const SizedBox(height: 15),
-                    Selector<
-                      MeetingStore,
-                      Tuple4<List<HMSMessage>, int, List<dynamic>, int>
-                    >(
+                    Selector<MeetingStore,
+                        Tuple4<List<HMSMessage>, int, List<dynamic>, int>>(
                       selector: (_, meetingStore) => Tuple4(
                         meetingStore.messages,
                         meetingStore.messages.length,
@@ -140,56 +138,61 @@ class _ChatBottomSheetState extends State<ChatBottomSheet> {
                       builder: (context, data, _) {
                         _scrollToEnd();
                         return
-                        ///If there are no chats and no pinned messages
-                        (data.item2 == 0 && data.item3.isEmpty)
-                            ? Expanded(
-                                child: SingleChildScrollView(
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  child: ConstrainedBox(
-                                    constraints: BoxConstraints(
-                                      minHeight:
-                                          MediaQuery.of(context).size.height *
-                                          0.5,
-                                    ),
-                                    child: const HMSEmptyChatWidget(),
-                                  ),
-                                ),
-                              )
-                            : Expanded(
-                                child: Column(
-                                  children: [
-                                    Expanded(
-                                      flex: 1,
-                                      child: const PinChatWidget(),
-                                    ),
 
-                                    /// List containing chats
-                                    Expanded(
-                                      flex: 3,
-                                      child: SingleChildScrollView(
-                                        reverse: true,
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          children: [
-                                            ListView.builder(
-                                              controller: _scrollController,
-                                              shrinkWrap: true,
-                                              itemCount: data.item1.length,
-                                              itemBuilder: (_, index) {
-                                                return MessageContainer(
-                                                  isHLSChat: widget.isHLSChat,
-                                                  message: data.item1[index],
-                                                );
-                                              },
-                                            ),
-                                          ],
+                            ///If there are no chats and no pinned messages
+                            (data.item2 == 0 && data.item3.isEmpty)
+                                ? Expanded(
+                                    child: SingleChildScrollView(
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
+                                      child: ConstrainedBox(
+                                        constraints: BoxConstraints(
+                                          minHeight: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.5,
                                         ),
+                                        child: const HMSEmptyChatWidget(),
                                       ),
                                     ),
-                                  ],
-                                ),
-                              );
+                                  )
+                                : Expanded(
+                                    child: Column(
+                                      children: [
+                                        Expanded(
+                                          flex: 1,
+                                          child: const PinChatWidget(),
+                                        ),
+
+                                        /// List containing chats
+                                        Expanded(
+                                          flex: 3,
+                                          child: SingleChildScrollView(
+                                            reverse: true,
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.end,
+                                              children: [
+                                                ListView.builder(
+                                                  controller: _scrollController,
+                                                  shrinkWrap: true,
+                                                  itemCount: data.item1.length,
+                                                  itemBuilder: (_, index) {
+                                                    return MessageContainer(
+                                                      isHLSChat:
+                                                          widget.isHLSChat,
+                                                      message:
+                                                          data.item1[index],
+                                                    );
+                                                  },
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  );
                       },
                     ),
 

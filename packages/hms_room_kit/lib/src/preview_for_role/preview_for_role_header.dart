@@ -39,16 +39,17 @@ class _PreviewForRoleHeaderState extends State<PreviewForRoleHeader> {
               HMSRoomLayout.roleLayoutData?.logo?.url == null
                   ? Container()
                   : HMSRoomLayout.roleLayoutData!.logo!.url!.contains("svg")
-                  ? SvgPicture.network(HMSRoomLayout.roleLayoutData!.logo!.url!)
-                  : Image.network(
-                      HMSRoomLayout.roleLayoutData!.logo!.url!,
-                      errorBuilder: (context, exception, _) {
-                        log('Error is $exception');
-                        return const SizedBox(width: 30, height: 30);
-                      },
-                      height: 30,
-                      width: 30,
-                    ),
+                      ? SvgPicture.network(
+                          HMSRoomLayout.roleLayoutData!.logo!.url!)
+                      : Image.network(
+                          HMSRoomLayout.roleLayoutData!.logo!.url!,
+                          errorBuilder: (context, exception, _) {
+                            log('Error is $exception');
+                            return const SizedBox(width: 30, height: 30);
+                          },
+                          height: 30,
+                          width: 30,
+                        ),
               const SizedBox(width: 12),
 
               ///We render the LIVE icon based on the HLS streaming status
@@ -86,9 +87,9 @@ class _PreviewForRoleHeaderState extends State<PreviewForRoleHeader> {
               ///If the recording is started we show the recording icon
               ///If the recording is not started we show nothing
               Selector<
-                MeetingStore,
-                Tuple3<HMSRecordingState, HMSRecordingState, HMSRecordingState>
-              >(
+                  MeetingStore,
+                  Tuple3<HMSRecordingState, HMSRecordingState,
+                      HMSRecordingState>>(
                 selector: (_, meetingStore) => Tuple3(
                   meetingStore.recordingType["browser"] ??
                       HMSRecordingState.none,

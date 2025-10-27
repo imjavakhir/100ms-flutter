@@ -13,7 +13,7 @@ import 'package:provider/provider.dart';
 class StatsForNerds extends StatefulWidget {
   final List<PeerTrackNode> peerTrackNode;
   const StatsForNerds({Key? key, required this.peerTrackNode})
-    : super(key: key);
+      : super(key: key);
 
   @override
   State<StatsForNerds> createState() => _StatsForNerdsState();
@@ -270,7 +270,7 @@ class StatsUI extends StatelessWidget {
   final PeerTrackNode peerNode;
   final String statsType;
   const StatsUI({Key? key, required this.peerNode, required this.statsType})
-    : super(key: key);
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -483,12 +483,12 @@ class StatsUI extends StatelessWidget {
       return Selector<PeerTrackNode, HMSLocalVideoStats?>(
         selector: (_, peerTrackNode) =>
             peerTrackNode.stats?.hmsLocalVideoStats?.firstWhere(
-              (element) => statsType.toLowerCase().contains(
+          (element) => statsType.toLowerCase().contains(
                 HMSSimulcastLayerValue.getValueFromHMSSimulcastLayer(
                   element.hmsLayer,
                 ),
               ),
-            ),
+        ),
         builder: (_, hmsLocalVideoStats, __) {
           return Wrap(
             spacing: 10,

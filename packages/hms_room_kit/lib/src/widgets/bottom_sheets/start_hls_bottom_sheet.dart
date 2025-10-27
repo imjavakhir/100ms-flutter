@@ -154,9 +154,9 @@ class _StartHLSBottomSheetState extends State<StartHLSBottomSheet> {
               width: MediaQuery.of(context).size.width - 30,
               onPressed: () => {
                 context.read<MeetingStore>().startHLSStreaming(
-                  _isRecordingOn,
-                  false,
-                ),
+                      _isRecordingOn,
+                      false,
+                    ),
                 Navigator.pop(context),
               },
               childWidget: Padding(

@@ -275,81 +275,35 @@ class HMSRoomLayout {
     if (peerType == PeerRoleType.conferencing) {
       chatData =
           roleLayoutData?.screens?.conferencing?.defaultConf?.elements?.chat;
-      isParticipantsListEnabled =
-          roleLayoutData
-              ?.screens
-              ?.conferencing
-              ?.defaultConf
-              ?.elements
-              ?.participantList !=
+      isParticipantsListEnabled = roleLayoutData
+              ?.screens?.conferencing?.defaultConf?.elements?.participantList !=
           null;
       isBRBEnabled =
           roleLayoutData?.screens?.conferencing?.defaultConf?.elements?.brb !=
+              null;
+      isHandRaiseEnabled = roleLayoutData
+              ?.screens?.conferencing?.defaultConf?.elements?.handRaise !=
           null;
-      isHandRaiseEnabled =
-          roleLayoutData
-              ?.screens
-              ?.conferencing
-              ?.defaultConf
-              ?.elements
-              ?.handRaise !=
-          null;
-      offStageRoles = roleLayoutData
-          ?.screens
-          ?.conferencing
-          ?.defaultConf
-          ?.elements
-          ?.onStageExp
-          ?.offStageRoles;
-      skipPreviewForRole =
-          roleLayoutData
-              ?.screens
-              ?.conferencing
-              ?.defaultConf
-              ?.elements
-              ?.onStageExp
-              ?.skipPreviewForRoleChange ??
+      offStageRoles = roleLayoutData?.screens?.conferencing?.defaultConf
+          ?.elements?.onStageExp?.offStageRoles;
+      skipPreviewForRole = roleLayoutData?.screens?.conferencing?.defaultConf
+              ?.elements?.onStageExp?.skipPreviewForRoleChange ??
           false;
     } else {
       chatData = roleLayoutData
-          ?.screens
-          ?.conferencing
-          ?.hlsLiveStreaming
-          ?.elements
-          ?.chat;
-      isParticipantsListEnabled =
-          roleLayoutData
-              ?.screens
-              ?.conferencing
-              ?.hlsLiveStreaming
-              ?.elements
-              ?.participantList !=
+          ?.screens?.conferencing?.hlsLiveStreaming?.elements?.chat;
+      isParticipantsListEnabled = roleLayoutData?.screens?.conferencing
+              ?.hlsLiveStreaming?.elements?.participantList !=
           null;
-      isBRBEnabled =
-          roleLayoutData
-              ?.screens
-              ?.conferencing
-              ?.hlsLiveStreaming
-              ?.elements
-              ?.brb !=
+      isBRBEnabled = roleLayoutData
+              ?.screens?.conferencing?.hlsLiveStreaming?.elements?.brb !=
           null;
-      isHandRaiseEnabled =
-          roleLayoutData
-              ?.screens
-              ?.conferencing
-              ?.hlsLiveStreaming
-              ?.elements
-              ?.handRaise !=
+      isHandRaiseEnabled = roleLayoutData
+              ?.screens?.conferencing?.hlsLiveStreaming?.elements?.handRaise !=
           null;
-      offStageRoles = roleLayoutData
-          ?.screens
-          ?.conferencing
-          ?.hlsLiveStreaming
-          ?.elements
-          ?.onStageExp
-          ?.offStageRoles;
-      skipPreviewForRole =
-          roleLayoutData
+      offStageRoles = roleLayoutData?.screens?.conferencing?.hlsLiveStreaming
+          ?.elements?.onStageExp?.offStageRoles;
+      skipPreviewForRole = roleLayoutData
               ?.screens
               ?.conferencing
               ?.hlsLiveStreaming

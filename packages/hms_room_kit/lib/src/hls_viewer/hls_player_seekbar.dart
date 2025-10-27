@@ -55,7 +55,7 @@ class _HLSPlayerSeekbarState extends State<HLSPlayerSeekbar> {
               ///We only subtract the time from live from the rolling window if the time from live is greater than 0
               seekBarValue = maxValue > 0
                   ? maxValue -
-                        (data.item1.inSeconds > 0 ? data.item1.inSeconds : 0)
+                      (data.item1.inSeconds > 0 ? data.item1.inSeconds : 0)
                   : 0;
               minValue = 0;
               return (maxValue > 0 && seekBarValue > 0)

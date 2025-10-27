@@ -97,8 +97,7 @@ class _PinChatWidgetState extends State<PinChatWidget> {
                           height: containerHeight,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(8),
-                            color:
-                                widget.backgroundColor ??
+                            color: widget.backgroundColor ??
                                 HMSThemeColors.surfaceDefault,
                           ),
                           duration: const Duration(milliseconds: 0),
@@ -166,42 +165,41 @@ class _PinChatWidgetState extends State<PinChatWidget> {
                                         setCurrentPage(value),
                                     itemBuilder: (context, index) =>
                                         SelectableLinkify(
-                                          maxLines: 3,
-                                          scrollPhysics: isExpanded
-                                              ? const BouncingScrollPhysics()
-                                              : const NeverScrollableScrollPhysics(),
-                                          text: data.item1[index]["text"],
-                                          onOpen: (link) async {
-                                            Uri url = Uri.parse(link.url);
-                                            if (await canLaunchUrl(url)) {
-                                              await launchUrl(
-                                                url,
-                                                mode: LaunchMode
-                                                    .externalApplication,
-                                              );
-                                            }
-                                          },
-                                          onTap: () => toggleExpand(),
-                                          options: const LinkifyOptions(
-                                            humanize: false,
-                                          ),
-                                          style: HMSTextStyle.setTextStyle(
-                                            fontSize: 14.0,
-                                            color: HMSThemeColors
-                                                .onSurfaceHighEmphasis,
-                                            letterSpacing: 0.25,
-                                            height: 20 / 14,
-                                            fontWeight: FontWeight.w400,
-                                          ),
-                                          linkStyle: HMSTextStyle.setTextStyle(
-                                            fontSize: 14.0,
-                                            color:
-                                                HMSThemeColors.primaryDefault,
-                                            letterSpacing: 0.25,
-                                            height: 20 / 14,
-                                            fontWeight: FontWeight.w400,
-                                          ),
-                                        ),
+                                      maxLines: 3,
+                                      scrollPhysics: isExpanded
+                                          ? const BouncingScrollPhysics()
+                                          : const NeverScrollableScrollPhysics(),
+                                      text: data.item1[index]["text"],
+                                      onOpen: (link) async {
+                                        Uri url = Uri.parse(link.url);
+                                        if (await canLaunchUrl(url)) {
+                                          await launchUrl(
+                                            url,
+                                            mode:
+                                                LaunchMode.externalApplication,
+                                          );
+                                        }
+                                      },
+                                      onTap: () => toggleExpand(),
+                                      options: const LinkifyOptions(
+                                        humanize: false,
+                                      ),
+                                      style: HMSTextStyle.setTextStyle(
+                                        fontSize: 14.0,
+                                        color: HMSThemeColors
+                                            .onSurfaceHighEmphasis,
+                                        letterSpacing: 0.25,
+                                        height: 20 / 14,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                      linkStyle: HMSTextStyle.setTextStyle(
+                                        fontSize: 14.0,
+                                        color: HMSThemeColors.primaryDefault,
+                                        letterSpacing: 0.25,
+                                        height: 20 / 14,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),

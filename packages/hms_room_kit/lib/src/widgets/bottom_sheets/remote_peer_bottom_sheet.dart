@@ -224,11 +224,7 @@ class _RemotePeerBottomSheetState extends State<RemotePeerBottomSheet> {
                             : HMSThemeColors.onSurfaceHighEmphasis,
                       ),
                     ),
-                  if ((widget
-                              .meetingStore
-                              .localPeer
-                              ?.role
-                              .permissions
+                  if ((widget.meetingStore.localPeer?.role.permissions
                               .changeRole ??
                           false) &&
                       (widget.meetingStore.roles.length > 1))
@@ -258,10 +254,10 @@ class _RemotePeerBottomSheetState extends State<RemotePeerBottomSheet> {
                                 peer: widget.peerTrackNode.peer,
                                 changeRole: (newRole, isForceChange) =>
                                     widget.meetingStore.changeRoleOfPeer(
-                                      peer: widget.peerTrackNode.peer,
-                                      roleName: newRole,
-                                      forceChange: isForceChange,
-                                    ),
+                                  peer: widget.peerTrackNode.peer,
+                                  roleName: newRole,
+                                  forceChange: isForceChange,
+                                ),
                               ),
                             ),
                           ),
@@ -299,11 +295,7 @@ class _RemotePeerBottomSheetState extends State<RemotePeerBottomSheet> {
                   //     title: HMSSubheadingText(
                   //         text: "Volume",
                   //         textColor: HMSThemeColors.onSurfaceHighEmphasis)),
-                  if (widget
-                          .meetingStore
-                          .localPeer
-                          ?.role
-                          .permissions
+                  if (widget.meetingStore.localPeer?.role.permissions
                           .removeOthers ??
                       false)
                     ListTile(

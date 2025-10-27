@@ -20,7 +20,7 @@ class AudioTile extends StatelessWidget {
   final double itemHeight;
   final double itemWidth;
   const AudioTile({this.itemHeight = 200.0, this.itemWidth = 200.0, Key? key})
-    : super(key: key);
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

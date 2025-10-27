@@ -82,8 +82,8 @@ class _HLSViewerQualitySelectorBottomSheetState
                         return GestureDetector(
                           onTap: () {
                             context.read<HLSPlayerStore>().setHLSLayer(
-                              data.item1.entries.elementAt(index).value,
-                            );
+                                  data.item1.entries.elementAt(index).value,
+                                );
                             Navigator.pop(context);
                           },
                           child: ListTile(
@@ -98,8 +98,9 @@ class _HLSViewerQualitySelectorBottomSheetState
                               fontWeight: FontWeight.w600,
                               textColor: HMSThemeColors.onSurfaceHighEmphasis,
                             ),
-                            trailing:
-                                context.read<HLSPlayerStore>().selectedLayer ==
+                            trailing: context
+                                        .read<HLSPlayerStore>()
+                                        .selectedLayer ==
                                     data.item1.entries.elementAt(index).value
                                 ? SizedBox(
                                     height: 24,

@@ -72,20 +72,20 @@ class HLSStreamDescription extends StatelessWidget {
                 HMSRoomLayout.roleLayoutData?.logo?.url == null
                     ? Container()
                     : HMSRoomLayout.roleLayoutData!.logo!.url!.contains("svg")
-                    ? SvgPicture.network(
-                        HMSRoomLayout.roleLayoutData!.logo!.url!,
-                        height: 32,
-                        width: 32,
-                      )
-                    : Image.network(
-                        HMSRoomLayout.roleLayoutData!.logo!.url!,
-                        errorBuilder: (context, exception, _) {
-                          log('Error is $exception');
-                          return const SizedBox(width: 32, height: 32);
-                        },
-                        height: 32,
-                        width: 32,
-                      ),
+                        ? SvgPicture.network(
+                            HMSRoomLayout.roleLayoutData!.logo!.url!,
+                            height: 32,
+                            width: 32,
+                          )
+                        : Image.network(
+                            HMSRoomLayout.roleLayoutData!.logo!.url!,
+                            errorBuilder: (context, exception, _) {
+                              log('Error is $exception');
+                              return const SizedBox(width: 32, height: 32);
+                            },
+                            height: 32,
+                            width: 32,
+                          ),
                 SizedBox(width: 12),
                 Expanded(
                   child: Column(
@@ -105,8 +105,7 @@ class HLSStreamDescription extends StatelessWidget {
                           false)
                         Container(
                           child: HMSSubheadingText(
-                            text:
-                                HMSRoomLayout
+                            text: HMSRoomLayout
                                     .roleLayoutData
                                     ?.screens
                                     ?.conferencing
@@ -197,12 +196,8 @@ class HLSStreamDescription extends StatelessWidget {
                                 )
                               : Selector<
                                   MeetingStore,
-                                  Tuple3<
-                                    HMSRecordingState,
-                                    HMSRecordingState,
-                                    HMSRecordingState
-                                  >
-                                >(
+                                  Tuple3<HMSRecordingState, HMSRecordingState,
+                                      HMSRecordingState>>(
                                   selector: (_, meetingStore) => Tuple3(
                                     meetingStore.recordingType["browser"] ??
                                         HMSRecordingState.none,
@@ -229,8 +224,8 @@ class HLSStreamDescription extends StatelessWidget {
                                               Padding(
                                                 padding:
                                                     const EdgeInsets.symmetric(
-                                                      horizontal: 8.0,
-                                                    ),
+                                                  horizontal: 8.0,
+                                                ),
                                                 child: SvgPicture.asset(
                                                   "packages/hms_room_kit/lib/src/assets/icons/red_dot.svg",
                                                   colorFilter: ColorFilter.mode(
@@ -267,14 +262,8 @@ class HLSStreamDescription extends StatelessWidget {
                 child: Divider(color: HMSThemeColors.borderBright, height: 2),
               ),
             if (showDescription &&
-                (HMSRoomLayout
-                        .roleLayoutData
-                        ?.screens
-                        ?.conferencing
-                        ?.hlsLiveStreaming
-                        ?.elements
-                        ?.header
-                        ?.description !=
+                (HMSRoomLayout.roleLayoutData?.screens?.conferencing
+                        ?.hlsLiveStreaming?.elements?.header?.description !=
                     null))
               Padding(
                 padding: const EdgeInsets.only(top: 16.0),
@@ -287,8 +276,7 @@ class HLSStreamDescription extends StatelessWidget {
                       maxHeight: MediaQuery.of(context).size.height * 0.38,
                     ),
                     child: SelectableLinkify(
-                      text:
-                          HMSRoomLayout
+                      text: HMSRoomLayout
                               .roleLayoutData
                               ?.screens
                               ?.conferencing

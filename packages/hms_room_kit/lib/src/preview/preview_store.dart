@@ -72,10 +72,7 @@ class PreviewStore extends ChangeNotifier
         notifyListeners();
         peer = each;
         if (HMSRoomLayout
-                .roleLayoutData
-                ?.screens
-                ?.conferencing
-                ?.hlsLiveStreaming !=
+                .roleLayoutData?.screens?.conferencing?.hlsLiveStreaming !=
             null) {
           isHLSLink = true;
         }
@@ -219,26 +216,22 @@ class PreviewStore extends ChangeNotifier
   }
 
   void checkNoiseCancellationAvailablility() async {
-    isNoiseCancellationAvailable = await hmsSDKInteractor
-        .isNoiseCancellationAvailable();
+    isNoiseCancellationAvailable =
+        await hmsSDKInteractor.isNoiseCancellationAvailable();
 
     ///Here we check if noise cancellation is available, if its available
     ///then we check if its enabled from dashboard in preview
     ///If yes we enable it.
     ///Else we check the noise cancellation status to update the UI
     if (isNoiseCancellationAvailable) {
-      if (HMSRoomLayout
-              .roleLayoutData
-              ?.screens
-              ?.preview
-              ?.noiseCancellation
+      if (HMSRoomLayout.roleLayoutData?.screens?.preview?.noiseCancellation
               ?.enabledByDefault ??
           false) {
         hmsSDKInteractor.enableNoiseCancellation();
         isNoiseCancellationEnabled = true;
       } else {
-        isNoiseCancellationEnabled = await hmsSDKInteractor
-            .isNoiseCancellationEnabled();
+        isNoiseCancellationEnabled =
+            await hmsSDKInteractor.isNoiseCancellationEnabled();
       }
     }
     notifyListeners();

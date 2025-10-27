@@ -145,7 +145,7 @@ class MeetingStore extends ChangeNotifier
 
   bool isOverlayChatOpened =
       (HMSRoomLayout.chatData?.isOpenInitially ?? false) &&
-      (HMSRoomLayout.chatData?.isOverlay ?? false);
+          (HMSRoomLayout.chatData?.isOverlay ?? false);
 
   int firstTimeBuild = 0;
 
@@ -325,8 +325,7 @@ class MeetingStore extends ChangeNotifier
   ///This method is used to set the meeting mode using the layout api
   void setMeetingModeUsingLayoutApi() {
     if (HMSRoomLayout.peerType == PeerRoleType.conferencing) {
-      meetingMode =
-          (HMSRoomLayout
+      meetingMode = (HMSRoomLayout
                   .roleLayoutData
                   ?.screens
                   ?.conferencing
@@ -562,27 +561,15 @@ class MeetingStore extends ChangeNotifier
 
   HMSRole? getOnStageRole() {
     if (HMSRoomLayout.peerType == PeerRoleType.conferencing) {
-      String? roleName = HMSRoomLayout
-          .roleLayoutData
-          ?.screens
-          ?.conferencing
-          ?.defaultConf
-          ?.elements
-          ?.onStageExp
-          ?.onStageRole;
+      String? roleName = HMSRoomLayout.roleLayoutData?.screens?.conferencing
+          ?.defaultConf?.elements?.onStageExp?.onStageRole;
       int? roleIndex = roles.indexWhere((element) => element.name == roleName);
       if (roleIndex != -1) {
         return roles[roleIndex];
       }
     } else if (HMSRoomLayout.peerType == PeerRoleType.hlsViewer) {
-      String? roleName = HMSRoomLayout
-          .roleLayoutData
-          ?.screens
-          ?.conferencing
-          ?.hlsLiveStreaming
-          ?.elements
-          ?.onStageExp
-          ?.onStageRole;
+      String? roleName = HMSRoomLayout.roleLayoutData?.screens?.conferencing
+          ?.hlsLiveStreaming?.elements?.onStageExp?.onStageRole;
       int? roleIndex = roles.indexWhere((element) => element.name == roleName);
       if (roleIndex != -1) {
         return roles[roleIndex];
@@ -594,27 +581,15 @@ class MeetingStore extends ChangeNotifier
   ///This method returns the off stage roles
   bool isOffStageRole(String? roleName) {
     if (HMSRoomLayout.peerType == PeerRoleType.conferencing) {
-      int? roleIndex = HMSRoomLayout
-          .roleLayoutData
-          ?.screens
-          ?.conferencing
-          ?.defaultConf
-          ?.elements
-          ?.onStageExp
-          ?.offStageRoles
+      int? roleIndex = HMSRoomLayout.roleLayoutData?.screens?.conferencing
+          ?.defaultConf?.elements?.onStageExp?.offStageRoles
           ?.indexWhere((role) => role == roleName);
       if (roleIndex != -1) {
         return true;
       }
     } else if (HMSRoomLayout.peerType == PeerRoleType.hlsViewer) {
-      int? roleIndex = HMSRoomLayout
-          .roleLayoutData
-          ?.screens
-          ?.conferencing
-          ?.hlsLiveStreaming
-          ?.elements
-          ?.onStageExp
-          ?.offStageRoles
+      int? roleIndex = HMSRoomLayout.roleLayoutData?.screens?.conferencing
+          ?.hlsLiveStreaming?.elements?.onStageExp?.offStageRoles
           ?.indexWhere((role) => role == roleName);
       if (roleIndex != -1) {
         return true;
@@ -883,14 +858,8 @@ class MeetingStore extends ChangeNotifier
     peerListIterators.clear();
 
     ///Here we get off stage roles
-    List<String>? offStageRoles = HMSRoomLayout
-        .roleLayoutData
-        ?.screens
-        ?.conferencing
-        ?.defaultConf
-        ?.elements
-        ?.onStageExp
-        ?.offStageRoles;
+    List<String>? offStageRoles = HMSRoomLayout.roleLayoutData?.screens
+        ?.conferencing?.defaultConf?.elements?.onStageExp?.offStageRoles;
 
     ///For each off stage role we get the peer list iterator
     offStageRoles?.forEach((role) async {
@@ -1013,8 +982,7 @@ class MeetingStore extends ChangeNotifier
     streamingType["hls"] =
         room.hmshlsStreamingState?.state ?? HMSStreamingState.none;
 
-    int index =
-        room.transcriptions?.indexWhere(
+    int index = room.transcriptions?.indexWhere(
           (element) => element.mode == HMSTranscriptionMode.caption,
         ) ??
         -1;
@@ -1048,10 +1016,7 @@ class MeetingStore extends ChangeNotifier
         localPeer = each;
         addPeer(localPeer!);
         if (HMSRoomLayout
-                .roleLayoutData
-                ?.screens
-                ?.conferencing
-                ?.hlsLiveStreaming !=
+                .roleLayoutData?.screens?.conferencing?.hlsLiveStreaming !=
             null) {
           isHLSLink = true;
         }
@@ -1117,14 +1082,8 @@ class MeetingStore extends ChangeNotifier
   }
 
   void setParticipantsList(List<HMSRole> roles) {
-    String? onStageRoles = HMSRoomLayout
-        .roleLayoutData
-        ?.screens
-        ?.conferencing
-        ?.defaultConf
-        ?.elements
-        ?.onStageExp
-        ?.onStageRole;
+    String? onStageRoles = HMSRoomLayout.roleLayoutData?.screens?.conferencing
+        ?.defaultConf?.elements?.onStageExp?.onStageRole;
 
     ///Here we initialise the map only if it doesn't contain the role
     if (onStageRoles != null) {
@@ -1135,18 +1094,18 @@ class MeetingStore extends ChangeNotifier
     roles
         .where((role) => role.publishSettings?.allowed.isNotEmpty ?? false)
         .forEach((element) {
-          if (!participantsInMeetingMap.containsKey(element.name)) {
-            participantsInMeetingMap[element.name] = [];
-          }
-        });
+      if (!participantsInMeetingMap.containsKey(element.name)) {
+        participantsInMeetingMap[element.name] = [];
+      }
+    });
 
     roles
         .where((role) => role.publishSettings?.allowed.isEmpty ?? false)
         .forEach((element) {
-          if (!participantsInMeetingMap.containsKey(element.name)) {
-            participantsInMeetingMap[element.name] = [];
-          }
-        });
+      if (!participantsInMeetingMap.containsKey(element.name)) {
+        participantsInMeetingMap[element.name] = [];
+      }
+    });
   }
 
   void getSpotlightPeer() async {
@@ -1195,8 +1154,7 @@ class MeetingStore extends ChangeNotifier
         break;
       case HMSRoomUpdate.transcriptionsUpdated:
         if (room.transcriptions?.isNotEmpty ?? false) {
-          int index =
-              room.transcriptions?.indexWhere(
+          int index = room.transcriptions?.indexWhere(
                 (element) => element.mode == HMSTranscriptionMode.caption,
               ) ??
               -1;
@@ -1821,9 +1779,8 @@ class MeetingStore extends ChangeNotifier
         participantsInMeetingMap[peer.role.name]?.add(
           ParticipantsStore(peer: peer),
         );
-        participantsInMeetingMap[peer
-                .role
-                .name]?[participantsInMeetingMap[peer.role.name]!.length - 1]
+        participantsInMeetingMap[peer.role.name]
+                ?[participantsInMeetingMap[peer.role.name]!.length - 1]
             .updatePeer(peer);
         notifyListeners();
       }
@@ -1881,10 +1838,7 @@ class MeetingStore extends ChangeNotifier
           localPeer = peer;
         }
         if (HMSRoomLayout
-                .roleLayoutData
-                ?.screens
-                ?.conferencing
-                ?.hlsLiveStreaming !=
+                .roleLayoutData?.screens?.conferencing?.hlsLiveStreaming !=
             null) {
           isHLSLink = peer.isLocal;
           peerTracks.removeWhere(
@@ -1949,27 +1903,15 @@ class MeetingStore extends ChangeNotifier
           peerTrackNode.notify();
         } else {
           if (HMSRoomLayout.peerType == PeerRoleType.conferencing) {
-            if (HMSRoomLayout
-                    .roleLayoutData
-                    ?.screens
-                    ?.conferencing
-                    ?.defaultConf
-                    ?.elements
-                    ?.onStageExp
-                    ?.offStageRoles
+            if (HMSRoomLayout.roleLayoutData?.screens?.conferencing?.defaultConf
+                    ?.elements?.onStageExp?.offStageRoles
                     ?.contains(peer.role.name) ??
                 false) {
               addRemoveToastsForRoleChange(peer: peer);
             }
           } else if (HMSRoomLayout.peerType == PeerRoleType.hlsViewer) {
-            if (HMSRoomLayout
-                    .roleLayoutData
-                    ?.screens
-                    ?.conferencing
-                    ?.hlsLiveStreaming
-                    ?.elements
-                    ?.onStageExp
-                    ?.offStageRoles
+            if (HMSRoomLayout.roleLayoutData?.screens?.conferencing
+                    ?.hlsLiveStreaming?.elements?.onStageExp?.offStageRoles
                     ?.contains(peer.role.name) ??
                 false) {
               addRemoveToastsForRoleChange(peer: peer);
@@ -2479,9 +2421,9 @@ class MeetingStore extends ChangeNotifier
     } else if (HMSRoomLayout.chatData?.rolesWhitelist.isNotEmpty ?? false) {
       recipientSelectorValue =
           HMSRoomLayout.chatData?.rolesWhitelist.firstWhere(
-            (role) => role != HMSRoomLayout.roleLayoutData?.role,
-          ) ??
-          "Choose a Recipient";
+                (role) => role != HMSRoomLayout.roleLayoutData?.role,
+              ) ??
+              "Choose a Recipient";
     } else if (HMSRoomLayout.chatData?.isPrivateChatEnabled ?? false) {
       if (peers.length > 1) {
         recipientSelectorValue = peers[1];
@@ -2787,24 +2729,18 @@ class MeetingStore extends ChangeNotifier
   }
 
   void checkNoiseCancellationAvailability() async {
-    isNoiseCancellationAvailable = await _hmsSDKInteractor
-        .isNoiseCancellationAvailable();
+    isNoiseCancellationAvailable =
+        await _hmsSDKInteractor.isNoiseCancellationAvailable();
 
     ///Here we check if noise cancellation is available, if its available
     ///then we check if its enabled from dashboard in the default configuration
     ///If yes we enable it.
     ///Else we check the noise cancellation status to update the UI
     if (isNoiseCancellationAvailable) {
-      isNoiseCancellationEnabled = await _hmsSDKInteractor
-          .isNoiseCancellationEnabled();
-      if ((HMSRoomLayout
-                  .roleLayoutData
-                  ?.screens
-                  ?.conferencing
-                  ?.defaultConf
-                  ?.elements
-                  ?.noiseCancellation
-                  ?.enabledByDefault ??
+      isNoiseCancellationEnabled =
+          await _hmsSDKInteractor.isNoiseCancellationEnabled();
+      if ((HMSRoomLayout.roleLayoutData?.screens?.conferencing?.defaultConf
+                  ?.elements?.noiseCancellation?.enabledByDefault ??
               false) &&
           !isNoiseCancellationEnabled) {
         _hmsSDKInteractor.enableNoiseCancellation();
@@ -2923,8 +2859,8 @@ class MeetingStore extends ChangeNotifier
         return a.poll.state == HMSPollState.started
             ? 1
             : a.poll.state == HMSPollState.created
-            ? 2
-            : -1;
+                ? 2
+                : -1;
       } else {
         if (a.poll.startedAt != null && b.poll.startedAt != null) {
           return a.poll.startedAt!.compareTo(b.poll.startedAt!);

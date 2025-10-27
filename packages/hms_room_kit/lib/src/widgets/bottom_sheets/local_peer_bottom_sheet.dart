@@ -54,8 +54,8 @@ class _LocalPeerBottomSheetState extends State<LocalPeerBottomSheet> {
     return FractionallySizedBox(
       heightFactor:
           (AppDebugConfig.isDebugMode && widget.meetingStore.isVideoOn)
-          ? (widget.isInsetTile ? 0.46 : 0.4)
-          : (widget.isInsetTile ? 0.26 : 0.2),
+              ? (widget.isInsetTile ? 0.46 : 0.4)
+              : (widget.isInsetTile ? 0.26 : 0.2),
       child: Padding(
         padding: const EdgeInsets.only(top: 16.0, left: 24, right: 24),
         child: Column(

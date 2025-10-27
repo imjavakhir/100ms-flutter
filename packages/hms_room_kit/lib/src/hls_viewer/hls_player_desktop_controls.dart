@@ -11,7 +11,7 @@ import 'package:hms_room_kit/src/widgets/bottom_sheets/chat_bottom_sheet.dart';
 class HLSPlayerDesktopControls extends StatefulWidget {
   final Orientation orientation;
   const HLSPlayerDesktopControls({Key? key, required this.orientation})
-    : super(key: key);
+      : super(key: key);
 
   @override
   State<HLSPlayerDesktopControls> createState() =>

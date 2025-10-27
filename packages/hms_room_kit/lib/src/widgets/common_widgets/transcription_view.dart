@@ -40,9 +40,7 @@ class _TranscriptionViewState extends State<TranscriptionView> {
                           ),
                           builder: (_, isUIElementPresent, __) {
                             return Selector<
-                              MeetingNavigationVisibilityController,
-                              bool
-                            >(
+                                MeetingNavigationVisibilityController, bool>(
                               selector:
                                   (_, meetingNavigationVisibilityController) =>
                                       meetingNavigationVisibilityController
@@ -50,17 +48,17 @@ class _TranscriptionViewState extends State<TranscriptionView> {
                               builder: (_, showControls, __) {
                                 double bottomMargin = showControls
                                     ? Platform.isIOS
-                                          ? 110
-                                          : 90
+                                        ? 110
+                                        : 90
                                     : Platform.isIOS
-                                    ? 80
-                                    : 50;
+                                        ? 80
+                                        : 50;
 
                                 ///If toasts are present then we need to adjust the bottom margin
                                 bottomMargin += isUIElementPresent.item2
                                     ? showControls
-                                          ? 40
-                                          : 80
+                                        ? 40
+                                        : 80
                                     : 0;
                                 return Positioned(
                                   ///If overlay chat is opened then we need to adjust the top margin(shift the chat to top)
@@ -70,8 +68,8 @@ class _TranscriptionViewState extends State<TranscriptionView> {
                                       : bottomMargin,
                                   top: isUIElementPresent.item1
                                       ? showControls
-                                            ? 80
-                                            : 50
+                                          ? 80
+                                          : 50
                                       : null,
                                   left: 5,
                                   child: Column(
@@ -81,7 +79,7 @@ class _TranscriptionViewState extends State<TranscriptionView> {
                                       Container(
                                         width:
                                             MediaQuery.of(context).size.width -
-                                            15,
+                                                15,
                                         height: 100,
                                         padding: const EdgeInsets.all(5),
                                         margin: const EdgeInsets.all(2),
@@ -102,11 +100,11 @@ class _TranscriptionViewState extends State<TranscriptionView> {
                                           itemBuilder: (context, index) {
                                             return ChangeNotifierProvider.value(
                                               value: data.item1[index],
-                                              child: Selector<TranscriptStore, String>(
-                                                selector:
-                                                    (_, transcriptStore) =>
-                                                        transcriptStore
-                                                            .transcript,
+                                              child: Selector<TranscriptStore,
+                                                  String>(
+                                                selector: (_,
+                                                        transcriptStore) =>
+                                                    transcriptStore.transcript,
                                                 builder: (_, transcript, __) {
                                                   ///Here we render the transcriptions
                                                   ///with peer name in bold and transcript in normal font
@@ -114,12 +112,12 @@ class _TranscriptionViewState extends State<TranscriptionView> {
                                                     text: TextSpan(
                                                       children: [
                                                         if (index != 0 &&
-                                                            data
-                                                                    .item1[index]
+                                                            data.item1[index]
                                                                     .peerName ==
                                                                 data
-                                                                    .item1[index -
-                                                                        1]
+                                                                    .item1[
+                                                                        index -
+                                                                            1]
                                                                     .peerName)
                                                           TextSpan(
                                                             text: "",

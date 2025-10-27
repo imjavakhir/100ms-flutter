@@ -34,16 +34,16 @@ class _PreviewDeviceSettingsState extends State<PreviewDeviceSettings> {
     return DraggableScrollableSheet(
       maxChildSize:
           (context.read<PreviewStore>().availableAudioOutputDevices.length +
-              2.2) *
-          0.1,
+                  2.2) *
+              0.1,
       minChildSize:
           (context.read<PreviewStore>().availableAudioOutputDevices.length +
-              2) *
-          0.1,
+                  2) *
+              0.1,
       initialChildSize:
           (context.read<PreviewStore>().availableAudioOutputDevices.length +
-              2) *
-          0.1,
+                  2) *
+              0.1,
       builder: (context, ScrollController scrollController) {
         return Container(
           decoration: BoxDecoration(
@@ -56,7 +56,8 @@ class _PreviewDeviceSettingsState extends State<PreviewDeviceSettings> {
 
           ///We are using the selector to rebuild the widget only when the available audio devices list changes
           ///or the current audio device changes
-          child: Selector<PreviewStore, Tuple3<List<HMSAudioDevice>, int, HMSAudioDevice?>>(
+          child: Selector<PreviewStore,
+              Tuple3<List<HMSAudioDevice>, int, HMSAudioDevice?>>(
             selector: (_, previewStore) => Tuple3(
               previewStore.availableAudioOutputDevices,
               previewStore.availableAudioOutputDevices.length,
@@ -121,8 +122,7 @@ class _PreviewDeviceSettingsState extends State<PreviewDeviceSettings> {
                                       textColor:
                                           HMSThemeColors.onSurfaceHighEmphasis,
                                     ),
-                                    trailing:
-                                        !(context
+                                    trailing: !(context
                                             .read<PreviewStore>()
                                             .isRoomMute)
                                         ? SizedBox(
@@ -169,8 +169,9 @@ class _PreviewDeviceSettingsState extends State<PreviewDeviceSettings> {
                                       textColor:
                                           HMSThemeColors.onSurfaceHighEmphasis,
                                     ),
-                                    trailing:
-                                        context.read<PreviewStore>().isRoomMute
+                                    trailing: context
+                                            .read<PreviewStore>()
+                                            .isRoomMute
                                         ? SizedBox(
                                             height: 24,
                                             width: 24,
@@ -224,8 +225,7 @@ class _PreviewDeviceSettingsState extends State<PreviewDeviceSettings> {
                                         textColor: HMSThemeColors
                                             .onSurfaceHighEmphasis,
                                       ),
-                                      trailing:
-                                          context
+                                      trailing: context
                                               .read<PreviewStore>()
                                               .isRoomMute
                                           ? SizedBox(
@@ -266,8 +266,7 @@ class _PreviewDeviceSettingsState extends State<PreviewDeviceSettings> {
                                       ///
                                       ///If the current audio device is the selected audio device then we render the tick icon
                                       ///else we render an empty container
-                                      child:
-                                          data.item1[index] ==
+                                      child: data.item1[index] ==
                                               HMSAudioDevice.AUTOMATIC
                                           ? ListTile(
                                               horizontalTitleGap: 2,
@@ -292,11 +291,9 @@ class _PreviewDeviceSettingsState extends State<PreviewDeviceSettings> {
                                                 textColor: HMSThemeColors
                                                     .onSurfaceHighEmphasis,
                                               ),
-                                              trailing:
-                                                  (context
+                                              trailing: (context
                                                               .read<
-                                                                PreviewStore
-                                                              >()
+                                                                  PreviewStore>()
                                                               .currentAudioDeviceMode ==
                                                           HMSAudioDevice
                                                               .AUTOMATIC &&
@@ -311,10 +308,10 @@ class _PreviewDeviceSettingsState extends State<PreviewDeviceSettings> {
                                                         fit: BoxFit.scaleDown,
                                                         colorFilter:
                                                             ColorFilter.mode(
-                                                              HMSThemeColors
-                                                                  .onSurfaceHighEmphasis,
-                                                              BlendMode.srcIn,
-                                                            ),
+                                                          HMSThemeColors
+                                                              .onSurfaceHighEmphasis,
+                                                          BlendMode.srcIn,
+                                                        ),
                                                       ),
                                                     )
                                                   : const SizedBox(
@@ -336,10 +333,10 @@ class _PreviewDeviceSettingsState extends State<PreviewDeviceSettings> {
                                                 ),
                                               ),
                                               title: HMSSubtitleText(
-                                                text:
-                                                    Utilities.getAudioDeviceName(
-                                                      data.item1[index],
-                                                    ),
+                                                text: Utilities
+                                                    .getAudioDeviceName(
+                                                  data.item1[index],
+                                                ),
                                                 fontSize: 14,
                                                 lineHeight: 20,
                                                 letterSpacing: 0.10,
@@ -347,12 +344,10 @@ class _PreviewDeviceSettingsState extends State<PreviewDeviceSettings> {
                                                 textColor: HMSThemeColors
                                                     .onSurfaceHighEmphasis,
                                               ),
-                                              trailing:
-                                                  (data.item1[index] ==
+                                              trailing: (data.item1[index] ==
                                                           context
                                                               .read<
-                                                                PreviewStore
-                                                              >()
+                                                                  PreviewStore>()
                                                               .currentAudioDeviceMode &&
                                                       !context
                                                           .read<PreviewStore>()
@@ -365,10 +360,10 @@ class _PreviewDeviceSettingsState extends State<PreviewDeviceSettings> {
                                                         fit: BoxFit.scaleDown,
                                                         colorFilter:
                                                             ColorFilter.mode(
-                                                              HMSThemeColors
-                                                                  .onSurfaceHighEmphasis,
-                                                              BlendMode.srcIn,
-                                                            ),
+                                                          HMSThemeColors
+                                                              .onSurfaceHighEmphasis,
+                                                          BlendMode.srcIn,
+                                                        ),
                                                       ),
                                                     )
                                                   : const SizedBox(

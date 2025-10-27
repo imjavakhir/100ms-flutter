@@ -155,8 +155,8 @@ class _MeetingBottomNavigationBarState
                                   (data.item2)
                                       ? null
                                       : context
-                                            .read<MeetingStore>()
-                                            .toggleCameraMuteState(),
+                                          .read<MeetingStore>()
+                                          .toggleCameraMuteState(),
                                 },
                                 onColor: HMSThemeColors.backgroundDim,
                                 isActive: data.item1,
@@ -212,24 +212,21 @@ class _MeetingBottomNavigationBarState
                                         context: context,
                                         builder: (ctx) =>
                                             ChangeNotifierProvider.value(
-                                              value: context
-                                                  .read<MeetingStore>(),
-                                              child:
-                                                  HMSRoomLayout
-                                                      .isParticipantsListEnabled
-                                                  ? const ChatParticipantsTabBar(
-                                                      tabIndex: 0,
-                                                    )
-                                                  : const ChatOnlyBottomSheet(),
-                                            ),
+                                          value: context.read<MeetingStore>(),
+                                          child: HMSRoomLayout
+                                                  .isParticipantsListEnabled
+                                              ? const ChatParticipantsTabBar(
+                                                  tabIndex: 0,
+                                                )
+                                              : const ChatOnlyBottomSheet(),
+                                        ),
                                       ),
                                     },
                                 },
                                 onColor: HMSThemeColors.backgroundDim,
-                                isActive:
-                                    !(chatState.item2 &&
-                                        (HMSRoomLayout.chatData?.isOverlay ??
-                                            false)),
+                                isActive: !(chatState.item2 &&
+                                    (HMSRoomLayout.chatData?.isOverlay ??
+                                        false)),
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: chatState.item1 && !chatState.item2

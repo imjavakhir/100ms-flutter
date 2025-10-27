@@ -121,10 +121,8 @@ class _PeerTileState extends State<PeerTile> {
                           Semantics(
                             label: "fl_stats_on_tile",
                             child: RTCStatsView(
-                              isLocal: context
-                                  .read<PeerTrackNode>()
-                                  .peer
-                                  .isLocal,
+                              isLocal:
+                                  context.read<PeerTrackNode>().peer.isLocal,
                             ),
                           ),
                         ],
