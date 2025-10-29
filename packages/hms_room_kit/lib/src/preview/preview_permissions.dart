@@ -104,8 +104,7 @@ class _PreviewPermissionsState extends State<PreviewPermissions> {
                         backgroundColor: WidgetStatePropertyAll(
                           HMSThemeColors.primaryDefault,
                         ),
-                        shape:
-                            WidgetStateProperty.all<RoundedRectangleBorder>(
+                        shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                           RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
                           ),

@@ -112,8 +112,7 @@ class HMSLeftRoomScreen extends StatelessWidget {
                         backgroundColor: WidgetStateProperty.all(
                           HMSThemeColors.primaryDefault,
                         ),
-                        shape:
-                            WidgetStateProperty.all<RoundedRectangleBorder>(
+                        shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                           RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8.0),
                           ),

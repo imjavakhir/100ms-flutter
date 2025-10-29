@@ -355,8 +355,8 @@ class _PollQuestionBottomSheetState extends State<PollQuestionBottomSheet> {
                                 : WidgetStateProperty.all(
                                     HMSThemeColors.primaryDisabled,
                                   ),
-                            shape: WidgetStateProperty.all<
-                                RoundedRectangleBorder>(
+                            shape:
+                                WidgetStateProperty.all<RoundedRectangleBorder>(
                               RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8.0),
                               ),

@@ -545,8 +545,8 @@ class UtilityComponents {
                             backgroundColor: WidgetStateProperty.all(
                               errorColor,
                             ),
-                            shape: WidgetStateProperty.all<
-                                RoundedRectangleBorder>(
+                            shape:
+                                WidgetStateProperty.all<RoundedRectangleBorder>(
                               RoundedRectangleBorder(
                                 side: BorderSide(
                                   width: 1,
@@ -572,8 +572,8 @@ class UtilityComponents {
                             backgroundColor: WidgetStateProperty.all(
                               hmsdefaultColor,
                             ),
-                            shape: WidgetStateProperty.all<
-                                RoundedRectangleBorder>(
+                            shape:
+                                WidgetStateProperty.all<RoundedRectangleBorder>(
                               RoundedRectangleBorder(
                                 side: BorderSide(
                                   width: 1,
@@ -727,8 +727,8 @@ class UtilityComponents {
                             backgroundColor: WidgetStateProperty.all(
                               errorColor,
                             ),
-                            shape: WidgetStateProperty.all<
-                                RoundedRectangleBorder>(
+                            shape:
+                                WidgetStateProperty.all<RoundedRectangleBorder>(
                               RoundedRectangleBorder(
                                 side: BorderSide(
                                   width: 1,
@@ -756,8 +756,8 @@ class UtilityComponents {
                             backgroundColor: WidgetStateProperty.all(
                               hmsdefaultColor,
                             ),
-                            shape: WidgetStateProperty.all<
-                                RoundedRectangleBorder>(
+                            shape:
+                                WidgetStateProperty.all<RoundedRectangleBorder>(
                               RoundedRectangleBorder(
                                 side: BorderSide(
                                   width: 1,
