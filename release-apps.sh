@@ -194,8 +194,8 @@ perform_pub_actions() {
   return 0
 }
 
-release_android() {
-  log_info "Starting Android distribution..."
+bump_android_version() {
+  log_info "Bumping Android version..."
 
   pushd "${EXAMPLE_DIR}/android" >/dev/null
 
@@ -210,15 +210,35 @@ release_android() {
     log_info "[DRY RUN] Would run: bundle install --verbose"
   fi
 
-  log_info "Running Fastlane release_on_firebase for Android..."
   if [ "$DRY_RUN" = false ]; then
-    bundle exec fastlane release_on_firebase || {
-      log_error "Fastlane release_on_firebase failed for Android"
+    bundle exec fastlane bump_version || {
+      log_error "Fastlane bump_version failed for Android"
       popd >/dev/null
       return 1
     }
   else
-    log_info "[DRY RUN] Would run: bundle exec fastlane release_on_firebase"
+    log_info "[DRY RUN] Would run: bundle exec fastlane bump_version"
+  fi
+
+  popd >/dev/null
+  log_success "Android version bump completed"
+  return 0
+}
+
+release_android() {
+  log_info "Starting Android distribution..."
+
+  pushd "${EXAMPLE_DIR}/android" >/dev/null
+
+  log_info "Running Fastlane distribute_app_only for Android..."
+  if [ "$DRY_RUN" = false ]; then
+    bundle exec fastlane distribute_app_only || {
+      log_error "Fastlane distribute_app_only failed for Android"
+      popd >/dev/null
+      return 1
+    }
+  else
+    log_info "[DRY RUN] Would run: bundle exec fastlane distribute_app_only"
   fi
 
   popd >/dev/null
@@ -227,8 +247,8 @@ release_android() {
   return 0
 }
 
-release_ios() {
-  log_info "Starting iOS distribution..."
+bump_ios_version() {
+  log_info "Bumping iOS version..."
 
   pushd "${EXAMPLE_DIR}/ios" >/dev/null
 
@@ -254,20 +274,75 @@ release_ios() {
     log_info "[DRY RUN] Would run: bundle install --verbose"
   fi
 
-  log_info "Running Fastlane distribute_app for iOS..."
   if [ "$DRY_RUN" = false ]; then
-    bundle exec fastlane distribute_app || {
-      log_error "Fastlane distribute_app failed for iOS"
+    bundle exec fastlane bump_version || {
+      log_error "Fastlane bump_version failed for iOS"
       popd >/dev/null
       return 1
     }
   else
-    log_info "[DRY RUN] Would run: bundle exec fastlane distribute_app"
+    log_info "[DRY RUN] Would run: bundle exec fastlane bump_version"
+  fi
+
+  popd >/dev/null
+  log_success "iOS version bump completed"
+  return 0
+}
+
+release_ios() {
+  log_info "Starting iOS distribution to Firebase and TestFlight..."
+
+  pushd "${EXAMPLE_DIR}/ios" >/dev/null
+
+  local firebase_failed=false
+  local testflight_failed=false
+
+  if [ "$DRY_RUN" = false ]; then
+    # Run Firebase distribution first
+    log_info "Running Firebase distribution..."
+    if ! bundle exec fastlane distribute_firebase_only; then
+      log_error "Firebase distribution failed"
+      firebase_failed=true
+    else
+      log_success "Firebase distribution completed"
+    fi
+
+    # Run TestFlight distribution second
+    log_info "Running TestFlight distribution..."
+    if ! bundle exec fastlane distribute_testflight_only; then
+      log_error "TestFlight distribution failed"
+      testflight_failed=true
+    else
+      log_success "TestFlight distribution completed"
+    fi
+
+    # Check results
+    if [ "$firebase_failed" = true ] && [ "$testflight_failed" = true ]; then
+      log_error "Both Firebase and TestFlight distributions failed"
+      popd >/dev/null
+      return 1
+    elif [ "$firebase_failed" = true ]; then
+      log_warn "Firebase distribution failed, but TestFlight succeeded"
+    elif [ "$testflight_failed" = true ]; then
+      log_warn "TestFlight distribution failed, but Firebase succeeded"
+    else
+      log_success "Both Firebase and TestFlight distributions completed successfully"
+    fi
+
+    # Post Slack notification
+    log_info "Posting Slack notification..."
+    bundle exec fastlane post_message_on_slack || {
+      log_warn "Slack notification failed (non-fatal)"
+    }
+  else
+    log_info "[DRY RUN] Would run: bundle exec fastlane distribute_firebase_only"
+    log_info "[DRY RUN] Would run: bundle exec fastlane distribute_testflight_only"
+    log_info "[DRY RUN] Would run: bundle exec fastlane post_message_on_slack"
   fi
 
   popd >/dev/null
 
-  log_success "iOS distribution completed"
+  log_success "iOS release completed"
   return 0
 }
 
@@ -489,19 +564,74 @@ main() {
   echo ""
 
   # Step 1: Perform Flutter pub get
-  log_info "[1/2] Running flutter pub get..."
-  perform_pub_actions || {
+  log_info "[1/5] Running flutter pub get..."
+  perform_pub_actions &
+  pub_pid=$!
+
+  # Wait for pub get to complete
+  if ! wait $pub_pid; then
     log_error "Flutter pub get failed"
     exit 1
-  }
+  fi
 
   echo ""
-  log_info "[2/2] Building and distributing apps..."
-  echo ""
-  log_info "(Changelog will be updated by Fastlane during build)"
+  log_info "[2/5] Bumping versions..."
   echo ""
 
-  # Step 2: Build and release Android & iOS in parallel
+  # Step 2: Bump versions for Android & iOS in parallel
+  local android_bump_pid=""
+  local ios_bump_pid=""
+
+  if [ "$BUILD_ANDROID" = true ]; then
+    bump_android_version &
+    android_bump_pid=$!
+    log_info "Android version bump started (PID: $android_bump_pid)"
+  fi
+
+  if [ "$BUILD_IOS" = true ]; then
+    bump_ios_version &
+    ios_bump_pid=$!
+    log_info "iOS version bump started (PID: $ios_bump_pid)"
+  fi
+
+  # Wait for version bumps to complete
+  local bump_failed=false
+
+  if [ -n "$android_bump_pid" ]; then
+    if ! wait $android_bump_pid; then
+      log_error "Android version bump failed"
+      bump_failed=true
+    fi
+  fi
+
+  if [ -n "$ios_bump_pid" ]; then
+    if ! wait $ios_bump_pid; then
+      log_error "iOS version bump failed"
+      bump_failed=true
+    fi
+  fi
+
+  if [ "$bump_failed" = true ]; then
+    log_error "Version bump failed"
+    exit 1
+  fi
+
+  echo ""
+  log_info "[3/5] Updating changelog with bumped versions..."
+  if [ "$DRY_RUN" = false ]; then
+    node "${SCRIPT_DIR}/scripts/update-changelog-versions.js" || {
+      log_warn "Failed to update changelog versions (non-fatal, continuing...)"
+    }
+  else
+    log_info "[DRY RUN] Would run: node scripts/update-changelog-versions.js"
+  fi
+  echo ""
+
+  echo ""
+  log_info "[4/5] Building and distributing apps..."
+  echo ""
+
+  # Step 4: Build and release Android & iOS in parallel
   local android_pid=""
   local ios_pid=""
 
@@ -543,19 +673,15 @@ main() {
   log_success "All distributions completed successfully"
   echo ""
 
-  # Note: Changelog is now updated by Fastlane during build process
-  log_info "Changelog has been updated by Fastlane during build"
-  echo ""
-
-  # Step 3: Perform git actions
+  # Step 5: Perform git actions
   if [ "$SKIP_COMMIT" = false ]; then
-    log_info "Committing and pushing changes..."
+    log_info "[5/5] Committing and pushing changes..."
     perform_git_actions || {
       log_error "Git actions failed"
       exit 1
     }
   else
-    log_info "Skipping git commit (--no-commit flag)"
+    log_info "[5/5] Skipping git commit (--no-commit flag)"
   fi
 
   echo ""
