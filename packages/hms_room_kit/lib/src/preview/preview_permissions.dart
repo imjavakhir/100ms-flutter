@@ -48,9 +48,10 @@ class _PreviewPermissionsState extends State<PreviewPermissions> {
       child: Stack(
         children: [
           Positioned(
-              top: Platform.isIOS ? 50 : 35,
-              left: 10,
-              child: HMSBackButton(onPressed: () => {Navigator.pop(context)})),
+            top: Platform.isIOS ? 50 : 35,
+            left: 10,
+            child: HMSBackButton(onPressed: () => {Navigator.pop(context)}),
+          ),
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -66,27 +67,25 @@ class _PreviewPermissionsState extends State<PreviewPermissions> {
                         height: 56,
                         width: 56,
                         colorFilter: ColorFilter.mode(
-                            HMSThemeColors.onSurfaceHighEmphasis,
-                            BlendMode.srcIn),
+                          HMSThemeColors.onSurfaceHighEmphasis,
+                          BlendMode.srcIn,
+                        ),
                       ),
                     ),
-                    const SizedBox(
-                      height: 20,
-                    ),
+                    const SizedBox(height: 20),
                     HMSTitleText(
                       text: "Enable permissions",
                       textColor: HMSThemeColors.onSurfaceHighEmphasis,
                       fontSize: 24,
                       lineHeight: 32,
                     ),
-                    const SizedBox(
-                      height: 8,
-                    ),
+                    const SizedBox(height: 8),
                     HMSSubtitleText(
-                        text: "Just a few things before you join",
-                        fontSize: 14,
-                        lineHeight: 20,
-                        textColor: HMSThemeColors.onSecondaryMediumEmphasis),
+                      text: "Just a few things before you join",
+                      fontSize: 14,
+                      lineHeight: 20,
+                      textColor: HMSThemeColors.onSecondaryMediumEmphasis,
+                    ),
                   ],
                 ),
               ),
@@ -102,17 +101,21 @@ class _PreviewPermissionsState extends State<PreviewPermissions> {
                         _getPermissions();
                       },
                       style: ButtonStyle(
-                          backgroundColor: MaterialStatePropertyAll(
-                              HMSThemeColors.primaryDefault),
-                          shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8)))),
+                        backgroundColor: WidgetStatePropertyAll(
+                          HMSThemeColors.primaryDefault,
+                        ),
+                        shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                      ),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: HMSTitleText(
-                            text: "Grant Permissions",
-                            textColor: HMSThemeColors.onPrimaryHighEmphasis),
+                          text: "Grant Permissions",
+                          textColor: HMSThemeColors.onPrimaryHighEmphasis,
+                        ),
                       ),
                     ),
                   ),
