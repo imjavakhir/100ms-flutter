@@ -9,8 +9,13 @@ import 'dart:developer';
 class HMSDateExtension {
   ///Returns DateTime object from String
   static DateTime convertDateFromString(String date) {
-    DateTime _dateTime = DateTime.parse(date).toLocal();
-    return _dateTime;
+    try {
+      DateTime dateTime = DateTime.parse(date).toLocal();
+      return dateTime;
+    } catch (e) {
+      log(e.toString());
+    }
+    return DateTime.now();
   }
 
   ///Returns optional DateTime object from epoch in milliseconds
