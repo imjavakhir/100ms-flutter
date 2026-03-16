@@ -1305,7 +1305,7 @@ class HmssdkFlutterPlugin :
             }
 
             override fun onJoin(room: HMSRoom) {
-                hmssdk!!.addAudioObserver(hmsAudioListener)
+                hmssdk?.addAudioObserver(hmsAudioListener) ?: return
 
                 /**
                  * This sets the [hlsStreamUrl] variable to

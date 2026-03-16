@@ -2,7 +2,53 @@
 <module type="JAVA_MODULE" version="4">
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
-    <content url="file://$MODULE_DIR$" />
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/packages/hms_room_kit/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/hms_room_kit/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/hms_room_kit/build" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/hms_room_kit/example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/hms_room_kit/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/hms_room_kit/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/hmssdk_flutter/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/hmssdk_flutter/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/hmssdk_flutter/build" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/hmssdk_flutter/example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/hmssdk_flutter/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/hmssdk_flutter/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/sample apps/bloc/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/sample apps/bloc/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/sample apps/bloc/build" />
+      <excludeFolder url="file://$MODULE_DIR$/sample apps/flutter-audio-room-quickstart/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/sample apps/flutter-audio-room-quickstart/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/sample apps/flutter-audio-room-quickstart/build" />
+      <excludeFolder url="file://$MODULE_DIR$/sample apps/flutter-hls-quickstart/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/sample apps/flutter-hls-quickstart/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/sample apps/flutter-hls-quickstart/build" />
+      <excludeFolder url="file://$MODULE_DIR$/sample apps/flutter-meet/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/sample apps/flutter-meet/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/sample apps/flutter-meet/build" />
+      <excludeFolder url="file://$MODULE_DIR$/sample apps/flutter-quickstart-app/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/sample apps/flutter-quickstart-app/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/sample apps/flutter-quickstart-app/build" />
+      <excludeFolder url="file://$MODULE_DIR$/sample apps/flutterflow-prebuilt-quickstart/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/sample apps/flutterflow-prebuilt-quickstart/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/sample apps/flutterflow-prebuilt-quickstart/build" />
+      <excludeFolder url="file://$MODULE_DIR$/sample apps/getx/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/sample apps/getx/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/sample apps/getx/build" />
+      <excludeFolder url="file://$MODULE_DIR$/sample apps/hms-callkit-app/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/sample apps/hms-callkit-app/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/sample apps/hms-callkit-app/build" />
+      <excludeFolder url="file://$MODULE_DIR$/sample apps/mobx/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/sample apps/mobx/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/sample apps/mobx/build" />
+      <excludeFolder url="file://$MODULE_DIR$/sample apps/one_to_one_callkit/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/sample apps/one_to_one_callkit/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/sample apps/one_to_one_callkit/build" />
+      <excludeFolder url="file://$MODULE_DIR$/sample apps/riverpod/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/sample apps/riverpod/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/sample apps/riverpod/build" />
+    </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
