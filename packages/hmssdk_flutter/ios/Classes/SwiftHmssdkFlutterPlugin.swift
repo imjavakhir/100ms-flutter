@@ -362,7 +362,11 @@ public class SwiftHmssdkFlutterPlugin: NSObject, FlutterPlugin, HMSUpdateListene
 
         case "start_real_time_transcription", "stop_real_time_transcription","add_transcript_listener", "remove_transcript_listener":
             transcriptionActions(call, result)
-            
+
+            // MARK: - Local Audio Recording
+        case "start_local_audio_recording", "stop_local_audio_recording", "is_local_audio_recording":
+            HMSLocalAudioRecordingAction.localAudioRecordingActions(call, result, hmsSDK)
+
         default:
             result(FlutterMethodNotImplemented)
         }

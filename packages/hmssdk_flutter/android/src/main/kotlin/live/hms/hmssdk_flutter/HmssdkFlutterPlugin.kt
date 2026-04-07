@@ -316,6 +316,11 @@ class HmssdkFlutterPlugin :
                 transcriptionActions(call,result)
             }
 
+            // MARK: Local Audio Recording
+            "start_local_audio_recording", "stop_local_audio_recording", "is_local_audio_recording" -> {
+                live.hms.hmssdk_flutter.methods.HMSLocalAudioRecordingAction.localAudioRecordingActions(call, result, hmssdk!!, activity.applicationContext)
+            }
+
             else -> {
                 result.notImplemented()
             }

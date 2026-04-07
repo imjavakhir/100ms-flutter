@@ -1520,4 +1520,33 @@ class HMSSDK {
   bool previewState = false;
 
   final bool isPrebuilt;
+
+  // MARK: - Local Audio Recording
+
+  /// Start recording local audio (both local microphone and remote peer audio)
+  /// to a WAV file at the given [filePath].
+  ///
+  /// Returns `true` on success, or a map with error details on failure.
+  Future<dynamic> startLocalAudioRecording({required String filePath}) async {
+    var arguments = {"file_path": filePath};
+    return await PlatformService.invokeMethod(
+        PlatformMethod.startLocalAudioRecording,
+        arguments: arguments);
+  }
+
+  /// Stop the current local audio recording.
+  ///
+  /// Returns the file path of the recorded WAV file, or `null` if no recording was in progress.
+  Future<String?> stopLocalAudioRecording() async {
+    var result = await PlatformService.invokeMethod(
+        PlatformMethod.stopLocalAudioRecording);
+    return result as String?;
+  }
+
+  /// Check if local audio recording is currently active.
+  Future<bool> isLocalAudioRecording() async {
+    var result = await PlatformService.invokeMethod(
+        PlatformMethod.isLocalAudioRecording);
+    return result as bool? ?? false;
+  }
 }

@@ -260,7 +260,12 @@ enum PlatformMethod {
   startRealTimeTranscription,
   stopRealTimeTranscription,
   addTranscriptListener,
-  removeTranscriptListener
+  removeTranscriptListener,
+
+  ///Local Audio Recording methods
+  startLocalAudioRecording,
+  stopLocalAudioRecording,
+  isLocalAudioRecording
 }
 
 extension PlatformMethodValues on PlatformMethod {
@@ -659,6 +664,14 @@ extension PlatformMethodValues on PlatformMethod {
       case PlatformMethod.removeTranscriptListener:
         return "remove_transcript_listener";
 
+      ///Local Audio Recording Methods
+      case PlatformMethod.startLocalAudioRecording:
+        return "start_local_audio_recording";
+      case PlatformMethod.stopLocalAudioRecording:
+        return "stop_local_audio_recording";
+      case PlatformMethod.isLocalAudioRecording:
+        return "is_local_audio_recording";
+
       default:
         return 'unknown';
     }
@@ -1056,6 +1069,14 @@ extension PlatformMethodValues on PlatformMethod {
         return PlatformMethod.addTranscriptListener;
       case "remove_transcript_listener":
         return PlatformMethod.removeTranscriptListener;
+
+      ///Local Audio Recording Methods
+      case "start_local_audio_recording":
+        return PlatformMethod.startLocalAudioRecording;
+      case "stop_local_audio_recording":
+        return PlatformMethod.stopLocalAudioRecording;
+      case "is_local_audio_recording":
+        return PlatformMethod.isLocalAudioRecording;
 
       default:
         return PlatformMethod.unknown;
