@@ -14,8 +14,6 @@ class HMSLocalAudioRecordingAction {
     private static var audioFile: AVAudioFile?
     private static var audioEngine: AVAudioEngine?
     private static var inputTapInstalled = false
-    private static let sampleRate: Double = 44100
-    private static let channels: AVAudioChannelCount = 1
 
     static func localAudioRecordingActions(_ call: FlutterMethodCall, _ result: @escaping FlutterResult, _ hmsSDK: HMSSDK?) {
         switch call.method {
@@ -42,54 +40,52 @@ class HMSLocalAudioRecordingAction {
             return
         }
 
-        do {
-            outputFilePath = filePath
+        // Note: `include_remote_audio` flag is accepted but on iOS the AVAudioEngine
+        // inputNode in voiceChat mode captures both mic and remote audio together.
+        // AVAudioRecorder cannot be used during an active HMS session (audio session conflict).
+        // So we always use AVAudioEngine on iOS regardless of the flag.
 
-            // Create parent directories if needed
-            let fileURL = URL(fileURLWithPath: filePath)
+        do {
+            // Replace .wav with .m4a for iOS native compatibility
+            let m4aPath = (filePath as NSString).deletingPathExtension + ".m4a"
+            outputFilePath = m4aPath
+
+            let fileURL = URL(fileURLWithPath: m4aPath)
             try FileManager.default.createDirectory(
                 at: fileURL.deletingLastPathComponent(),
                 withIntermediateDirectories: true
             )
 
-            // Configure audio session for recording + playback
-            let audioSession = AVAudioSession.sharedInstance()
-            try audioSession.setCategory(.playAndRecord, mode: .voiceChat, options: [.defaultToSpeaker, .allowBluetooth])
-            try audioSession.setActive(true)
+            // Remove existing file if any
+            if FileManager.default.fileExists(atPath: m4aPath) {
+                try FileManager.default.removeItem(atPath: m4aPath)
+            }
 
-            // Setup AVAudioEngine to capture mixed audio (local mic + remote playback)
             let engine = AVAudioEngine()
             audioEngine = engine
 
             let inputNode = engine.inputNode
             let inputFormat = inputNode.outputFormat(forBus: 0)
 
-            // Create output WAV file
-            let outputFormat = AVAudioFormat(
-                commonFormat: .pcmFormatInt16,
-                sampleRate: inputFormat.sampleRate,
-                channels: AVAudioChannelCount(channels),
-                interleaved: true
-            )!
+            // Write as AAC m4a — natively supported by iOS AVPlayer
+            let outputSettings: [String: Any] = [
+                AVFormatIDKey: kAudioFormatMPEG4AAC,
+                AVSampleRateKey: inputFormat.sampleRate,
+                AVNumberOfChannelsKey: 1,
+                AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue,
+                AVEncoderBitRateKey: 128000,
+            ]
 
             audioFile = try AVAudioFile(
                 forWriting: fileURL,
-                settings: outputFormat.settings,
-                commonFormat: .pcmFormatInt16,
-                interleaved: true
+                settings: outputSettings
             )
 
-            // Install tap on input node (captures microphone = local audio)
+            // Install tap — write input audio directly
             inputNode.installTap(onBus: 0, bufferSize: 4096, format: inputFormat) { buffer, _ in
                 guard isRecording, let file = audioFile else { return }
-
                 do {
-                    // Convert to mono 16-bit if needed
-                    if let convertedBuffer = convertBuffer(buffer, to: outputFormat) {
-                        try file.write(from: convertedBuffer)
-                    } else {
-                        try file.write(from: buffer)
-                    }
+                    try file.write(from: buffer)
                 } catch {
                     print("[HMSAudioRecording] Error writing audio: \(error)")
                 }
@@ -99,7 +95,7 @@ class HMSLocalAudioRecordingAction {
             isRecording = true
             inputTapInstalled = true
 
-            print("[HMSAudioRecording] Started recording to: \(filePath)")
+            print("[HMSAudioRecording] Started recording to: \(m4aPath)")
             result(true)
         } catch {
             print("[HMSAudioRecording] Failed to start recording: \(error)")
@@ -115,7 +111,6 @@ class HMSLocalAudioRecordingAction {
         }
 
         isRecording = false
-
         cleanup()
 
         print("[HMSAudioRecording] Stopped recording. File: \(outputFilePath ?? "nil")")
@@ -130,33 +125,6 @@ class HMSLocalAudioRecordingAction {
 
         audioEngine?.stop()
         audioEngine = nil
-
         audioFile = nil
-    }
-
-    private static func convertBuffer(_ buffer: AVAudioPCMBuffer, to outputFormat: AVAudioFormat) -> AVAudioPCMBuffer? {
-        guard let converter = AVAudioConverter(from: buffer.format, to: outputFormat) else {
-            return nil
-        }
-
-        let frameCapacity = AVAudioFrameCount(
-            Double(buffer.frameLength) * outputFormat.sampleRate / buffer.format.sampleRate
-        )
-
-        guard let convertedBuffer = AVAudioPCMBuffer(pcmFormat: outputFormat, frameCapacity: frameCapacity) else {
-            return nil
-        }
-
-        var error: NSError?
-        let status = converter.convert(to: convertedBuffer, error: &error) { inNumPackets, outStatus in
-            outStatus.pointee = .haveData
-            return buffer
-        }
-
-        if status == .error || error != nil {
-            return nil
-        }
-
-        return convertedBuffer
     }
 }

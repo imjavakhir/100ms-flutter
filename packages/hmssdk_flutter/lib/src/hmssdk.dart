@@ -1523,12 +1523,22 @@ class HMSSDK {
 
   // MARK: - Local Audio Recording
 
-  /// Start recording local audio (both local microphone and remote peer audio)
-  /// to a WAV file at the given [filePath].
+  /// Start recording local audio to a file at the given [filePath].
+  ///
+  /// [includeRemoteAudio] — iOS only. When `true`, records both the local
+  /// microphone and the remote peer's audio via AVAudioEngine. When `false`
+  /// (default), only the local microphone is recorded via AVAudioRecorder.
+  /// On Android, only mic recording is supported regardless of this flag.
   ///
   /// Returns `true` on success, or a map with error details on failure.
-  Future<dynamic> startLocalAudioRecording({required String filePath}) async {
-    var arguments = {"file_path": filePath};
+  Future<dynamic> startLocalAudioRecording({
+    required String filePath,
+    bool includeRemoteAudio = false,
+  }) async {
+    var arguments = {
+      "file_path": filePath,
+      "include_remote_audio": includeRemoteAudio,
+    };
     return await PlatformService.invokeMethod(
         PlatformMethod.startLocalAudioRecording,
         arguments: arguments);

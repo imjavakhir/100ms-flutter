@@ -15,6 +15,7 @@ import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
 import io.flutter.plugin.common.BinaryMessenger
+import io.flutter.plugin.common.PluginRegistry
 import io.flutter.plugin.common.EventChannel
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
@@ -59,7 +60,8 @@ class HmssdkFlutterPlugin :
     FlutterPlugin,
     MethodCallHandler,
     ActivityAware,
-    EventChannel.StreamHandler {
+    EventChannel.StreamHandler,
+    PluginRegistry.ActivityResultListener {
     private var channel: MethodChannel? = null
     private var meetingEventChannel: EventChannel? = null
     private var previewChannel: EventChannel? = null
@@ -318,7 +320,7 @@ class HmssdkFlutterPlugin :
 
             // MARK: Local Audio Recording
             "start_local_audio_recording", "stop_local_audio_recording", "is_local_audio_recording" -> {
-                live.hms.hmssdk_flutter.methods.HMSLocalAudioRecordingAction.localAudioRecordingActions(call, result, hmssdk!!, activity.applicationContext)
+                live.hms.hmssdk_flutter.methods.HMSLocalAudioRecordingAction.localAudioRecordingActions(call, result, hmssdk!!, activity.applicationContext, activity)
             }
 
             else -> {
@@ -587,6 +589,7 @@ class HmssdkFlutterPlugin :
 
     override fun onAttachedToActivity(binding: ActivityPluginBinding) {
         this.activity = binding.activity
+        binding.addActivityResultListener(this)
     }
 
     override fun onDetachedFromActivityForConfigChanges() {
@@ -594,9 +597,14 @@ class HmssdkFlutterPlugin :
 
     override fun onReattachedToActivityForConfigChanges(binding: ActivityPluginBinding) {
         this.activity = binding.activity
+        binding.addActivityResultListener(this)
     }
 
     override fun onDetachedFromActivity() {
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?): Boolean {
+        return false
     }
 
     private fun join(
@@ -1419,6 +1427,8 @@ class HmssdkFlutterPlugin :
                 if (track is HMSRemoteAudioTrack && type == HMSTrackUpdate.TRACK_ADDED && !isRoomAudioUnmutedLocally) {
                     track.isPlaybackAllowed = false
                 }
+
+
 
                 val args = HashMap<String, Any?>()
                 args.put("event_name", "on_track_update")

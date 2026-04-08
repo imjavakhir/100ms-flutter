@@ -1,11 +1,13 @@
 package live.hms.hmssdk_flutter.methods
 
 import android.Manifest
+import android.app.Activity
 import android.content.Context
 import android.content.pm.PackageManager
 import android.media.AudioFormat
 import android.media.AudioRecord
 import android.media.MediaRecorder
+import android.os.Build
 import android.util.Log
 import androidx.core.content.ContextCompat
 import io.flutter.plugin.common.MethodCall
@@ -31,13 +33,14 @@ class HMSLocalAudioRecordingAction {
         private var isRecording = AtomicBoolean(false)
         private var outputFilePath: String? = null
         private var recordingThread: Thread? = null
-        private var audioRecord: AudioRecord? = null
+        private var micAudioRecord: AudioRecord? = null
 
         fun localAudioRecordingActions(
             call: MethodCall,
             result: Result,
             hmssdk: HMSSDK,
             context: Context,
+            activity: Activity?,
         ) {
             when (call.method) {
                 "start_local_audio_recording" -> {
@@ -61,87 +64,41 @@ class HMSLocalAudioRecordingAction {
             context: Context,
         ) {
             if (isRecording.get()) {
-                val map = HashMap<String, Any>()
-                map["error"] = mapOf(
-                    "message" to "Recording already in progress",
-                    "action" to "NONE",
-                    "description" to "Stop current recording before starting a new one"
-                )
-                result.success(map)
+                result.success(errorMap("Recording already in progress", "Stop current recording before starting a new one"))
                 return
             }
 
             val filePath = call.argument<String>("file_path")
             if (filePath.isNullOrEmpty()) {
-                val map = HashMap<String, Any>()
-                map["error"] = mapOf(
-                    "message" to "file_path is required",
-                    "action" to "NONE",
-                    "description" to "Provide a valid file path for the recording"
-                )
-                result.success(map)
+                result.success(errorMap("file_path is required", "Provide a valid file path for the recording"))
                 return
             }
 
             if (ContextCompat.checkSelfPermission(context, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
-                val map = HashMap<String, Any>()
-                map["error"] = mapOf(
-                    "message" to "Microphone permission not granted",
-                    "action" to "NONE",
-                    "description" to "RECORD_AUDIO permission is required"
-                )
-                result.success(map)
+                result.success(errorMap("Microphone permission not granted", "RECORD_AUDIO permission is required"))
                 return
             }
 
+            val file = File(filePath)
+            file.parentFile?.mkdirs()
+
+            startRecordingMicOnly(filePath, result, context)
+        }
+
+        private fun startRecordingMicOnly(filePath: String, result: Result, context: Context) {
             try {
-                outputFilePath = filePath
-
-                // Create parent directories if needed
-                val file = File(filePath)
-                file.parentFile?.mkdirs()
-
                 val bufferSize = AudioRecord.getMinBufferSize(SAMPLE_RATE, CHANNEL_CONFIG, AUDIO_FORMAT)
 
-                // Use VOICE_COMMUNICATION source — this is the same source WebRTC uses,
-                // and on Android 10+ multiple AudioRecord instances can share the mic.
-                audioRecord = AudioRecord(
-                    MediaRecorder.AudioSource.VOICE_COMMUNICATION,
-                    SAMPLE_RATE,
-                    CHANNEL_CONFIG,
-                    AUDIO_FORMAT,
-                    bufferSize * 2
-                )
-
-                if (audioRecord?.state != AudioRecord.STATE_INITIALIZED) {
-                    // Fallback to MIC source if VOICE_COMMUNICATION fails
-                    audioRecord?.release()
-                    audioRecord = AudioRecord(
-                        MediaRecorder.AudioSource.MIC,
-                        SAMPLE_RATE,
-                        CHANNEL_CONFIG,
-                        AUDIO_FORMAT,
-                        bufferSize * 2
-                    )
-                }
-
-                if (audioRecord?.state != AudioRecord.STATE_INITIALIZED) {
-                    audioRecord?.release()
-                    audioRecord = null
-                    val map = HashMap<String, Any>()
-                    map["error"] = mapOf(
-                        "message" to "Failed to initialize AudioRecord",
-                        "action" to "NONE",
-                        "description" to "Could not create audio recorder. The microphone may be exclusively locked."
-                    )
-                    result.success(map)
+                micAudioRecord = createMicAudioRecord(bufferSize)
+                if (micAudioRecord == null) {
+                    result.success(errorMap("Failed to initialize AudioRecord", "The microphone may be exclusively locked."))
                     return
                 }
 
+                outputFilePath = filePath
                 isRecording.set(true)
-                audioRecord!!.startRecording()
+                micAudioRecord!!.startRecording()
 
-                // Start recording thread
                 recordingThread = Thread {
                     writeAudioDataToFile(filePath, bufferSize)
                 }.apply {
@@ -149,47 +106,52 @@ class HMSLocalAudioRecordingAction {
                     start()
                 }
 
-                Log.d(TAG, "Local audio recording started: $filePath")
+                Log.d(TAG, "Recording started (mic-only): $filePath")
                 result.success(true)
             } catch (e: Exception) {
-                Log.e(TAG, "Failed to start recording", e)
-                isRecording.set(false)
-                audioRecord?.release()
-                audioRecord = null
-                val map = HashMap<String, Any>()
-                map["error"] = mapOf(
-                    "message" to "Failed to start recording",
-                    "action" to "NONE",
-                    "description" to (e.message ?: "Unknown error")
-                )
-                result.success(map)
+                Log.e(TAG, "Failed to start mic-only recording", e)
+                cleanup()
+                result.success(errorMap("Failed to start recording", e.message ?: "Unknown error"))
             }
         }
 
+        private fun createMicAudioRecord(bufferSize: Int): AudioRecord? {
+            var record = AudioRecord(
+                MediaRecorder.AudioSource.VOICE_COMMUNICATION,
+                SAMPLE_RATE, CHANNEL_CONFIG, AUDIO_FORMAT, bufferSize * 2
+            )
+            if (record.state != AudioRecord.STATE_INITIALIZED) {
+                record.release()
+                record = AudioRecord(
+                    MediaRecorder.AudioSource.MIC,
+                    SAMPLE_RATE, CHANNEL_CONFIG, AUDIO_FORMAT, bufferSize * 2
+                )
+            }
+            if (record.state != AudioRecord.STATE_INITIALIZED) {
+                record.release()
+                return null
+            }
+            return record
+        }
+
         private fun writeAudioDataToFile(filePath: String, bufferSize: Int) {
-            val buffer = ByteArray(bufferSize)
+            val micBuffer = ByteArray(bufferSize)
             var totalDataBytes: Long = 0
 
             try {
                 val fos = FileOutputStream(filePath)
-
-                // Write WAV header placeholder (44 bytes)
-                fos.write(ByteArray(44))
+                fos.write(ByteArray(44)) // WAV header placeholder
 
                 while (isRecording.get()) {
-                    val bytesRead = audioRecord?.read(buffer, 0, bufferSize) ?: -1
-                    if (bytesRead > 0) {
-                        fos.write(buffer, 0, bytesRead)
-                        totalDataBytes += bytesRead
-                    }
+                    val micBytesRead = micAudioRecord?.read(micBuffer, 0, bufferSize) ?: -1
+                    if (micBytesRead <= 0) continue
+                    fos.write(micBuffer, 0, micBytesRead)
+                    totalDataBytes += micBytesRead
                 }
 
                 fos.flush()
                 fos.close()
-
-                // Write WAV header with correct sizes
                 writeWavHeader(filePath, totalDataBytes)
-
                 Log.d(TAG, "Recording saved: $filePath, bytes: $totalDataBytes")
             } catch (e: Exception) {
                 Log.e(TAG, "Error during recording", e)
@@ -205,54 +167,61 @@ class HMSLocalAudioRecordingAction {
             isRecording.set(false)
 
             try {
-                // Wait for recording thread to finish
                 recordingThread?.join(2000)
                 recordingThread = null
 
-                audioRecord?.stop()
-                audioRecord?.release()
-                audioRecord = null
+                micAudioRecord?.stop()
+                micAudioRecord?.release()
+                micAudioRecord = null
 
-                Log.d(TAG, "Local audio recording stopped. File: $outputFilePath")
+                Log.d(TAG, "Recording stopped. File: $outputFilePath")
                 result.success(outputFilePath)
             } catch (e: Exception) {
                 Log.e(TAG, "Failed to stop recording", e)
-                audioRecord?.release()
-                audioRecord = null
+                cleanup()
                 result.success(outputFilePath)
             }
+        }
+
+        private fun cleanup() {
+            isRecording.set(false)
+            micAudioRecord?.release()
+            micAudioRecord = null
+        }
+
+        private fun errorMap(message: String, description: String): HashMap<String, Any> {
+            val map = HashMap<String, Any>()
+            map["error"] = mapOf(
+                "message" to message,
+                "action" to "NONE",
+                "description" to description
+            )
+            return map
         }
 
         private fun writeWavHeader(filePath: String, dataSize: Long) {
             try {
                 val raf = RandomAccessFile(filePath, "rw")
-                val totalFileSize = dataSize + 36 // 44 - 8
+                val totalFileSize = dataSize + 36
 
                 val header = ByteBuffer.allocate(44).order(ByteOrder.LITTLE_ENDIAN)
-
-                // RIFF header
                 header.put("RIFF".toByteArray())
                 header.putInt(totalFileSize.toInt())
                 header.put("WAVE".toByteArray())
-
-                // fmt sub-chunk
                 header.put("fmt ".toByteArray())
-                header.putInt(16) // Sub-chunk size (PCM)
-                header.putShort(1) // Audio format (PCM = 1)
+                header.putInt(16)
+                header.putShort(1)
                 header.putShort(CHANNELS)
                 header.putInt(SAMPLE_RATE)
-                header.putInt(SAMPLE_RATE * CHANNELS * BITS_PER_SAMPLE / 8) // Byte rate
-                header.putShort((CHANNELS * BITS_PER_SAMPLE / 8).toShort()) // Block align
+                header.putInt(SAMPLE_RATE * CHANNELS * BITS_PER_SAMPLE / 8)
+                header.putShort((CHANNELS * BITS_PER_SAMPLE / 8).toShort())
                 header.putShort(BITS_PER_SAMPLE)
-
-                // data sub-chunk
                 header.put("data".toByteArray())
                 header.putInt(dataSize.toInt())
 
                 raf.seek(0)
                 raf.write(header.array())
                 raf.close()
-
                 Log.d(TAG, "WAV header written successfully")
             } catch (e: Exception) {
                 Log.e(TAG, "Failed to write WAV header", e)
