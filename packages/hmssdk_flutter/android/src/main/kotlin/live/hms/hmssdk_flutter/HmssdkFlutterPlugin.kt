@@ -670,6 +670,10 @@ class HmssdkFlutterPlugin :
     }
 
     private fun leave(result: Result) {
+        if (hmssdk == null) {
+            result.success(null)
+            return
+        }
         hmssdk!!.leave(hmsActionResultListener = HMSCommonAction.getActionListener(result))
         HMSPipAction.disposePIP(activity)
         HMSPeerListIteratorAction.clearIteratorMap()

@@ -762,69 +762,69 @@ abstract class PlatformService {
       HMSUpdateListenerMethod method, Map<String, dynamic> arguments) {
     switch (method) {
       case HMSUpdateListenerMethod.onJoinRoom:
-        updateListeners.forEach((e) => e.onJoin(room: arguments['room']));
+        List.of(updateListeners).forEach((e) => e.onJoin(room: arguments['room']));
         break;
       case HMSUpdateListenerMethod.onUpdateRoom:
-        updateListeners.forEach((e) => e.onRoomUpdate(
+        List.of(updateListeners).forEach((e) => e.onRoomUpdate(
             room: arguments['room'], update: arguments['update']));
         break;
       case HMSUpdateListenerMethod.onPeerUpdate:
-        updateListeners.forEach((e) => e.onPeerUpdate(
+        List.of(updateListeners).forEach((e) => e.onPeerUpdate(
             peer: arguments['peer'], update: arguments['update']));
         break;
       case HMSUpdateListenerMethod.onTrackUpdate:
-        updateListeners.forEach((e) => e.onTrackUpdate(
+        List.of(updateListeners).forEach((e) => e.onTrackUpdate(
             track: arguments['track'],
             trackUpdate: arguments['update'],
             peer: arguments['peer']));
         break;
       case HMSUpdateListenerMethod.onError:
-        updateListeners.forEach((e) => e.onHMSError(error: arguments['error']));
+        List.of(updateListeners).forEach((e) => e.onHMSError(error: arguments['error']));
         break;
       case HMSUpdateListenerMethod.onMessage:
         updateListeners
             .forEach((e) => e.onMessage(message: arguments['message']));
         break;
       case HMSUpdateListenerMethod.onUpdateSpeaker:
-        updateListeners.forEach(
+        List.of(updateListeners).forEach(
             (e) => e.onUpdateSpeakers(updateSpeakers: arguments['speakers']));
         break;
       case HMSUpdateListenerMethod.onReconnecting:
-        updateListeners.forEach((e) => e.onReconnecting());
+        List.of(updateListeners).forEach((e) => e.onReconnecting());
         break;
       case HMSUpdateListenerMethod.onReconnected:
-        updateListeners.forEach((e) => e.onReconnected());
+        List.of(updateListeners).forEach((e) => e.onReconnected());
         break;
       case HMSUpdateListenerMethod.onRoleChangeRequest:
-        updateListeners.forEach((e) => e.onRoleChangeRequest(
+        List.of(updateListeners).forEach((e) => e.onRoleChangeRequest(
             roleChangeRequest: arguments['role_change_request']));
         break;
       case HMSUpdateListenerMethod.onChangeTrackStateRequest:
-        updateListeners.forEach((e) => e.onChangeTrackStateRequest(
+        List.of(updateListeners).forEach((e) => e.onChangeTrackStateRequest(
             hmsTrackChangeRequest: arguments['track_change_request']));
         break;
 
       case HMSUpdateListenerMethod.onRemovedFromRoom:
         if (updateListeners.isEmpty) break;
-        updateListeners.forEach((element) {
+        List.of(updateListeners).forEach((element) {
           element.onRemovedFromRoom(
               hmsPeerRemovedFromPeer: arguments['removed_from_room']);
         });
         break;
 
       case HMSUpdateListenerMethod.onAudioDeviceChanged:
-        updateListeners.forEach((e) => e.onAudioDeviceChanged(
+        List.of(updateListeners).forEach((e) => e.onAudioDeviceChanged(
             currentAudioDevice: arguments["current_audio_device"],
             availableAudioDevice: arguments["available_audio_device"]));
         break;
 
       case HMSUpdateListenerMethod.onSessionStoreAvailable:
-        updateListeners.forEach((e) =>
+        List.of(updateListeners).forEach((e) =>
             e.onSessionStoreAvailable(hmsSessionStore: HMSSessionStore()));
         break;
 
       case HMSUpdateListenerMethod.onPeerListUpdate:
-        updateListeners.forEach((e) {
+        List.of(updateListeners).forEach((e) {
           e.onPeerListUpdate(
               addedPeers: arguments["added_peers"],
               removedPeers: arguments["removed_peers"]);

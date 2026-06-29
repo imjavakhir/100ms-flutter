@@ -413,16 +413,16 @@ class HMSSDK {
   /// [sendBroadcastMessage], [sendGroupMessage], [sendDirectMessage]
   /// to send the HMSMessage object from the server back to the application
   Map<String, dynamic>? _hmsMessageToMap(Map<dynamic, dynamic>? result) {
-    return result == null
-        ? null
-        : {
-            'message_id': result["message"]["message_id"],
-            'sender': result["message"]["sender"],
-            'message': result["message"]["message"],
-            'hms_message_recipient': result["message"]["hms_message_recipient"],
-            'type': result["message"]["type"],
-            'time': result["message"]["time"],
-          };
+    final message = result?["message"];
+    if (message == null) return null;
+    return {
+      'message_id': message["message_id"],
+      'sender': message["sender"],
+      'message': message["message"],
+      'hms_message_recipient': message["hms_message_recipient"],
+      'type': message["type"],
+      'time': message["time"],
+    };
   }
 
   /// Sends a message to everyone on the call.
